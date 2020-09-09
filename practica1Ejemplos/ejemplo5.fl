@@ -1,0 +1,3 @@
+%%
+[ \t]+        putchar( ' ' );
+[ \t]+$       /* ignora este token */
