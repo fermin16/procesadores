@@ -62,11 +62,14 @@ dr_precondicion "{"Pre.*"}"
 dr_postcondicion "{"Post.*"}"
 dr_comentario "{".*"}"
 
+
+/*palabras reservadas*/
 %%
-
-
 {dr_literal_entero} printf( "Tipo de variable. Entero: %s\n", yytext);
 {dr_literal_booleano} printf( "Tipo de variable. Booleana: %s\n", yytext);
+{dr_literal_real} printf( "Tipo de variable. Real: %s\n", yytext);
+{dr_literal_caracter} printf( "Tipo de variable. Caracter: %s\n", yytext);
+{dr_literal_cadena} printf( "Tipo de variable. Cadena: %s\n", yytext);
 %%
 int main( int argc, char **argv )
      {
