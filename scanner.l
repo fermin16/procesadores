@@ -54,6 +54,13 @@ letraOcifra {letra}|{cifra}
 dr_literal_entero [+\-]?{cifra}{cifra}*([eE]{cifra}{cifra}*)?
 dr_literal_real [+\-]?{cifra}{cifra}*(.{cifra}{cifra}*)?([eE]{cifra}{cifra}*)?
 dr_literal_booleano "verdadero"|"falso"
+dr_literal_caracter \"{letra}+\"
+dr_literal_cadena "'"[^\"]*"'"
+
+/* Comentarios */ 
+dr_precondicion "{"Pre.*"}"
+dr_postcondicion "{"Post.*"}"
+dr_comentario "{".*"}"
 
 %%
 
