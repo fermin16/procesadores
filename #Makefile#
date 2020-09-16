@@ -1,0 +1,8 @@
+all: compilar
+      
+flex: scanner.fl
+	flex scanner.fl
+
+compilar: flex
+	gcc lex.yy.c -lfl
+

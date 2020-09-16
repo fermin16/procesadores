@@ -52,13 +52,14 @@ letraOcifra {letra}|{cifra}
 
 /*literales*/
 dr_literal_entero [+\-]?{cifra}{cifra}*([eE]{cifra}{cifra}*)?
-
+dr_literal_real [+\-]?{cifra}{cifra}*(.{cifra}{cifra}*)?([eE]{cifra}{cifra}*)?
+dr_literal_booleano "verdadero"|"falso"
 
 %%
 
 
 {dr_literal_entero} printf( "Tipo de variable. Entero: %s\n", yytext);
-
+{dr_literal_booleano} printf( "Tipo de variable. Booleana: %s\n", yytext);
 %%
 int main( int argc, char **argv )
      {
@@ -70,5 +71,3 @@ int main( int argc, char **argv )
 
      yylex();
      }
-
-
