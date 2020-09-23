@@ -64,12 +64,58 @@ dr_comentario "{".*"}"
 
 
 /*palabras reservadas*/
+pr_algoritmo (?i:"algoritmo")
+pr_falgoritmo (?i:"falgoritmo")
+pr_funcion (?i:"funcion")
+pr_ffuncion (?i:"ffuncion")
+pr_accion (?i:"accion")
+pr_faccion (?i:"faccion")
+pr_tipo (?i:"tipo")
+pr_ftipo (?i:"ftipo")
+pr_const (?i:"const")
+pr_fconst (?i:"fconst")
+pr_var (?i:"var")
+pr_fvar (?i:"fvar")
+pr_tupla (?i:"tupla")
+pr_ftupla (?i:"ftupla")
+pr_si (?i:"si")
+pr_fsi (?i:"fsi")
+pr_para (?i:"para")
+pr_fpara (?i:"fpara")
+pr_mientras (?i:"mientras")
+pr_fmientras (?i:"fmientras")
+pr_hasta (?i:"hasta")
+pr_hacer (?i:"hacer")
+pr_entonces (?i:"entonces")
+pr_ent (?i:"ent")
+pr_sal (?i:"sal")
+pr_sino (?i:"[]")
+pr_entradaSalida (?i:"e/s")
+pr_continuar (?i:"continuar")
+pr_de (?i:"de")
+pr_div (?i:"div")
+pr_mod (?i:"mod")
+pr_no (?i:"no")
+pr_ref (?i:"ref")
+pr_tabla (?i:"tabla")
+pr_o (?i:"o")
+pr_i (?i:"i")
+pr_booleano (?i:"booleano")
+pr_entero (?i:"entero")
+pr_caracter (?i:"caracter")
+pr_real (?i:"real")
+pr_cadena (?i:"cadena")
+
+
+
+
 %%
 {dr_literal_entero} printf( "Tipo de variable. Entero: %s\n", yytext);
 {dr_literal_booleano} printf( "Tipo de variable. Booleana: %s\n", yytext);
 {dr_literal_real} printf( "Tipo de variable. Real: %s\n", yytext);
 {dr_literal_caracter} printf( "Tipo de variable. Caracter: %s\n", yytext);
 {dr_literal_cadena} printf( "Tipo de variable. Cadena: %s\n", yytext);
+{dr_algoritmo} printf( "Tipo de variable. Cadena: %s\n", yytext);
 %%
 int main( int argc, char **argv )
      {
