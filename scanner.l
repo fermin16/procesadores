@@ -99,7 +99,7 @@ pr_no (?i:"no")
 pr_ref (?i:"ref")
 pr_tabla (?i:"tabla")
 pr_o (?i:"o")
-pr_i (?i:"i")
+pr_y (?i:"i")
 pr_booleano (?i:"booleano")
 pr_entero (?i:"entero")
 pr_caracter (?i:"caracter")
@@ -110,11 +110,92 @@ pr_cadena (?i:"cadena")
 
 
 %%
+{dr_comillas} printf( "Tipo de caracter: comillas %s\n", yytext);
+{dr_barraInclinada} printf( "Tipo de caracter .Barra Inclinada : %s\n", yytext);
+{dr_parentesisAbrir} printf( "Tipo de caracter. Parantesis abrir : %s\n", yytext);
+{dr_parentesisCerrar} printf( "Tipo de caracter. Parantesis cerrar : %s\n", yytext);
+{dr_igual} printf( "Tipo de caracter . Igual : %s\n", yytext);
+{dr_arrayAbrir} printf( "Tipo de caracter. Abrir array : %s\n", yytext);
+{dr_arrayCerrar} printf( "Tipo de caracter. Cerrar array : %s\n", yytext);
+{dr_corcheteAbrir} printf( "Tipo de caracter. Abrir corchete : %s\n", yytext);
+{dr_corcheteCerrar} printf( "Tipo de caracter. Cerrer corchete: %s\n", yytext);
+{dr_suma} printf( "Tipo de operador. Suma : %s\n", yytext);
+{dr_resta} printf( "Tipo de operador. Resta : %s\n", yytext);
+{dr_multiplicacion} printf( "Tipo de operador. Multiplicacion : %s\n", yytext);
+{dr_coma} printf( "Tipo de caracter. Coma : %s\n", yytext);
+{dr_puntoComa} printf( "Tipo de caracter. Punto y coma: %s\n", yytext);
+{dr_punto} printf( "Tipo de caracter. Punto : %s\n", yytext);
+{dr_dosPuntos} printf( "Tipo de caracter. Dos puntos : %s\n", yytext);
+{dr_barraBaja} printf( "Tipo de caracter. Barra baja : %s\n", yytext);
+{dr_mayor} printf( "Tipo de caracter. Mayor que : %s\n", yytext);
+{dr_menor} printf( "Tipo de caracter. Menor que: %s\n", yytext);
+{dr_alternativa} printf( "Tipo de caracter. Alternativa : %s\n", yytext);
+{dr_asignacion} printf( "Tipo de caracter. Asignacion: %s\n", yytext);
+
+{dr_menorIgual} printf( "Tipo de caracter. Menor o igual que : %s\n", yytext);
+{dr_mayorIgual} printf( "Tipo de caracter. Mayor o igual que: %s\n", yytext);
+{dr_desigual} printf( "Tipo de caracter. Desigual : %s\n", yytext);
+
+{dr_espacio} printf( "Tipo de caracter. Espacio: %s\n", yytext);
+{dr_tabulador} printf( "Tipo de caracter. Tabulador: %s\n", yytext);
+{dr_saltoLinea} printf( "Tipo de caracter. Salto de linea : %s\n", yytext);
+
+{id} printf( "Tipo de identificador. ID. : %s\n", yytext);
+{letraOcifra} printf( "Tipo de identificador. letra o cifra : %s\n", yytext);
+
 {dr_literal_entero} printf( "Tipo de variable. Entero: %s\n", yytext);
 {dr_literal_booleano} printf( "Tipo de variable. Booleana: %s\n", yytext);
 {dr_literal_real} printf( "Tipo de variable. Real: %s\n", yytext);
 {dr_literal_caracter} printf( "Tipo de variable. Caracter: %s\n", yytext);
 {dr_literal_cadena} printf( "Tipo de variable. Cadena: %s\n", yytext);
+
+{dr_precondicion} printf( "Tipo de comentario. Precondición : %s\n", yytext);
+{dr_postcondicion} printf( "Tipo de comentario. Postcondicion : %s\n", yytext);
+{dr_comentario} printf( "Comentario : %s\n", yytext);
+
+{pr_algoritmo} printf( "Palabra reservada. Algoritmo : %s\n", yytext);
+{pr_falgoritmo} printf( "Palabra reservada. Final algoritmo : %s\n", yytext);
+{pr_funcion} printf( "Palabra reservada. Funcion : %s\n", yytext);
+{pr_ffuncion} printf( "Palabra reservada. Final funcion : %s\n", yytext);
+{pr_accion} printf( "Palabra reservada. Accion: %s\n", yytext);
+{pr_faccion} printf( "Palabra reservada. Final accion: %s\n", yytext);
+{pr_tipo} printf( "Palabra reservada. Tipo: %s\n", yytext);
+{pr_ftipo} printf( "Palabra reservada. Final tipo: %s\n", yytext);
+{pr_const} printf( "Palabra reservada. Constante : %s\n", yytext);
+{pr_fconst} printf( "Palabra reservada. Final constante : %s\n", yytext);
+{pr_var} printf( "Palabra reservada. Variable : %s\n", yytext);
+{pr_fvar} printf( "Palabra reservada. Final variable : %s\n", yytext);
+{pr_tupla} printf( "Palabra reservada. Tupla : %s\n", yytext);
+{pr_ftupla} printf( "Palabra reservada. Final tupla: %s\n", yytext);
+{pr_si} printf( "Palabra reservada. Si : %s\n", yytext);
+{pr_fsi} printf( "Palabra reservada. Final si : %s\n", yytext);
+{pr_para} printf( "Palabra reservada. Para: %s\n", yytext);
+{pr_fpara} printf( "Palabra reservada. Final para : %s\n", yytext);
+{pr_mientras} printf( "Palabra reservada. Mientras: %s\n", yytext);
+{pr_fmientras} printf( "Palabra reservada. Final mientras: %s\n", yytext);
+{pr_hasta} printf( "Palabra reservada. Hasta: %s\n", yytext);
+{pr_hacer} printf( "Palabra reservada. Hacer: %s\n", yytext);
+{pr_entonces} printf( "Palabra reservada. Entonces: %s\n", yytext);
+{pr_ent} printf( "Palabra reservada. Entrar : %s\n", yytext);
+{pr_sal} printf( "Palabra reservada. Salir : %s\n", yytext);
+{pr_sino} printf( "Palabra reservada. Sino : %s\n", yytext);
+{pr_entradaSalida} printf( "Palabra reservada. Entrada/Salida : %s\n", yytext);
+{pr_continuar} printf( "Palabra reservada. Continuar: %s\n", yytext);
+{pr_de} printf( "Palabra reservada. De: %s\n", yytext);
+{pr_div} printf( "Palabra reservada. Dividir: %s\n", yytext);
+{pr_mod} printf( "Palabra reservada. Resto : %s\n", yytext);
+{pr_no} printf( "Palabra reservada. No : %s\n", yytext);
+{pr_ref} printf( "Palabra reservada. Referencia : %s\n", yytext);
+{pr_tabla} printf( "Palabra reservada. Tabla : %s\n", yytext);
+{pr_o} printf( "Palabra reservada. O : %s\n", yytext);
+{pr_y} printf( "Palabra reservada. Y: %s\n", yytext);
+{pr_booleano} printf( "Palabra reservada. Booleano : %s\n", yytext);
+{pr_entero} printf( "Palabra reservada. Entero: %s\n", yytext);
+{pr_caracter} printf( "Palabra reservada. Caracter : %s\n", yytext);
+{pr_real} printf( "Palabra reservada. Real : %s\n", yytext);
+{pr_cadena} printf( "Palabra reservada. Cadena: %s\n", yytext);
+
+
 {dr_algoritmo} printf( "Tipo de variable. Cadena: %s\n", yytext);
 %%
 int main( int argc, char **argv )
