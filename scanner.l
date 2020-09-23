@@ -89,7 +89,7 @@ pr_hacer (?i:"hacer")
 pr_entonces (?i:"entonces")
 pr_ent (?i:"ent")
 pr_sal (?i:"sal")
-pr_sino (?i:"[]")
+pr_sino "[]"
 pr_entradaSalida (?i:"e/s")
 pr_continuar (?i:"continuar")
 pr_de (?i:"de")
@@ -100,16 +100,18 @@ pr_ref (?i:"ref")
 pr_tabla (?i:"tabla")
 pr_o (?i:"o")
 pr_y (?i:"y")
-pr_booleano (?i:"dr_literal_booleano")
-pr_entero (?i:"dr_literal_entero")
-pr_caracter (?i:"dr_literal_caracter")
-pr_real (?i:"dr_literal_real")
-pr_cadena (?i:"dr_literal_cadena")
+pr_booleano (?i:"booleano")
+pr_entero (?i:"entero")
+pr_caracter (?i:"caracter")
+pr_real (?i:"real")
+pr_cadena (?i:"cadena")
 
 
 
 
 %%
+{pr_o} printf( "Palabra reservada. O : %s\n", yytext);
+{pr_y} printf( "Palabra reservada. Y: %s\n", yytext);
 {dr_comillas} printf( "Tipo de caracter: comillas %s\n", yytext);
 {dr_barraInclinada} printf( "Tipo de caracter .Barra Inclinada : %s\n", yytext);
 {dr_parentesisAbrir} printf( "Tipo de caracter. Parantesis abrir : %s\n", yytext);
@@ -140,7 +142,7 @@ pr_cadena (?i:"dr_literal_cadena")
 {dr_tabulador} printf( "Tipo de caracter. Tabulador: %s\n", yytext);
 {dr_saltoLinea} printf( "Tipo de caracter. Salto de linea : %s\n", yytext);
 
-{id} printf( "Tipo de identificador. ID. : %s\n", yytext);
+
 {letraOcifra} printf( "Tipo de identificador. letra o cifra : %s\n", yytext);
 
 {dr_literal_entero} printf( "Tipo de variable. Entero: %s\n", yytext);
@@ -187,14 +189,13 @@ pr_cadena (?i:"dr_literal_cadena")
 {pr_no} printf( "Palabra reservada. No : %s\n", yytext);
 {pr_ref} printf( "Palabra reservada. Referencia : %s\n", yytext);
 {pr_tabla} printf( "Palabra reservada. Tabla : %s\n", yytext);
-{pr_o} printf( "Palabra reservada. O : %s\n", yytext);
-{pr_y} printf( "Palabra reservada. Y: %s\n", yytext);
+
 {pr_booleano} printf( "Palabra reservada. Booleano : %s\n", yytext);
 {pr_entero} printf( "Palabra reservada. Entero: %s\n", yytext);
 {pr_caracter} printf( "Palabra reservada. Caracter : %s\n", yytext);
 {pr_real} printf( "Palabra reservada. Real : %s\n", yytext);
 {pr_cadena} printf( "Palabra reservada. Cadena: %s\n", yytext);
-
+{id} printf( "Tipo de identificador. ID. : %s\n", yytext);
 
 %%
 int main( int argc, char **argv )
