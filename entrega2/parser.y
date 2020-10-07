@@ -104,7 +104,60 @@ cifra [0-9]
 
 
 desc_algoritmo:
-    bis_pr_algoritmo id 
+    bis_pr_algoritmo bis_id bis_dr_puntoComa cabecera_alg bloque_alg bis_pr_falgoritmo bis_dr_puntoComa {printf("desc_algortimo 1\n");}
+;
+    
+cabecera_alg:
+    declglobales decl_a_f declentsal bis_dr_comentario {printf ("cabecera_alg 1\n");}
+    | declglobales decl_a_f declentsal  {printf ("cabecera_alg 2\n");}
+;
+
+bloque_alg:
+    bloque bis_dr_comentario {printf ("bloque_alg 1\n");}
+    | bloque {printf ("bloque_alg 2\n");}
+;
+
+decl_globales:
+    declaracion_tipo decl_globales {printf ("decl_globales 1\n");}
+    | declaracion_const decl_globales {printf ("decl_globales 2\n");}
+    | %empty {printf ("decl_globales 3\n");}
+;
+
+decl_a_f:
+    accion_d decl_a_f {printf ("decl_a_f 1\n");}
+    | funcion_d decl_a_f {printf ("decl_a_f 2\n");}
+    | %empty {printf "decl_a_f 3\n");}
+;
+
+bloque: 
+    declaraciones instrucciones {printf ("bloque 1\n");}
+;
+
+declaraciones:
+    declaracion_tipo declaraciones {printf ("declaraciones 1\n");}
+    | declaracion_const declaraciones {printf ("declaraciones 2\n");}
+    | declaracion_var declaraciones {printf ("declaraciones 3\n");}
+    | %empty {printf ("declaraciones 4\n");}
+;
+
+declaracion_tipo:
+    bis_pr_tipo lista_d_tipo bis_pr_ftipo bis_dr_puntoComa {printf ("declaracion_tipo 1\n");}
+;
+
+declaracion_const:
+    bis_pr_const lista_d_cte bis_pr_fconst bis_dr_puntoComa {printf ("declaracion_const 1\n");}
+;
+
+declaracion_var:
+    bis_pr_var lista_d_var bis_pr_fvar bis_dr_puntoComa {printf ("declaracion_var 1\n");}
+;
+
+
+
+
+
+
+
 
 
 
