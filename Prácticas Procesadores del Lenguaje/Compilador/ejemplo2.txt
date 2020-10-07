@@ -1,0 +1,12 @@
+algoritmo prueba;
+	{}
+	var
+		a,b:entero;
+		c,x:booleano;
+	fvar;
+	a:= 5;
+	b:= 6;
+	c:= (a < b) y (3 > 7);
+	x:= verdadero o falso y (3 > 1);
+	{}
+falgoritmo
