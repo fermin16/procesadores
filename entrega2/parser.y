@@ -108,7 +108,8 @@
 %%
 
 desc_algoritmo:
-    bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa {printf("desc_algoritmo: bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa\n");}
+    bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa 
+    {printf("desc_algoritmo: bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa\n");}
 ;
     
 cabecera_alg:
@@ -117,137 +118,137 @@ cabecera_alg:
 ;
 
 bloque_alg:
-    bloque bis_comentario {printf ("bloque bis_comentario\n");}
-    | bloque {printf ("bloque\n");}
+    bloque bis_comentario {printf ("bloque_alg: bloque bis_comentario\n");}
+    | bloque {printf ("bloque_alg: bloque\n");}
 ;
 
 decl_globales:
-    declaracion_tipo decl_globales {printf ("declaracion_tipo decl_globales\n");}
-    | declaracion_const decl_globales {printf ("declaracion_const decl_globales\n");}
-    |  {printf ("decl_globales vacio\n");}
+    declaracion_tipo decl_globales {printf ("decl_globales: declaracion_tipo decl_globales\n");}
+    | declaracion_const decl_globales {printf ("decl_globales: declaracion_const decl_globales\n");}
+    |  {printf ("decl_globales: vacio\n");}
 ;
 
 decl_a_f:
-    accion_d decl_a_f {printf ("accion_d decl_a_f\n");}
-    | funcion_d decl_a_f {printf ("uncion_d decl_a_f\n");}
-    |  {printf "decl_a_f 3\n");}
+    accion_d decl_a_f {printf ("decl_a_f: accion_d decl_a_f\n");}
+    | funcion_d decl_a_f {printf ("decl_a_f: uncion_d decl_a_f\n");}
+    |  {printf "decl_a_f: decl_a_f 3\n");}
 ;
 
 bloque: 
-    declaraciones instrucciones {printf ("bloque 1\n");}
+    declaraciones instrucciones {printf ("bloque: declaraciones instrucciones \n");}
 ;
 
 declaraciones:
-    declaracion_tipo declaraciones {printf ("declaraciones 1\n");}
-    | declaracion_const declaraciones {printf ("declaraciones 2\n");}
-    | declaracion_var declaraciones {printf ("declaraciones 3\n");}
-    |  {printf ("declaraciones 4\n");}
+    declaracion_tipo declaraciones {printf ("declaraciones: declaracion_tipo declaraciones\n");}
+    | declaracion_const declaraciones {printf ("declaraciones: declaracion_const declaraciones\n");}
+    | declaracion_var declaraciones {printf ("declaraciones: declaracion_var declaraciones\n");}
+    |  {printf ("declaraciones: vacio\n");}
 ;
 
 declaracion_tipo:
-    bis_tipo lista_d_tipo bis_ftipo bis_puntoComa {printf ("declaracion_tipo 1\n");}
+    bis_tipo lista_d_tipo bis_ftipo bis_puntoComa {printf ("declaracion_tipo: bis_tipo lista_d_tipo bis_ftipo bis_puntoComa\n");}
 ;
 
 declaracion_const:
-    bis_const lista_d_cte bis_fconst bis_puntoComa {printf ("declaracion_const 1\n");}
+    bis_const lista_d_cte bis_fconst bis_puntoComa {printf ("declaracion_const:  bis_const lista_d_cte bis_fconst bis_puntoComa\n");}
 ;
 
 declaracion_var:
-    bis_var lista_d_var bis_fvar bis_puntoComa {printf ("declaracion_var 1\n");}
+    bis_var lista_d_var bis_fvar bis_puntoComa {printf ("declaracion_var: bis_var lista_d_var bis_fvar bis_puntoComa\n");}
 ;
 
 lista_d_tipo:
-    bis_id bis_igual d_tipo bis_puntoComa lista_d_tipo {printf ("lista_d_tipo 1\n");}
-    |  {printf ("lista_d_tipo 2\n");}
+    bis_id bis_igual d_tipo bis_puntoComa lista_d_tipo {printf ("lista_d_tipo: bis_id bis_igual d_tipo bis_puntoComa lista_d_tipo \n");}
+    |  {printf ("lista_d_tipo: vacio\n");}
 ;
 
-d_tipo: lista_d_cte
-    bis_tupla lista_campos bis_ftupla {printf ("d_tipo 1\n");}
-    | bis_tabla bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo {printf ("d_tipo 2\n");}
-    | bis_id {printf ("d_tipo 3\n");}
-    | expresion_t bis_subrango expresion_t {printf ("d_tipo 4\n");}
-    | bis_ref d_tipo {printf ("d_tipo 5\n");}
-    | bis_tipo_base {printf ("d_tipo 6\n");}
+d_tipo: 
+    bis_tupla lista_campos bis_ftupla {printf ("d_tipo : bis_tupla lista_campos bis_ftupla \n");}
+    | bis_tabla bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo {printf ("d_tipo: bis_tabla bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo\n");}
+    | bis_id {printf ("d_tipo: bis_id\n");}
+    | expresion_t bis_subrango expresion_t {printf ("d_tipo: expresion_t bis_subrango expresion_t\n");}
+    | bis_ref d_tipo {printf ("d_tipo: bis_ref d_tipo\n");}
+    | bis_tipo_base {printf ("d_tipo: bis_tipo_base\n");}
 ;
 
 expresion_t:
-    expresion {printf ("expresion_t 1\n");}
-    | bis_literal_caracter {printf ("expresion_t 2\n");}
+    expresion {printf ("expresion_t: expresion\n");}
+    | bis_literal_caracter {printf ("expresion_t: bis_literal_caracter\n");}
 ;
 
 lista_campos:
-    bis_id bis_dosPuntos d_tipo bis_puntoComa lista_campos {printf ("lista_campos 1\n");}
-    |  {printf ("lista_campos 2\n");}
+    bis_id bis_dosPuntos d_tipo bis_puntoComa lista_campos {printf ("lista_campos: bis_id bis_dosPuntos d_tipo bis_puntoComa lista_campos\n");}
+    |  {printf ("lista_campos: vacio\n");}
 ;
 
 lista_d_cte: 
-    bis_id bis_igual bis_literal bis_puntoComa lista_d_cte {printf ("lista_d_cte 1\n");}
-    |  {printf ("lista_d_cte 2\n");}
+    bis_id bis_igual bis_literal bis_puntoComa lista_d_cte {printf ("lista_d_cte: bis_id bis_igual bis_literal bis_puntoComa lista_d_cte\n");}
+    |  {printf ("lista_d_cte: vacio\n");}
 ;
 
 lista_d_var:
-    lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var {printf ("lista_d_var 1\n");}
-    | lista_id bis_puntoComa d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var 2\n");}
-    |  {printf ("lista_d_var 3\n");}
+    lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var\n");}
+    | lista_id bis_puntoComa d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_puntoComa d_tipo bis_puntoComa lista_d_var\n");}
+    |  {printf ("lista_d_var: vacio\n");}
 ;
 
 lista_id:
-    bis_id bis_coma lista_id {printf ("lista_id 1\n");}
-    | bis_id {printf ("lista_id 2\n");}
+    bis_id bis_coma lista_id {printf ("lista_id: bis_id bis_coma lista_id\n");}
+    | bis_id {printf ("lista_id: bis_id\n");}
 ;
 
 decl_ent_sal:
-    decl_ent {printf ("decl_ent_sal 1\n");}
-    | decl_ent decl_sal {printf ("decl_ent_sal 2\n");}
-    | decl_sal {printf ("decl_ent_sal 3\n");}
+    decl_ent {printf ("decl_ent_sal: decl_ent\n");}
+    | decl_ent decl_sal {printf ("decl_ent_sal: decl_ent decl_sal\n");}
+    | decl_sal {printf ("decl_ent_sal: decl_sal\n");}
 ;
 
 decl_ent:
-    bis_ent lista_d_var {printf ("decl_ent 1\n");}
+    bis_ent lista_d_var {printf ("decl_ent: bis_ent lista_d_var\n");}
 ;
 
 decl_sal:
-    bis_sal lista_d_var {printf ("decl_sal 1\n");}
+    bis_sal lista_d_var {printf ("decl_sal: bis_sal lista_d_var\n");}
 ;
 
 expresion:
-    exp_a {printf ("expresion 1\n");}
-    | exp_b {printf ("expresion 2\n");}
-    | funcion_ll {printf ("expresion 3\n");}
+    exp_a {printf ("expresion: exp_a\n");}
+    | exp_b {printf ("expresion: exp_b\n");}
+    | funcion_ll {printf ("expresion: funcion_ll\n");}
 ;
 
 exp_a:
-    exp_a bis_suma exp_a {printf ("exp_a 1\n");}
-    | exp_a bis_resta exp_a {printf ("exp_a 2\n");}
-    | exp_a bis_div_real exp_a {printf ("exp_a 3\n");}
-    | exp_a bis_mod exp_a {printf ("exp_a 4\n");}
-    | exp_a bis_div exp_a {printf ("exp_a 5\n");}
-    | bis_parentesisAbrir exp_a bis_parentesisCerrar {printf ("exp_a 6\n");}
-    | operando {printf ("exp_a 7\n");}
-    | bis_literal_real {printf ("exp_a 8\n");}
-    | bis_literal_entero {printf ("exp_a 9\n");}
-    | bis_resta exp_a {printf ("exp_a 10\n");}
+    exp_a bis_suma exp_a {printf ("exp_a: exp_a bis_suma exp_a\n");}
+    | exp_a bis_resta exp_a {printf ("exp_a: exp_a bis_resta exp_a\n");}
+    | exp_a bis_div_real exp_a {printf ("exp_a: exp_a bis_div_real exp_a \n");}
+    | exp_a bis_mod exp_a {printf ("exp_a: exp_a bis_mod exp_a \n");}
+    | exp_a bis_div exp_a {printf ("exp_a: exp_a bis_div exp_a\n");}
+    | bis_parentesisAbrir exp_a bis_parentesisCerrar {printf ("exp_a: bis_parentesisAbrir exp_a bis_parentesisCerrar\n");}
+    | operando {printf ("exp_a: operando\n");}
+    | bis_literal_real {printf ("exp_a: bis_literal_real\n");}
+    | bis_literal_entero {printf ("exp_a: bis_literal_entero\n");}
+    | bis_resta exp_a {printf ("exp_a: bis_resta exp_a\n");}
 ;
 
 exp_b:
-    exp_b bis_y exp_b {printf ("exp_b 1\n");}
-    | exp_b bis_o exp_b {printf ("exp_b 2\n");}
-    | bis_no exp_b {printf ("exp_b 3\n");}
-    | operando {printf ("exp_b 4\n");}
-    | bis_verdadero {printf ("exp_b 5\n");}
-    | bis_falso {printf ("exp_b 6\n");}
+    exp_b bis_y exp_b {printf ("exp_b: exp_b bis_y exp_b\n");}
+    | exp_b bis_o exp_b {printf ("exp_b: exp_b bis_o exp_b\n");}
+    | bis_no exp_b {printf ("exp_b: bis_no exp_b\n");}
+    | operando {printf ("exp_b: operando\n");}
+    | bis_verdadero {printf ("exp_b: bis_verdadero\n");}
+    | bis_falso {printf ("exp_b: bis_falso\n");}
 ;
 
 operando:
-    bis_id {printf ("bis_id 1\n");}
-    | operando bis_punto operando {printf ("operando bis_punto operando \n");}
-    | operando bis_corcheteAbrir expresion bis_corcheteCerrar {printf ("operando bis_corcheteAbrir expresion bis_corcheteCerrar \n");}
-    | operando bis_ref {printf ("operando bis_ref \n");}
+    bis_id {printf ("operando: bis_id\n");}
+    | operando bis_punto operando {printf ("operando: operando bis_punto operando \n");}
+    | operando bis_corcheteAbrir expresion bis_corcheteCerrar {printf ("operando: operando bis_corcheteAbrir expresion bis_corcheteCerrar \n");}
+    | operando bis_ref {printf ("operando: operando bis_ref \n");}
 ;
     
 instrucciones:
-    instruccion bis_puntoComa instrucciones {printf ("instruccion bis_puntoComa instrucciones \n");}
-    |instrucciones {printf ("instruccion \n");}
+    instruccion bis_puntoComa instrucciones {printf ("instrucciones: instruccion bis_puntoComa instrucciones \n");}
+    |instrucciones {printf ("instrucciones: instruccion \n");}
 ;
 
 instruccion:
