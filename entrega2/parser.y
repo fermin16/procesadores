@@ -5,10 +5,6 @@
 %}
 
 
-letra [A-Za-z]
-cifra [0-9]
-
-
 /*caracteres especiales*/
 %token bis_comillas 
 %token bis_barraInclinada 
@@ -109,14 +105,15 @@ cifra [0-9]
 %token bis_real 
 %token bis_cadena 
 
+%%
 
 desc_algoritmo:
-    bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa {printf("bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa\n");}
+    bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa {printf("desc_algoritmo: bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa\n");}
 ;
     
 cabecera_alg:
-    declglobales decl_a_f decl_ent_sal bis_comentario {printf ("declglobales decl_a_f decl_ent_sal bis_comentario\n");}
-    | declglobales decl_a_f declentsal  {printf ("declglobales decl_a_f declentsal\n");}
+    decl_globales decl_a_f decl_ent_sal bis_comentario {printf ("cabecera_alg: decl_globales decl_a_f decl_ent_sal bis_comentario\n");}
+    | decl_globales decl_a_f decl_ent_sal  {printf ("cabecera_alg: decl_globales decl_a_f decl_ent_sal\n");}
 ;
 
 bloque_alg:
@@ -249,8 +246,8 @@ operando:
 ;
     
 instrucciones:
-    intruccion bis_puntoComa instrucciones {printf ("intruccion bis_puntoComa instrucciones \n");}
-    |instrucciones {printf ("intruccion \n");}
+    instruccion bis_puntoComa instrucciones {printf ("instruccion bis_puntoComa instrucciones \n");}
+    |instrucciones {printf ("instruccion \n");}
 ;
 
 instruccion:
@@ -280,7 +277,7 @@ iteracion:
 ;
 
 it_cota_exp:
-    bis_mientras expresion bis_hacer intrucciones bis_fmientras {printf ("it_cota_exp: bis_mientras expresion bis_hacer intrucciones bis_fmientras \n");}
+    bis_mientras expresion bis_hacer instrucciones bis_fmientras {printf ("it_cota_exp: bis_mientras expresion bis_hacer instrucciones bis_fmientras \n");}
 ;
 
 it_cota_fija:
