@@ -35,6 +35,7 @@ cifra [0-9]
 %token bis_div_real 
 %token bis_literal
 %token bis_tipo_base
+%token bis_dev
 
 /*comparaciones*/
 %token bis_menorIgual 
@@ -241,9 +242,103 @@ exp_b:
 ;
 
 operando:
-    bis_id {printf ("operando 1\n");}
-    |operando 
+    bis_id {printf ("bis_id 1\n");}
+    | operando bis_punto operando {printf ("operando bis_punto operando \n");}
+    | operando bis_corcheteAbrir expresion bis_corcheteCerrar {printf ("operando bis_corcheteAbrir expresion bis_corcheteCerrar \n");}
+    | operando bis_ref {printf ("operando bis_ref \n");}
+;
+    
+instrucciones:
+    intruccion bis_puntoComa instrucciones {printf ("intruccion bis_puntoComa instrucciones \n");}
+    |instrucciones {printf ("intruccion \n");}
+;
 
+instruccion:
+    bis_continuar {printf ("instruccion: bis_continuar \n");}
+    | asignacion {printf ("instruccion:asignacion \n");}
+    | alternativa {printf ("instruccion: alternativa \n");}
+    | iteracion {printf ("iteracion \n");}
+    | accion_ll {printf ("accion_ll \n");}
+;
+
+asignacion:
+    operando bis_asignacion expresion {printf ("asignacion: operando bis_asignacion expresion \n");}
+;
+
+alternativa:
+    bis_si expresion bis_alternativa instrucciones lista_opciones bis_fsi {printf ("alternativa: bis_si expresion bis_alternativa instrucciones lista_opciones bis_fsi \n");}
+;
+
+lista_opciones:
+    bis_sino expresion bis_asignacion instrucciones lista_opciones {printf ("lista_opciones: bis_sino expresion bis_asignacion instrucciones lista_opciones \n");}
+    | {printf ("lista_opciones: vacio \n");}
+;
+
+iteracion:
+    it_cota_fija {printf ("iteracion: it_cota_fija \n");}
+    | it_cota_exp {printf ("iteracion: it_cota_exp \n");}
+;
+
+it_cota_exp:
+    bis_mientras expresion bis_hacer intrucciones bis_fmientras {printf ("it_cota_exp: bis_mientras expresion bis_hacer intrucciones bis_fmientras \n");}
+;
+
+it_cota_fija:
+    bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara {printf ("it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara \n");}
+;
+
+accion_d:
+    bis_accion a_cabecera bloque bis_faccion {printf ("accion_d: bis_accion a_cabecera bloque bis_faccion \n");}
+;
+
+funcion_d:
+    bis_funcion f_cabecera bloque bis_dev expresion bis_ffuncion {printf ("funcion_d: bis_funcion f_cabecera bloque bis_dev expresion bis_ffuncion \n");}
+;
+
+a_cabecera:
+    bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa {printf ("a_cabecera: bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa \n");}
+;
+
+f_cabecera:
+    bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa {printf ("f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa \n");}
+;
+
+d_par_form:
+    d_p_form bis_puntoComa d_par_form {printf ("d_par_form: d_p_form bis_puntoComa d_par_form \n");}
+    | {printf ("d_par_form: vacio \n");}
+;
+
+d_p_form:
+    bis_ent lista_id bis_dosPuntos d_tipo {printf ("d_p_form: bis_ent lista_id bis_dosPuntos d_tipo \n");}
+    | bis_sal lista_id bis_dosPuntos d_tipo {printf ("d_p_form: bis_sal lista_id bis_dosPuntos d_tipo \n");}
+    | bis_entradaSalida lista_id bis_dosPuntos d_tipo {printf ("d_p_form: bis_entradaSalida lista_id bis_dosPuntos d_tipo \n");}
+;
+
+accion_ll:
+    bis_id bis_parentesisAbrir l_ll bis_parentesisCerrar {printf ("accion_ll: bis_id bis_parentesisAbrir l_ll bis_parentesisCerrar \n");}
+;
+
+funcion_ll:
+    bis_id bis_parentesisAbrir l_ll bis_parentesisCerrar {printf ("funcion_ll: bis_id bis_parentesisAbrir l_ll bis_parentesisCerrar \n");}
+;
+
+l_ll:
+    expresion bis_coma l_ll {printf ("l_ll: expresion bis_coma l_ll \n");}
+    | expresion {printf ("l_ll: expresion \n");}
+;
+    
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
 
 
 
