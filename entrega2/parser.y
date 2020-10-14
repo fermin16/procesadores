@@ -108,18 +108,16 @@
 %%
 
 desc_algoritmo:
-    bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa 
-    {printf("desc_algoritmo: bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa\n");}
+    bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_punto
+    {printf("desc_algoritmo: bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_punto\n");}
 ;
     
 cabecera_alg:
     decl_globales decl_a_f decl_ent_sal bis_comentario {printf ("cabecera_alg: decl_globales decl_a_f decl_ent_sal bis_comentario\n");}
-    | decl_globales decl_a_f decl_ent_sal  {printf ("cabecera_alg: decl_globales decl_a_f decl_ent_sal\n");}
 ;
 
 bloque_alg:
     bloque bis_comentario {printf ("bloque_alg: bloque bis_comentario\n");}
-    | bloque {printf ("bloque_alg: bloque\n");}
 ;
 
 decl_globales:
@@ -188,7 +186,7 @@ lista_d_cte:
 
 lista_d_var:
     lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var\n");}
-    | lista_id bis_puntoComa d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_puntoComa d_tipo bis_puntoComa lista_d_var\n");}
+    | lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var\n");}
     |  {printf ("lista_d_var: vacio\n");}
 ;
 
