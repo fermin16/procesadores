@@ -105,6 +105,7 @@
 %token bis_real 
 %token bis_cadena 
 
+
 %%
 
 desc_algoritmo:
@@ -129,7 +130,7 @@ decl_globales:
 decl_a_f:
     accion_d decl_a_f {printf ("decl_a_f: accion_d decl_a_f\n");}
     | funcion_d decl_a_f {printf ("decl_a_f: uncion_d decl_a_f\n");}
-    |  {printf "decl_a_f: decl_a_f 3\n");}
+    |  {printf ("decl_a_f: vacio\n");}
 ;
 
 bloque: 
@@ -218,6 +219,7 @@ expresion:
 exp_a:
     exp_a bis_suma exp_a {printf ("exp_a: exp_a bis_suma exp_a\n");}
     | exp_a bis_resta exp_a {printf ("exp_a: exp_a bis_resta exp_a\n");}
+    | exp_a bis_multiplicacion exp_a {printf ("exp_a: exp_a bis_multiplicacion exp_a\n");}
     | exp_a bis_div_real exp_a {printf ("exp_a: exp_a bis_div_real exp_a \n");}
     | exp_a bis_mod exp_a {printf ("exp_a: exp_a bis_mod exp_a \n");}
     | exp_a bis_div exp_a {printf ("exp_a: exp_a bis_div exp_a\n");}
@@ -235,6 +237,14 @@ exp_b:
     | operando {printf ("exp_b: operando\n");}
     | bis_verdadero {printf ("exp_b: bis_verdadero\n");}
     | bis_falso {printf ("exp_b: bis_falso\n");}
+    | expresion bis_mayor expresion {printf ("exp_b: expresion bis_mayor expresion\n");}
+    | expresion bis_menor expresion {printf ("exp_b: expresion bis_menor expresion\n");}
+    | expresion bis_igual expresion {printf ("exp_b: expresion bis_igual expresion\n");}
+    | expresion bis_desigual expresion {printf ("exp_b: expresion bis_desigual expresion\n");}
+    | expresion bis_mayorIgual expresion {printf ("exp_b: expresion bis_mayorIgual expresion\n");}
+    | expresion bis_menorIgual expresion {printf ("exp_b: expresion bis_menorIgual expresion\n");}
+    | bis_parentesisAbrir exp_b bis_parentesisCerrar {printf ("exp_b: expresion bis_oprel expresion\n");}
+    
 ;
 
 operando:
@@ -246,7 +256,7 @@ operando:
     
 instrucciones:
     instruccion bis_puntoComa instrucciones {printf ("instrucciones: instruccion bis_puntoComa instrucciones \n");}
-    |instrucciones {printf ("instrucciones: instruccion \n");}
+    |instruccion {printf ("instrucciones: instruccion \n");}
 ;
 
 instruccion:
