@@ -6,63 +6,45 @@
 
 
 /*caracteres especiales*/
-%token bis_comillas 
-%token bis_barraInclinada 
-%token bis_parentesisAbrir 
-%token bis_parentesisCerrar 
-%token bis_igual 
-%token bis_arrayAbrir 
-%token bis_arrayCerrar 
-%token bis_corcheteAbrir 
-%token bis_corcheteCerrar 
-%token bis_suma 
-%token bis_resta
-%token bis_multiplicacion 
+
+%left bis_parentesisAbrir bis_parentesisCerrar
+%left bis_corcheteAbrir bis_corcheteCerrar 
+%left bis_suma bis_resta
+%left bis_multiplicacion bis_div bis_mod bis_div_real 
+%left bis_o
+%left bis_y 
 %token bis_coma 
 %token bis_puntoComa 
 %token bis_punto 
 %token bis_dosPuntos 
-%token bis_barraBaja 
-%token bis_mayor 
-%token bis_menor 
 %token bis_alternativa 
 %token bis_asignacion 
 %token bis_subrango
-%token bis_div_real 
 %token bis_literal
 %token bis_tipo_base
 %token bis_dev
 
 /*comparaciones*/
-%token bis_menorIgual 
-%token bis_mayorIgual 
-%token bis_desigual 
+%left bis_menorIgual bis_desigual bis_mayorIgual bis_menor bis_mayor bis_igual 
 
-/*Separadores*/
-%token bis_espacio 
-%token bis_tabulador 
-%token bis_saltoLinea 
+
 
 /*identificadores*/
 %token bis_id 
-%token bis_letraOcifra 
+
 
 /*literales*/
 %token bis_literal_entero 
 %token bis_literal_real 
-%token bis_literal_booleano 
 %token bis_literal_caracter 
-%token bis_literal_cadena
 
 /* Comentarios */ 
-%token bis_precondicion 
-%token bis_postcondicion 
 %token bis_comentario 
 
 
 /*palabras reservadas*/
-%token bis_verdadero
-%token bis_falso
+%precedence bis_verdadero
+%precedence bis_falso
 %token bis_algoritmo 
 %token bis_falgoritmo 
 %token bis_funcion 
@@ -84,26 +66,18 @@
 %token bis_mientras 
 %token bis_fmientras 
 %token bis_hasta 
-%token bis_hacer 
-%token bis_entonces 
+%token bis_hacer  
 %token bis_ent 
 %token bis_sal 
 %token bis_sino 
 %token bis_entradaSalida 
 %token bis_continuar 
 %token bis_de 
-%token bis_div 
-%token bis_mod 
-%token bis_no 
+%precedence bis_no 
 %token bis_ref 
 %token bis_tabla 
-%token bis_o 
-%token bis_y 
-%token bis_booleano 
-%token bis_entero 
-%token bis_caracter 
-%token bis_real 
-%token bis_cadena 
+
+
 
 
 %%
@@ -280,18 +254,22 @@ lista_opciones:
     | {printf ("lista_opciones: vacio \n");}
 ;
 
-iteracion:
-    it_cota_fija {printf ("iteracion: it_cota_fija \n");}
-    | it_cota_exp {printf ("iteracion: it_cota_exp \n");}
+it_cota_fija:
+    bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara {printf ("it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara \n");}
 ;
 
 it_cota_exp:
     bis_mientras expresion bis_hacer instrucciones bis_fmientras {printf ("it_cota_exp: bis_mientras expresion bis_hacer instrucciones bis_fmientras \n");}
 ;
 
-it_cota_fija:
-    bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara {printf ("it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara \n");}
+
+iteracion:
+    it_cota_fija {printf ("iteracion: it_cota_fija \n");}
+    | it_cota_exp {printf ("iteracion: it_cota_exp \n");}
 ;
+
+
+
 
 accion_d:
     bis_accion a_cabecera bloque bis_faccion {printf ("accion_d: bis_accion a_cabecera bloque bis_faccion \n");}
