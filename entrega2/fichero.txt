@@ -1,0 +1,4 @@
+algoritmo intercambio;
+ent a, b: entero;
+sal a, b: entero;
+{Prec: a= A AND b = B}varaux: entero;fvaraux:= a;a:= b;b:= aux{Post: b=A AND a = B}falgoritmo

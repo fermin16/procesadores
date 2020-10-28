@@ -5,7 +5,8 @@ bison: parser.y
 
 flex: scanner.l
 	flex scanner.l
+	gcc -c lex.yy.c 
 
 compilar: flex bison
-	gcc parser.tab.c lex.yy.c -lfl
+	gcc parser.tab.c lex.yy.c -lfl -lm
 

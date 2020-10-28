@@ -1,4 +1,5 @@
 %{
+  #define YYSTYPE double
   #include <stdio.h>
   #include <math.h>
   #include <stdlib.h>
@@ -108,6 +109,7 @@ bloque_alg:
 decl_globales:
     declaracion_tipo decl_globales {printf ("decl_globales: declaracion_tipo decl_globales\n");}
     | declaracion_const decl_globales {printf ("decl_globales: declaracion_const decl_globales\n");}
+    | declaracion_var {printf ("decl_globales: declaracion_var\n");}
     |  {printf ("decl_globales: vacio\n");}
 ;
 
@@ -311,6 +313,7 @@ int main( int argc, char **argv ){
 }
 
 void yyerror(const char *s){
+    printf("Esto es un asco");
     exit(-1);
 }
     
