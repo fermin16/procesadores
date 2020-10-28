@@ -2,17 +2,17 @@
   #include <stdio.h>
   #include <math.h>
   #include <stdlib.h>
+  void yyerror (char const *);
+  extern FILE *yyin;
+  extern int yylex();
+  extern int yyparse();
 %}
 
 
 /*caracteres especiales*/
 
-%left bis_parentesisAbrir bis_parentesisCerrar
-%left bis_corcheteAbrir bis_corcheteCerrar 
-%left bis_suma bis_resta
-%left bis_multiplicacion bis_div bis_mod bis_div_real 
-%left bis_o
-%left bis_y 
+
+ 
 %token bis_coma 
 %token bis_puntoComa 
 %token bis_punto 
@@ -24,9 +24,18 @@
 %token bis_tipo_base
 %token bis_dev
 
+%precedence bis_verdadero
+%precedence bis_falso
+
+
+%left bis_suma bis_resta
+%left bis_multiplicacion bis_div bis_mod bis_div_real 
+
+%left bis_o
+%left bis_y
 /*comparaciones*/
 %left bis_menorIgual bis_desigual bis_mayorIgual bis_menor bis_mayor bis_igual 
-
+%precedence bis_no 
 
 
 /*identificadores*/
@@ -43,8 +52,7 @@
 
 
 /*palabras reservadas*/
-%precedence bis_verdadero
-%precedence bis_falso
+
 %token bis_algoritmo 
 %token bis_falgoritmo 
 %token bis_funcion 
@@ -73,9 +81,11 @@
 %token bis_entradaSalida 
 %token bis_continuar 
 %token bis_de 
-%precedence bis_no 
+
 %token bis_ref 
 %token bis_tabla 
+%left bis_parentesisAbrir bis_parentesisCerrar
+%left bis_corcheteAbrir bis_corcheteCerrar 
 
 
 
@@ -186,8 +196,7 @@ decl_sal:
 
 expresion:
     exp_a {printf ("expresion: exp_a\n");}
-    | exp_b {printf ("expresion: exp_b\n");}
-    | funcion_ll {printf ("expresion: funcion_ll\n");}
+    | {printf ("expresion: vacio\n");}
 ;
 
 exp_a:
@@ -202,24 +211,20 @@ exp_a:
     | bis_literal_real {printf ("exp_a: bis_literal_real\n");}
     | bis_literal_entero {printf ("exp_a: bis_literal_entero\n");}
     | bis_resta exp_a {printf ("exp_a: bis_resta exp_a\n");}
-;
-
-exp_b:
-    exp_b bis_y exp_b {printf ("exp_b: exp_b bis_y exp_b\n");}
-    | exp_b bis_o exp_b {printf ("exp_b: exp_b bis_o exp_b\n");}
-    | bis_no exp_b {printf ("exp_b: bis_no exp_b\n");}
-    | operando {printf ("exp_b: operando\n");}
-    | bis_verdadero {printf ("exp_b: bis_verdadero\n");}
-    | bis_falso {printf ("exp_b: bis_falso\n");}
-    | expresion bis_mayor expresion {printf ("exp_b: expresion bis_mayor expresion\n");}
-    | expresion bis_menor expresion {printf ("exp_b: expresion bis_menor expresion\n");}
-    | expresion bis_igual expresion {printf ("exp_b: expresion bis_igual expresion\n");}
-    | expresion bis_desigual expresion {printf ("exp_b: expresion bis_desigual expresion\n");}
-    | expresion bis_mayorIgual expresion {printf ("exp_b: expresion bis_mayorIgual expresion\n");}
-    | expresion bis_menorIgual expresion {printf ("exp_b: expresion bis_menorIgual expresion\n");}
-    | bis_parentesisAbrir exp_b bis_parentesisCerrar {printf ("exp_b: expresion bis_oprel expresion\n");}
+    | exp_a bis_y exp_a {printf ("exp_a: exp_a bis_y exp_a\n");}
+    | exp_a bis_o exp_a {printf ("exp_a: exp_a bis_o exp_a\n");}
+    | bis_no exp_a {printf ("exp_a: bis_no exp_a\n");}
+    | bis_verdadero {printf ("exp_a: bis_verdadero\n");}
+    | bis_falso {printf ("exp_a: bis_falso\n");}
+    | expresion bis_mayor expresion {printf ("exp_a: expresion bis_mayor expresion\n");}
+    | expresion bis_menor expresion {printf ("exp_a: expresion bis_menor expresion\n");}
+    | expresion bis_igual expresion {printf ("exp_a: expresion bis_igual expresion\n");}
+    | expresion bis_desigual expresion {printf ("exp_a: expresion bis_desigual expresion\n");}
+    | expresion bis_mayorIgual expresion {printf ("exp_a: expresion bis_mayorIgual expresion\n");}
+    | expresion bis_menorIgual expresion {printf ("exp_a: expresion bis_menorIgual expresion\n");}   
     
 ;
+
 
 operando:
     bis_id {printf ("operando: bis_id\n");}
@@ -238,7 +243,6 @@ instruccion:
     | asignacion {printf ("instruccion:asignacion \n");}
     | alternativa {printf ("instruccion: alternativa \n");}
     | iteracion {printf ("iteracion \n");}
-    | accion_ll {printf ("accion_ll \n");}
 ;
 
 asignacion:
@@ -298,18 +302,21 @@ d_p_form:
     | bis_entradaSalida lista_id bis_dosPuntos d_tipo {printf ("d_p_form: bis_entradaSalida lista_id bis_dosPuntos d_tipo \n");}
 ;
 
-accion_ll:
-    bis_id bis_parentesisAbrir l_ll bis_parentesisCerrar {printf ("accion_ll: bis_id bis_parentesisAbrir l_ll bis_parentesisCerrar \n");}
-;
 
-funcion_ll:
-    bis_id bis_parentesisAbrir l_ll bis_parentesisCerrar {printf ("funcion_ll: bis_id bis_parentesisAbrir l_ll bis_parentesisCerrar \n");}
-;
 
-l_ll:
-    expresion bis_coma l_ll {printf ("l_ll: expresion bis_coma l_ll \n");}
-    | expresion {printf ("l_ll: expresion \n");}
-;
+%%
+int main( int argc, char **argv ){
+    ++argv, --argc;
+    if ( argc > 0 )
+        yyin = fopen( argv[0], "r" );
+    else
+        yyin = stdin;
+    yyparse();
+}
+
+void yyerror(const char *s){
+    exit(-1);
+}
     
 
 
