@@ -15,7 +15,7 @@
  
 %token bis_coma 
 %token bis_puntoComa 
-%token bis_punto 
+
 %token bis_dosPuntos 
 %token bis_alternativa 
 %token bis_asignacion 
@@ -27,14 +27,15 @@
 %precedence bis_verdadero
 %precedence bis_falso
 
-
+/*operadores aritmeticos*/
 %left bis_suma bis_resta
 %left bis_multiplicacion bis_div bis_mod bis_div_real 
 
 %left bis_o
 %left bis_y
 /*comparaciones*/
-%left bis_menorIgual bis_desigual bis_mayorIgual bis_menor bis_mayor bis_igual 
+%left bis_oprel
+%left bis_igual 
 %precedence bis_no 
 
 
@@ -81,12 +82,11 @@
 %token bis_entradaSalida 
 %token bis_continuar 
 %token bis_de 
-
-%token bis_ref 
+ 
 %token bis_tabla 
 %left bis_parentesisAbrir bis_parentesisCerrar
 %left bis_corcheteAbrir bis_corcheteCerrar 
-
+%right bis_punto bis_ref
 
 
 
@@ -216,12 +216,8 @@ exp_a:
     | bis_no exp_a {printf ("exp_a: bis_no exp_a\n");}
     | bis_verdadero {printf ("exp_a: bis_verdadero\n");}
     | bis_falso {printf ("exp_a: bis_falso\n");}
-    | expresion bis_mayor expresion {printf ("exp_a: expresion bis_mayor expresion\n");}
-    | expresion bis_menor expresion {printf ("exp_a: expresion bis_menor expresion\n");}
-    | expresion bis_igual expresion {printf ("exp_a: expresion bis_igual expresion\n");}
-    | expresion bis_desigual expresion {printf ("exp_a: expresion bis_desigual expresion\n");}
-    | expresion bis_mayorIgual expresion {printf ("exp_a: expresion bis_mayorIgual expresion\n");}
-    | expresion bis_menorIgual expresion {printf ("exp_a: expresion bis_menorIgual expresion\n");}   
+    | expresion bis_oprel expresion {printf ("exp_a: expresion bis_mayor expresion\n");}
+    
     
 ;
 
