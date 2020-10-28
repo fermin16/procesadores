@@ -1,3 +1,11 @@
-all:
+all: compilar
+
+bison: parser.y
 	bison -v -d parser.y
-	gcc parser.tab.c -lm
+
+flex: scanner.l
+	flex scanner.l
+
+compilar: flex bison
+	gcc parser.tab.c lex.yy.c -lfl
+

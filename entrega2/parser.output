@@ -144,187 +144,153 @@ Gramática
 
 Terminales con las reglas donde aparecen
 
-    $end (0) 0
-    error (256)
-    bis_coma (258) 35
-    bis_puntoComa (259) 1 15 16 17 18 28 30 32 33 65 81 82 83
-    bis_dosPuntos (260) 28 32 33 85 86 87
-    bis_alternativa (261) 72
-    bis_asignacion (262) 71 73 75
-    bis_subrango (263) 21 23
-    bis_literal (264) 30
-    bis_tipo_base (265) 25
-    bis_dev (266) 80 82
-    bis_verdadero (267) 58
-    bis_falso (268) 59
-    bis_suma (269) 44
-    bis_resta (270) 45 54
-    bis_multiplicacion (271) 46
-    bis_div (272) 49
-    bis_mod (273) 48
-    bis_div_real (274) 47
-    bis_o (275) 56
-    bis_y (276) 55
-    bis_oprel (277) 60
-    bis_igual (278) 18 30
-    bis_no (279) 57
-    bis_id (280) 1 18 22 28 30 32 35 36 61 75 81 82
-    bis_literal_entero (281) 53
-    bis_literal_real (282) 52
-    bis_literal_caracter (283) 27
-    bis_comentario (284) 2 3
-    bis_algoritmo (285) 1
-    bis_falgoritmo (286) 1
-    bis_funcion (287) 80
-    bis_ffuncion (288) 80
-    bis_accion (289) 79
-    bis_faccion (290) 79
-    bis_tipo (291) 15
-    bis_ftipo (292) 15
-    bis_const (293) 16
-    bis_fconst (294) 16
-    bis_var (295) 17
-    bis_fvar (296) 17
-    bis_tupla (297) 20
-    bis_ftupla (298) 20
-    bis_si (299) 72
-    bis_fsi (300) 72
-    bis_para (301) 75
-    bis_fpara (302) 75
-    bis_mientras (303) 76
-    bis_fmientras (304) 76
-    bis_hasta (305) 75
-    bis_hacer (306) 75 76
-    bis_ent (307) 40 85
-    bis_sal (308) 41 86
-    bis_sino (309) 73
-    bis_entradaSalida (310) 87
-    bis_continuar (311) 67
-    bis_de (312) 21
-    bis_tabla (313) 21
-    bis_parentesisAbrir (314) 50 81 82
-    bis_parentesisCerrar (315) 50 81 82
-    bis_corcheteAbrir (316) 21 63
-    bis_corcheteCerrar (317) 21 63
-    bis_punto (318) 1 62
-    bis_ref (319) 24 64
+$end (0) 0
+error (256)
+bis_coma (258) 35
+bis_puntoComa (259) 1 15 16 17 18 28 30 32 33 65 81 82 83
+bis_dosPuntos (260) 28 32 33 85 86 87
+bis_alternativa (261) 72
+bis_asignacion (262) 71 73 75
+bis_subrango (263) 21 23
+bis_literal (264) 30
+bis_tipo_base (265) 25
+bis_dev (266) 80 82
+bis_verdadero (267) 58
+bis_falso (268) 59
+bis_suma (269) 44
+bis_resta (270) 45 54
+bis_multiplicacion (271) 46
+bis_div (272) 49
+bis_mod (273) 48
+bis_div_real (274) 47
+bis_o (275) 56
+bis_y (276) 55
+bis_oprel (277) 60
+bis_igual (278) 18 30
+bis_no (279) 57
+bis_id (280) 1 18 22 28 30 32 35 36 61 75 81 82
+bis_literal_entero (281) 53
+bis_literal_real (282) 52
+bis_literal_caracter (283) 27
+bis_comentario (284) 2 3
+bis_algoritmo (285) 1
+bis_falgoritmo (286) 1
+bis_funcion (287) 80
+bis_ffuncion (288) 80
+bis_accion (289) 79
+bis_faccion (290) 79
+bis_tipo (291) 15
+bis_ftipo (292) 15
+bis_const (293) 16
+bis_fconst (294) 16
+bis_var (295) 17
+bis_fvar (296) 17
+bis_tupla (297) 20
+bis_ftupla (298) 20
+bis_si (299) 72
+bis_fsi (300) 72
+bis_para (301) 75
+bis_fpara (302) 75
+bis_mientras (303) 76
+bis_fmientras (304) 76
+bis_hasta (305) 75
+bis_hacer (306) 75 76
+bis_ent (307) 40 85
+bis_sal (308) 41 86
+bis_sino (309) 73
+bis_entradaSalida (310) 87
+bis_continuar (311) 67
+bis_de (312) 21
+bis_tabla (313) 21
+bis_parentesisAbrir (314) 50 81 82
+bis_parentesisCerrar (315) 50 81 82
+bis_corcheteAbrir (316) 21 63
+bis_corcheteCerrar (317) 21 63
+bis_punto (318) 1 62
+bis_ref (319) 24 64
 
 
 No terminales con las reglas donde aparecen
 
-    $accept (65)
-        on left: 0
-    desc_algoritmo (66)
-        on left: 1
-        on right: 0
-    cabecera_alg (67)
-        on left: 2
-        on right: 1
-    bloque_alg (68)
-        on left: 3
-        on right: 1
-    decl_globales (69)
-        on left: 4 5 6
-        on right: 2 4 5
-    decl_a_f (70)
-        on left: 7 8 9
-        on right: 2 7 8
-    bloque (71)
-        on left: 10
-        on right: 3 79 80
-    declaraciones (72)
-        on left: 11 12 13 14
-        on right: 10 11 12 13
-    declaracion_tipo (73)
-        on left: 15
-        on right: 4 11
-    declaracion_const (74)
-        on left: 16
-        on right: 5 12
-    declaracion_var (75)
-        on left: 17
-        on right: 13
-    lista_d_tipo (76)
-        on left: 18 19
-        on right: 15 18
-    d_tipo (77)
-        on left: 20 21 22 23 24 25
-        on right: 18 21 24 28 33 82 85 86 87
-    expresion_t (78)
-        on left: 26 27
-        on right: 21 23
-    lista_campos (79)
-        on left: 28 29
-        on right: 20 28
-    lista_d_cte (80)
-        on left: 30 31
-        on right: 16 30
-    lista_d_var (81)
-        on left: 32 33 34
-        on right: 17 32 33 40 41 82
-    lista_id (82)
-        on left: 35 36
-        on right: 32 33 35 85 86 87
-    decl_ent_sal (83)
-        on left: 37 38 39
-        on right: 2
-    decl_ent (84)
-        on left: 40
-        on right: 37 38
-    decl_sal (85)
-        on left: 41
-        on right: 38 39
-    expresion (86)
-        on left: 42 43
-        on right: 26 60 63 71 72 73 75 76 80
-    exp_a (87)
-        on left: 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60
-        on right: 42 44 45 46 47 48 49 50 54 55 56 57
-    operando (88)
-        on left: 61 62 63 64
-        on right: 51 62 63 64 71
-    instrucciones (89)
-        on left: 65 66
-        on right: 10 65 72 73 75 76
-    instruccion (90)
-        on left: 67 68 69 70
-        on right: 65 66
-    asignacion (91)
-        on left: 71
-        on right: 68
-    alternativa (92)
-        on left: 72
-        on right: 69
-    lista_opciones (93)
-        on left: 73 74
-        on right: 72 73
-    it_cota_fija (94)
-        on left: 75
-        on right: 77
-    it_cota_exp (95)
-        on left: 76
-        on right: 78
-    iteracion (96)
-        on left: 77 78
-        on right: 70
-    accion_d (97)
-        on left: 79
-        on right: 7
-    funcion_d (98)
-        on left: 80
-        on right: 8
-    a_cabecera (99)
-        on left: 81
-        on right: 79
-    f_cabecera (100)
-        on left: 82
-        on right: 80
-    d_par_form (101)
-        on left: 83 84
-        on right: 81 83
-    d_p_form (102)
-        on left: 85 86 87
-        on right: 83
+$accept (65)
+    en la izquierda: 0
+desc_algoritmo (66)
+    en la izquierda: 1, en la derecha: 0
+cabecera_alg (67)
+    en la izquierda: 2, en la derecha: 1
+bloque_alg (68)
+    en la izquierda: 3, en la derecha: 1
+decl_globales (69)
+    en la izquierda: 4 5 6, en la derecha: 2 4 5
+decl_a_f (70)
+    en la izquierda: 7 8 9, en la derecha: 2 7 8
+bloque (71)
+    en la izquierda: 10, en la derecha: 3 79 80
+declaraciones (72)
+    en la izquierda: 11 12 13 14, en la derecha: 10 11 12 13
+declaracion_tipo (73)
+    en la izquierda: 15, en la derecha: 4 11
+declaracion_const (74)
+    en la izquierda: 16, en la derecha: 5 12
+declaracion_var (75)
+    en la izquierda: 17, en la derecha: 13
+lista_d_tipo (76)
+    en la izquierda: 18 19, en la derecha: 15 18
+d_tipo (77)
+    en la izquierda: 20 21 22 23 24 25, en la derecha: 18 21 24 28
+    33 82 85 86 87
+expresion_t (78)
+    en la izquierda: 26 27, en la derecha: 21 23
+lista_campos (79)
+    en la izquierda: 28 29, en la derecha: 20 28
+lista_d_cte (80)
+    en la izquierda: 30 31, en la derecha: 16 30
+lista_d_var (81)
+    en la izquierda: 32 33 34, en la derecha: 17 32 33 40 41 82
+lista_id (82)
+    en la izquierda: 35 36, en la derecha: 32 33 35 85 86 87
+decl_ent_sal (83)
+    en la izquierda: 37 38 39, en la derecha: 2
+decl_ent (84)
+    en la izquierda: 40, en la derecha: 37 38
+decl_sal (85)
+    en la izquierda: 41, en la derecha: 38 39
+expresion (86)
+    en la izquierda: 42 43, en la derecha: 26 60 63 71 72 73 75 76
+    80
+exp_a (87)
+    en la izquierda: 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
+    60, en la derecha: 42 44 45 46 47 48 49 50 54 55 56 57
+operando (88)
+    en la izquierda: 61 62 63 64, en la derecha: 51 62 63 64 71
+instrucciones (89)
+    en la izquierda: 65 66, en la derecha: 10 65 72 73 75 76
+instruccion (90)
+    en la izquierda: 67 68 69 70, en la derecha: 65 66
+asignacion (91)
+    en la izquierda: 71, en la derecha: 68
+alternativa (92)
+    en la izquierda: 72, en la derecha: 69
+lista_opciones (93)
+    en la izquierda: 73 74, en la derecha: 72 73
+it_cota_fija (94)
+    en la izquierda: 75, en la derecha: 77
+it_cota_exp (95)
+    en la izquierda: 76, en la derecha: 78
+iteracion (96)
+    en la izquierda: 77 78, en la derecha: 70
+accion_d (97)
+    en la izquierda: 79, en la derecha: 7
+funcion_d (98)
+    en la izquierda: 80, en la derecha: 8
+a_cabecera (99)
+    en la izquierda: 81, en la derecha: 79
+f_cabecera (100)
+    en la izquierda: 82, en la derecha: 80
+d_par_form (101)
+    en la izquierda: 83 84, en la derecha: 81 83
+d_p_form (102)
+    en la izquierda: 85 86 87, en la derecha: 83
 
 
 Estado 0
