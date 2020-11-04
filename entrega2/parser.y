@@ -100,7 +100,7 @@ desc_algoritmo:
     
 cabecera_alg:
     decl_globales decl_a_f decl_ent_sal bis_comentario {printf ("cabecera_alg: decl_globales decl_a_f decl_ent_sal bis_comentario\n");}
-    | decl_globales decl_a_f decl_ent_sal {printf ("cabecera_alg: decl_globales decl_a_f decl_ent_sal \n");}
+
 ;
 
 bloque_alg:

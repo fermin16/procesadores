@@ -1,6 +1,7 @@
 algoritmo intercambio;
-ent a, b: entero;
-sal a, b: entero;
+sal a: entero;
+ent a,b: entero;
+
 {Prec: a= A AND b = B}
 var
 aux: entero;

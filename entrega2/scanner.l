@@ -61,7 +61,7 @@ dr_literal_caracter \"{letra}+\"
 dr_literal_cadena "'"[^\"]*"'"
 
 /* Comentarios */ 
-dr_precondicion "{"Pre.*"}"
+dr_precondicion "{"Prec.*"}"
 dr_postcondicion "{"Post.*"}"
 dr_comentario "{".*"}"
 
