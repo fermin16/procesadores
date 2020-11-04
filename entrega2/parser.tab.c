@@ -2213,7 +2213,7 @@ int main( int argc, char **argv ){
 }
 
 void yyerror(const char *s){
-    printf("Esto es un asco");
+    printf("Esto es un asco\n");
     exit(-1);
 }
     

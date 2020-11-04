@@ -179,9 +179,12 @@ pr_cadena (?i:"cadena")
     printf( "Tipo de variable. Caracter: %s\n", yytext);
     return bis_literal_caracter;}
 
-{dr_precondicion} printf( "Tipo de comentario. Precondición : %s\n", yytext);
-{dr_postcondicion} printf( "Tipo de comentario. Postcondicion : %s\n", yytext);
-{dr_comentario} printf( "Comentario : %s\n", yytext);
+{dr_precondicion} {printf( "Tipo de comentario. Precondición : %s\n", yytext);
+    return bis_comentario;}
+{dr_postcondicion} {printf( "Tipo de comentario. Postcondicion : %s\n", yytext);
+    return bis_comentario;}
+{dr_comentario} {printf( "Comentario : %s\n", yytext);
+    return bis_comentario;}
 
 {pr_algoritmo} {
     printf( "Palabra reservada. Algoritmo : %s\n", yytext);
@@ -284,12 +287,18 @@ pr_cadena (?i:"cadena")
     printf( "Palabra reservada. Tabla : %s\n", yytext);
     return bis_tabla;}
 
-{pr_booleano} printf( "Palabra reservada. Booleano : %s\n", yytext);
-{pr_entero} printf( "Palabra reservada. Entero: %s\n", yytext);
-{pr_caracter} printf( "Palabra reservada. Caracter : %s\n", yytext);
-{pr_real} printf( "Palabra reservada. Real : %s\n", yytext);
-{pr_cadena} printf( "Palabra reservada. Cadena: %s\n", yytext);
-{id} printf( "Tipo de identificador. ID. : %s\n", yytext);
+{pr_booleano} {printf( "Palabra reservada. Booleano : %s\n", yytext);
+return bis_tipo_base;}
+{pr_entero} {printf( "Palabra reservada. Entero: %s\n", yytext);
+return bis_tipo_base;}
+{pr_caracter} {printf( "Palabra reservada. Caracter : %s\n", yytext);
+return bis_tipo_base;}
+{pr_real} {printf( "Palabra reservada. Real : %s\n", yytext);
+return bis_tipo_base;}
+{pr_cadena} {printf( "Palabra reservada. Cadena: %s\n", yytext);
+return bis_tipo_base;}
+{id} { printf( "Tipo de identificador. ID. : %s\n", yytext );
+return bis_id;}
 
 %%
 
