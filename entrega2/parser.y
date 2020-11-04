@@ -111,7 +111,7 @@ bloque_alg:
 decl_globales:
     declaracion_tipo decl_globales {printf ("decl_globales: declaracion_tipo decl_globales\n");}
     | declaracion_const decl_globales {printf ("decl_globales: declaracion_const decl_globales\n");}
-    | declaracion_var {printf ("decl_globales: declaracion_var\n");}
+    | declaracion_var decl_globales{printf ("decl_globales: declaracion_var decl_globales\n");}
     |  {printf ("decl_globales: vacio\n");}
 ;
 
