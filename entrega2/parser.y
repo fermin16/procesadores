@@ -100,7 +100,6 @@ desc_algoritmo:
     
 cabecera_alg:
     decl_globales decl_a_f decl_ent_sal bis_comentario {printf ("cabecera_alg: decl_globales decl_a_f decl_ent_sal bis_comentario\n");}
-
 ;
 
 bloque_alg:
@@ -173,15 +172,15 @@ lista_d_cte:
     |  {printf ("lista_d_cte: vacio\n");}
 ;
 
-lista_d_var:
-    lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var\n");}
-    | lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var\n");}
-    |  {printf ("lista_d_var: vacio\n");}
-;
-
 lista_id:
     bis_id bis_coma lista_id {printf ("lista_id: bis_id bis_coma lista_id\n");}
     | bis_id {printf ("lista_id: bis_id\n");}
+;
+
+lista_d_var:
+    lista_id bis_dosPuntos bis_tipo_base bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var\n");}
+    | lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var\n");}
+    |  {printf ("lista_d_var: vacio\n");}
 ;
 
 decl_ent_sal:
