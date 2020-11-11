@@ -219,7 +219,7 @@ exp_a:
     | bis_no exp_a {printf ("exp_a: bis_no exp_a\n");}
     | bis_verdadero {printf ("exp_a: bis_verdadero\n");}
     | bis_falso {printf ("exp_a: bis_falso\n");}
-    | expresion bis_oprel expresion {printf ("exp_a: expresion bis_mayor expresion\n");}
+    | expresion bis_oprel expresion {printf ("exp_a: expresion bis_oprel expresion\n");}
     
     
 ;

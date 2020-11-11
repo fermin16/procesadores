@@ -161,6 +161,9 @@ pr_cadena (?i:"cadena")
     printf( "Tipo de caracter. Operador logico : %s\n", yytext);
     return bis_oprel;}
 
+{dr_alternativa} {
+    printf( "Tipo de caracter. Alternativa: %s\n", yytext);
+    return bis_alternativa;}
 
 {dr_asignacion} {
     printf( "Tipo de caracter. Asignacion: %s\n", yytext);

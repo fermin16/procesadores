@@ -1800,7 +1800,7 @@ yyreduce:
 
   case 63:
 #line 222 "parser.y" /* yacc.c:1646  */
-    {printf ("exp_a: expresion bis_mayor expresion\n");}
+    {printf ("exp_a: expresion bis_oprel expresion\n");}
 #line 1805 "parser.tab.c" /* yacc.c:1646  */
     break;
 
