@@ -11,7 +11,7 @@ union val{
     float f;
     char* str;
     int bool;
-}
+};
 
 typedef struct celda{
     char*nombre;
@@ -42,7 +42,7 @@ typedef struct dimension{
 /*A continuacion pondremos la lista de funciones*/
 void ini_tabla(lista *l);
 int es_vacia(lista l);
-int insertarElemento(lsita *l, celda* nueva);
+int insertarElemento(lista *l, celda* nueva);
 celda* buscarElemento(lista l, int idBuscar);
 int actualizarElemento(lista l, char* nombre_var, char* nuevoVal);
 void recorrerTablaSimbolos(lista l);
@@ -64,7 +64,7 @@ void iniTabla(lista *l){
 }
 
 //Funcion para comprobar si la tabla esta vacia o no
-int esVacia(lista *l){
+int esVacia(lista l){
 	if(l.primero==NULL){
 		return 1;
 	}else{
@@ -73,12 +73,12 @@ int esVacia(lista *l){
 }
 
 int insertarElemento(lista *l, celda* nueva){
-	if (esVacia(*l){
+	if (esVacia(*l)){
 		l-> primero=nueva;
 		l-> ultimo =nueva;
 		return 1;
 	}else{
-		nuevo-> ant = l-> ultimo;
+		nueva-> ant = l-> ultimo;
 		l-> ultimo->sig = nueva;
 		l->ultimo=nueva;
 		return 1;
@@ -86,17 +86,17 @@ int insertarElemento(lista *l, celda* nueva){
 }
 
 celda* buscarElemento(lista l,int idBuscar){
-	if(esVacia(l)==0{
+	if(esVacia(l)==0){
 		//miramos si esta al inicio o final de la lista
 		if((l.primero)->sid==idBuscar){
 			return l.primero;
 		}else if ((l.ultimo)->sid==idBuscar){
-			return ls.ultimo;
+			return l.ultimo;
 		}else{
 			lista aux;
 			aux=l;
 			if(l.primero->sig !=NULL && l.ultimo->ant !=NULL){
-				while((((aux.primero)->sig)->sid!=  idBudcar) &&  (((aux.ultimo) ->ant)sid!=idBuscar)){
+				while((((aux.primero)->sig)->sid!=  idBuscar) &&  (((aux.ultimo) ->ant)->sid!=idBuscar)){
 					aux.primero =aux.primero->sig;
 					aux.ultimo = aux.ultimo->ant;
 					if(aux.primero-> sig ==NULL|| aux.ultimo-> ant ==NULL){
@@ -124,7 +124,7 @@ void recorrerTablaSimbolos(lista l){
 	printf("3 --> booleano\n");
 	printf("4 --> char\n");
 	printf("5 --> cadena\n");
-	if (esVacia(l){
+	if (esVacia(l)){
 		printf("No hay elementos en la tabla de simbolos");
 	}else{
 		celda *aux;
@@ -134,7 +134,7 @@ void recorrerTablaSimbolos(lista l){
 			if(aux->nombre !=NULL){
 				printf("Nombre de la variable %s " ,aux->nombre);
 				if(aux->tipo > 0){
-					printf("Tipo de la variable: 5d ",aux.tipo);
+					printf("Tipo de la variable: %d ",aux->tipo);
 				}
 			}
 			aux =aux->sig;
@@ -144,7 +144,7 @@ void recorrerTablaSimbolos(lista l){
 		if(aux->nombre!=NULL){
 				printf("Nombre de la variable %s " ,aux->nombre);
 				if(aux->tipo > 0){
-					printf("Tipo de la variable: 5d ",aux.tipo);
+					printf("Tipo de la variable: %d ",aux->tipo);
 				}
 		}
 		printf("\n");
@@ -175,7 +175,7 @@ int nuevaEntrada(lista *l,char* nombre){
 	nueva->sid=l->cont++;
 	if(nombre !=NULL){
 		char* auxChar;
-		auxChar=(char*)malloc(sizeof(strlen(nombre));	
+		auxChar=(char*)malloc(sizeof(strlen(nombre)));	
 		strcpy(auxChar, nombre);
 		nueva->nombre=auxChar;
 	}else{
@@ -186,6 +186,7 @@ int nuevaEntrada(lista *l,char* nombre){
 	printf("Creando el elemento:  %s\n" ,nueva->nombre);
 	insertarElemento(l,nueva);
 	return nueva->sid;
+}
 	
 celda* buscarVariableNombre(lista l, char* nombre){
 	if(esVacia(l) ==0){
@@ -216,6 +217,7 @@ void modificarTipo(lista *l,int ssid, int tipo){
 	celda* aux = buscarElemento(*l,ssid);
 	aux->tipo=tipo;
 }
+
 			
 				
 				
