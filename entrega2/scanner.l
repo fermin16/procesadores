@@ -167,7 +167,10 @@ pr_cadena (?i:"cadena")
     return bis_asignacion;}
 
 
-{letraOcifra} printf( "Tipo de identificador. letra o cifra : %s\n", yytext);
+{letraOcifra} {
+	printf( "Tipo de identificador. letra o cifra : %s\n", yytext);
+	return bis_id;}
+
 
 {dr_literal_entero} {
     printf( "Tipo de variable. Entero: %s\n", yytext);

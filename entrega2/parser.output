@@ -1,5 +1,5 @@
 Estado 87 conflictos: 8 desplazamiento/reducción
-Estado 94 conflictos: 1 desplazamiento/reducción
+Estado 93 conflictos: 1 desplazamiento/reducción
 Estado 114 conflictos: 1 reducción/reducción
 Estado 115 conflictos: 1 reducción/reducción
 Estado 123 conflictos: 1 desplazamiento/reducción
@@ -65,12 +65,12 @@ Gramática
    32 lista_d_cte: bis_id bis_igual bis_literal bis_puntoComa lista_d_cte
    33            | %empty
 
-   34 lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var
-   35            | lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var
-   36            | %empty
+   34 lista_id: bis_id bis_coma lista_id
+   35         | bis_id
 
-   37 lista_id: bis_id bis_coma lista_id
-   38         | bis_id
+   36 lista_d_var: lista_id bis_dosPuntos bis_tipo_base bis_puntoComa lista_d_var
+   37            | lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var
+   38            | %empty
 
    39 decl_ent_sal: decl_ent
    40             | decl_ent decl_sal
@@ -148,14 +148,14 @@ Terminales con las reglas donde aparecen
 
 $end (0) 0
 error (256)
-bis_coma (258) 37
-bis_puntoComa (259) 1 17 18 19 20 30 32 34 35 67 83 84 85
-bis_dosPuntos (260) 30 34 35 87 88 89
+bis_coma (258) 34
+bis_puntoComa (259) 1 17 18 19 20 30 32 36 37 67 83 84 85
+bis_dosPuntos (260) 30 36 37 87 88 89
 bis_alternativa (261) 74
 bis_asignacion (262) 73 75 77
 bis_subrango (263) 23 25
 bis_literal (264) 32
-bis_tipo_base (265) 27
+bis_tipo_base (265) 27 36
 bis_dev (266) 82 84
 bis_verdadero (267) 60
 bis_falso (268) 61
@@ -170,7 +170,7 @@ bis_y (276) 57
 bis_oprel (277) 62
 bis_igual (278) 20 32
 bis_no (279) 59
-bis_id (280) 1 20 24 30 32 34 37 38 63 77 83 84
+bis_id (280) 1 20 24 30 32 34 35 63 77 83 84
 bis_literal_entero (281) 55
 bis_literal_real (282) 54
 bis_literal_caracter (283) 29
@@ -240,17 +240,17 @@ lista_d_tipo (76)
     en la izquierda: 20 21, en la derecha: 17
 d_tipo (77)
     en la izquierda: 22 23 24 25 26 27, en la derecha: 20 23 26 30
-    35 84 87 88 89
+    37 84 87 88 89
 expresion_t (78)
     en la izquierda: 28 29, en la derecha: 23 25
 lista_campos (79)
     en la izquierda: 30 31, en la derecha: 22 30
 lista_d_cte (80)
     en la izquierda: 32 33, en la derecha: 18 32
-lista_d_var (81)
-    en la izquierda: 34 35 36, en la derecha: 19 34 35 42 43 84
-lista_id (82)
-    en la izquierda: 37 38, en la derecha: 34 35 37 87 88 89
+lista_id (81)
+    en la izquierda: 34 35, en la derecha: 34 36 37 87 88 89
+lista_d_var (82)
+    en la izquierda: 36 37 38, en la derecha: 19 36 37 42 43 84
 decl_ent_sal (83)
     en la izquierda: 39 40 41, en la derecha: 2
 decl_ent (84)
@@ -377,10 +377,10 @@ Estado 8
 
     bis_id  desplazar e ir al estado 18
 
-    $default  reduce usando la regla 36 (lista_d_var)
+    $default  reduce usando la regla 38 (lista_d_var)
 
-    lista_d_var  ir al estado 19
-    lista_id     ir al estado 20
+    lista_id     ir al estado 19
+    lista_d_var  ir al estado 20
 
 
 Estado 9
@@ -493,27 +493,27 @@ Estado 17
 
 Estado 18
 
-   37 lista_id: bis_id . bis_coma lista_id
-   38         | bis_id .
+   34 lista_id: bis_id . bis_coma lista_id
+   35         | bis_id .
 
     bis_coma  desplazar e ir al estado 39
 
-    $default  reduce usando la regla 38 (lista_id)
+    $default  reduce usando la regla 35 (lista_id)
 
 
 Estado 19
 
-   19 declaracion_var: bis_var lista_d_var . bis_fvar bis_puntoComa
+   36 lista_d_var: lista_id . bis_dosPuntos bis_tipo_base bis_puntoComa lista_d_var
+   37            | lista_id . bis_dosPuntos d_tipo bis_puntoComa lista_d_var
 
-    bis_fvar  desplazar e ir al estado 40
+    bis_dosPuntos  desplazar e ir al estado 40
 
 
 Estado 20
 
-   34 lista_d_var: lista_id . bis_dosPuntos bis_id bis_puntoComa lista_d_var
-   35            | lista_id . bis_dosPuntos d_tipo bis_puntoComa lista_d_var
+   19 declaracion_var: bis_var lista_d_var . bis_fvar bis_puntoComa
 
-    bis_dosPuntos  desplazar e ir al estado 41
+    bis_fvar  desplazar e ir al estado 41
 
 
 Estado 21
@@ -730,7 +730,7 @@ Estado 38
 
 Estado 39
 
-   37 lista_id: bis_id bis_coma . lista_id
+   34 lista_id: bis_id bis_coma . lista_id
 
     bis_id  desplazar e ir al estado 18
 
@@ -739,22 +739,15 @@ Estado 39
 
 Estado 40
 
-   19 declaracion_var: bis_var lista_d_var bis_fvar . bis_puntoComa
+   36 lista_d_var: lista_id bis_dosPuntos . bis_tipo_base bis_puntoComa lista_d_var
+   37            | lista_id bis_dosPuntos . d_tipo bis_puntoComa lista_d_var
 
-    bis_puntoComa  desplazar e ir al estado 93
-
-
-Estado 41
-
-   34 lista_d_var: lista_id bis_dosPuntos . bis_id bis_puntoComa lista_d_var
-   35            | lista_id bis_dosPuntos . d_tipo bis_puntoComa lista_d_var
-
-    bis_tipo_base         desplazar e ir al estado 71
+    bis_tipo_base         desplazar e ir al estado 93
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
     bis_resta             desplazar e ir al estado 74
     bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 94
+    bis_id                desplazar e ir al estado 76
     bis_literal_entero    desplazar e ir al estado 77
     bis_literal_real      desplazar e ir al estado 78
     bis_literal_caracter  desplazar e ir al estado 79
@@ -765,11 +758,18 @@ Estado 41
 
     $default  reduce usando la regla 45 (expresion)
 
-    d_tipo       ir al estado 95
+    d_tipo       ir al estado 94
     expresion_t  ir al estado 85
     expresion    ir al estado 86
     exp_a        ir al estado 87
     operando     ir al estado 88
+
+
+Estado 41
+
+   19 declaracion_var: bis_var lista_d_var bis_fvar . bis_puntoComa
+
+    bis_puntoComa  desplazar e ir al estado 95
 
 
 Estado 42
@@ -987,10 +987,10 @@ Estado 64
 
     bis_id  desplazar e ir al estado 18
 
-    $default  reduce usando la regla 36 (lista_d_var)
+    $default  reduce usando la regla 38 (lista_d_var)
 
+    lista_id     ir al estado 19
     lista_d_var  ir al estado 109
-    lista_id     ir al estado 20
 
 
 Estado 65
@@ -999,10 +999,10 @@ Estado 65
 
     bis_id  desplazar e ir al estado 18
 
-    $default  reduce usando la regla 36 (lista_d_var)
+    $default  reduce usando la regla 38 (lista_d_var)
 
+    lista_id     ir al estado 19
     lista_d_var  ir al estado 110
-    lista_id     ir al estado 20
 
 
 Estado 66
@@ -1294,35 +1294,33 @@ Estado 91
 
 Estado 92
 
-   37 lista_id: bis_id bis_coma lista_id .
+   34 lista_id: bis_id bis_coma lista_id .
 
-    $default  reduce usando la regla 37 (lista_id)
+    $default  reduce usando la regla 34 (lista_id)
 
 
 Estado 93
 
-   19 declaracion_var: bis_var lista_d_var bis_fvar bis_puntoComa .
+   27 d_tipo: bis_tipo_base .
+   36 lista_d_var: lista_id bis_dosPuntos bis_tipo_base . bis_puntoComa lista_d_var
 
-    $default  reduce usando la regla 19 (declaracion_var)
+    bis_puntoComa  desplazar e ir al estado 133
+
+    bis_puntoComa  [reduce usando la regla 27 (d_tipo)]
 
 
 Estado 94
 
-   24 d_tipo: bis_id .
-   34 lista_d_var: lista_id bis_dosPuntos bis_id . bis_puntoComa lista_d_var
-   63 operando: bis_id .
+   37 lista_d_var: lista_id bis_dosPuntos d_tipo . bis_puntoComa lista_d_var
 
-    bis_puntoComa  desplazar e ir al estado 133
-
-    bis_puntoComa  [reduce usando la regla 24 (d_tipo)]
-    $default       reduce usando la regla 63 (operando)
+    bis_puntoComa  desplazar e ir al estado 134
 
 
 Estado 95
 
-   35 lista_d_var: lista_id bis_dosPuntos d_tipo . bis_puntoComa lista_d_var
+   19 declaracion_var: bis_var lista_d_var bis_fvar bis_puntoComa .
 
-    bis_puntoComa  desplazar e ir al estado 134
+    $default  reduce usando la regla 19 (declaracion_var)
 
 
 Estado 96
@@ -1439,10 +1437,10 @@ Estado 105
 
     bis_id  desplazar e ir al estado 18
 
-    $default  reduce usando la regla 36 (lista_d_var)
+    $default  reduce usando la regla 38 (lista_d_var)
 
+    lista_id     ir al estado 19
     lista_d_var  ir al estado 142
-    lista_id     ir al estado 20
 
 
 Estado 106
@@ -1843,26 +1841,26 @@ Estado 132
 
 Estado 133
 
-   34 lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa . lista_d_var
+   36 lista_d_var: lista_id bis_dosPuntos bis_tipo_base bis_puntoComa . lista_d_var
 
     bis_id  desplazar e ir al estado 18
 
-    $default  reduce usando la regla 36 (lista_d_var)
+    $default  reduce usando la regla 38 (lista_d_var)
 
+    lista_id     ir al estado 19
     lista_d_var  ir al estado 165
-    lista_id     ir al estado 20
 
 
 Estado 134
 
-   35 lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa . lista_d_var
+   37 lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa . lista_d_var
 
     bis_id  desplazar e ir al estado 18
 
-    $default  reduce usando la regla 36 (lista_d_var)
+    $default  reduce usando la regla 38 (lista_d_var)
 
+    lista_id     ir al estado 19
     lista_d_var  ir al estado 166
-    lista_id     ir al estado 20
 
 
 Estado 135
@@ -2283,16 +2281,16 @@ Estado 164
 
 Estado 165
 
-   34 lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var .
+   36 lista_d_var: lista_id bis_dosPuntos bis_tipo_base bis_puntoComa lista_d_var .
 
-    $default  reduce usando la regla 34 (lista_d_var)
+    $default  reduce usando la regla 36 (lista_d_var)
 
 
 Estado 166
 
-   35 lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var .
+   37 lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var .
 
-    $default  reduce usando la regla 35 (lista_d_var)
+    $default  reduce usando la regla 37 (lista_d_var)
 
 
 Estado 167
