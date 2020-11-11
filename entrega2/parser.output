@@ -1,16 +1,4 @@
-Estado 87 conflictos: 8 desplazamiento/reducción
 Estado 93 conflictos: 1 desplazamiento/reducción
-Estado 114 conflictos: 1 reducción/reducción
-Estado 115 conflictos: 1 reducción/reducción
-Estado 123 conflictos: 1 desplazamiento/reducción
-Estado 156 conflictos: 1 reducción/reducción
-Estado 157 conflictos: 1 reducción/reducción
-Estado 158 conflictos: 1 reducción/reducción
-Estado 159 conflictos: 1 reducción/reducción
-Estado 160 conflictos: 1 reducción/reducción
-Estado 161 conflictos: 1 reducción/reducción
-Estado 162 conflictos: 1 reducción/reducción
-Estado 163 conflictos: 1 reducción/reducción
 
 
 Gramática
@@ -80,68 +68,66 @@ Gramática
 
    43 decl_sal: bis_sal lista_d_var
 
-   44 expresion: exp_a
-   45          | %empty
+   44 expresion: expresion bis_suma expresion
+   45          | expresion bis_resta expresion
+   46          | expresion bis_multiplicacion expresion
+   47          | expresion bis_div_real expresion
+   48          | expresion bis_mod expresion
+   49          | expresion bis_div expresion
+   50          | bis_parentesisAbrir expresion bis_parentesisCerrar
+   51          | operando
+   52          | bis_literal_real
+   53          | bis_literal_entero
+   54          | bis_resta expresion
+   55          | bis_suma expresion
+   56          | expresion bis_y expresion
+   57          | expresion bis_o expresion
+   58          | bis_no expresion
+   59          | bis_verdadero
+   60          | bis_falso
+   61          | expresion bis_oprel expresion
 
-   46 exp_a: exp_a bis_suma exp_a
-   47      | exp_a bis_resta exp_a
-   48      | exp_a bis_multiplicacion exp_a
-   49      | exp_a bis_div_real exp_a
-   50      | exp_a bis_mod exp_a
-   51      | exp_a bis_div exp_a
-   52      | bis_parentesisAbrir exp_a bis_parentesisCerrar
-   53      | operando
-   54      | bis_literal_real
-   55      | bis_literal_entero
-   56      | bis_resta exp_a
-   57      | exp_a bis_y exp_a
-   58      | exp_a bis_o exp_a
-   59      | bis_no exp_a
-   60      | bis_verdadero
-   61      | bis_falso
-   62      | expresion bis_oprel expresion
+   62 operando: bis_id
+   63         | operando bis_punto operando
+   64         | operando bis_corcheteAbrir expresion bis_corcheteCerrar
+   65         | operando bis_ref
 
-   63 operando: bis_id
-   64         | operando bis_punto operando
-   65         | operando bis_corcheteAbrir expresion bis_corcheteCerrar
-   66         | operando bis_ref
+   66 instrucciones: instruccion bis_puntoComa instrucciones
+   67              | instruccion
 
-   67 instrucciones: instruccion bis_puntoComa instrucciones
-   68              | instruccion
+   68 instruccion: bis_continuar
+   69            | asignacion
+   70            | alternativa
+   71            | iteracion
 
-   69 instruccion: bis_continuar
-   70            | asignacion
-   71            | alternativa
-   72            | iteracion
+   72 asignacion: operando bis_asignacion expresion
 
-   73 asignacion: operando bis_asignacion expresion
+   73 alternativa: bis_si expresion bis_alternativa instrucciones lista_opciones bis_fsi
 
-   74 alternativa: bis_si expresion bis_alternativa instrucciones lista_opciones bis_fsi
+   74 lista_opciones: bis_sino expresion bis_alternativa instrucciones lista_opciones
+   75               | %empty
 
-   75 lista_opciones: bis_sino expresion bis_asignacion instrucciones lista_opciones
-   76               | %empty
+   76 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara
 
-   77 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara
+   77 it_cota_exp: bis_mientras expresion bis_hacer instrucciones bis_fmientras
 
-   78 it_cota_exp: bis_mientras expresion bis_hacer instrucciones bis_fmientras
+   78 iteracion: it_cota_fija
+   79          | it_cota_exp
 
-   79 iteracion: it_cota_fija
-   80          | it_cota_exp
+   80 accion_d: bis_accion a_cabecera bloque bis_faccion
 
-   81 accion_d: bis_accion a_cabecera bloque bis_faccion
+   81 funcion_d: bis_funcion f_cabecera bloque bis_dev expresion bis_ffuncion
 
-   82 funcion_d: bis_funcion f_cabecera bloque bis_dev expresion bis_ffuncion
+   82 a_cabecera: bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa
 
-   83 a_cabecera: bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa
+   83 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa
 
-   84 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa
+   84 d_par_form: d_p_form bis_puntoComa d_par_form
+   85           | %empty
 
-   85 d_par_form: d_p_form bis_puntoComa d_par_form
-   86           | %empty
-
-   87 d_p_form: bis_ent lista_id bis_dosPuntos d_tipo
-   88         | bis_sal lista_id bis_dosPuntos d_tipo
-   89         | bis_entradaSalida lista_id bis_dosPuntos d_tipo
+   86 d_p_form: bis_ent lista_id bis_dosPuntos d_tipo
+   87         | bis_sal lista_id bis_dosPuntos d_tipo
+   88         | bis_entradaSalida lista_id bis_dosPuntos d_tipo
 
 
 Terminales con las reglas donde aparecen
@@ -149,150 +135,149 @@ Terminales con las reglas donde aparecen
 $end (0) 0
 error (256)
 bis_coma (258) 34
-bis_puntoComa (259) 1 17 18 19 20 30 32 36 37 67 83 84 85
-bis_dosPuntos (260) 30 36 37 87 88 89
-bis_alternativa (261) 74
-bis_asignacion (262) 73 75 77
+bis_puntoComa (259) 1 17 18 19 20 30 32 36 37 66 82 83 84
+bis_dosPuntos (260) 30 36 37 86 87 88
+bis_alternativa (261) 73 74
+bis_asignacion (262) 72 76
 bis_subrango (263) 23 25
 bis_literal (264) 32
 bis_tipo_base (265) 27 36
-bis_dev (266) 82 84
-bis_verdadero (267) 60
-bis_falso (268) 61
-bis_suma (269) 46
-bis_resta (270) 47 56
-bis_multiplicacion (271) 48
-bis_div (272) 51
-bis_mod (273) 50
-bis_div_real (274) 49
-bis_o (275) 58
-bis_y (276) 57
-bis_oprel (277) 62
+bis_dev (266) 81 83
+bis_verdadero (267) 59
+bis_falso (268) 60
+bis_suma (269) 44 55
+bis_resta (270) 45 54
+bis_multiplicacion (271) 46
+bis_div (272) 49
+bis_mod (273) 48
+bis_div_real (274) 47
+bis_o (275) 57
+bis_y (276) 56
+bis_oprel (277) 61
 bis_igual (278) 20 32
-bis_no (279) 59
-bis_id (280) 1 20 24 30 32 34 35 63 77 83 84
-bis_literal_entero (281) 55
-bis_literal_real (282) 54
-bis_literal_caracter (283) 29
-bis_comentario (284) 2 3
-bis_algoritmo (285) 1
-bis_falgoritmo (286) 1
-bis_funcion (287) 82
-bis_ffuncion (288) 82
-bis_accion (289) 81
-bis_faccion (290) 81
-bis_tipo (291) 17
-bis_ftipo (292) 17
-bis_const (293) 18
-bis_fconst (294) 18
-bis_var (295) 19
-bis_fvar (296) 19
-bis_tupla (297) 22
-bis_ftupla (298) 22
-bis_si (299) 74
-bis_fsi (300) 74
-bis_para (301) 77
-bis_fpara (302) 77
-bis_mientras (303) 78
-bis_fmientras (304) 78
-bis_hasta (305) 77
-bis_hacer (306) 77 78
-bis_ent (307) 42 87
-bis_sal (308) 43 88
-bis_sino (309) 75
-bis_entradaSalida (310) 89
-bis_continuar (311) 69
-bis_de (312) 23
-bis_tabla (313) 23
-bis_parentesisAbrir (314) 52 83 84
-bis_parentesisCerrar (315) 52 83 84
-bis_corcheteAbrir (316) 23 65
-bis_corcheteCerrar (317) 23 65
-bis_punto (318) 64
-bis_ref (319) 26 66
+FALSA (279)
+bis_no (280) 58
+bis_id (281) 1 20 24 30 32 34 35 62 76 82 83
+bis_literal_entero (282) 53
+bis_literal_real (283) 52
+bis_literal_caracter (284) 29
+bis_comentario (285) 2 3
+bis_algoritmo (286) 1
+bis_falgoritmo (287) 1
+bis_funcion (288) 81
+bis_ffuncion (289) 81
+bis_accion (290) 80
+bis_faccion (291) 80
+bis_tipo (292) 17
+bis_ftipo (293) 17
+bis_const (294) 18
+bis_fconst (295) 18
+bis_var (296) 19
+bis_fvar (297) 19
+bis_tupla (298) 22
+bis_ftupla (299) 22
+bis_si (300) 73
+bis_fsi (301) 73
+bis_para (302) 76
+bis_fpara (303) 76
+bis_mientras (304) 77
+bis_fmientras (305) 77
+bis_hasta (306) 76
+bis_hacer (307) 76 77
+bis_ent (308) 42 86
+bis_sal (309) 43 87
+bis_sino (310) 74
+bis_entradaSalida (311) 88
+bis_continuar (312) 68
+bis_de (313) 23
+bis_tabla (314) 23
+bis_parentesisAbrir (315) 50 82 83
+bis_parentesisCerrar (316) 50 82 83
+bis_corcheteAbrir (317) 23 64
+bis_corcheteCerrar (318) 23 64
+bis_punto (319) 63
+bis_ref (320) 26 65
 
 
 No terminales con las reglas donde aparecen
 
-$accept (65)
+$accept (66)
     en la izquierda: 0
-desc_algoritmo (66)
+desc_algoritmo (67)
     en la izquierda: 1, en la derecha: 0
-cabecera_alg (67)
+cabecera_alg (68)
     en la izquierda: 2, en la derecha: 1
-bloque_alg (68)
+bloque_alg (69)
     en la izquierda: 3 4, en la derecha: 1
-decl_globales (69)
+decl_globales (70)
     en la izquierda: 5 6 7 8, en la derecha: 2 5 6 7
-decl_a_f (70)
+decl_a_f (71)
     en la izquierda: 9 10 11, en la derecha: 2 9 10
-bloque (71)
-    en la izquierda: 12, en la derecha: 3 4 81 82
-declaraciones (72)
+bloque (72)
+    en la izquierda: 12, en la derecha: 3 4 80 81
+declaraciones (73)
     en la izquierda: 13 14 15 16, en la derecha: 12 13 14 15
-declaracion_tipo (73)
+declaracion_tipo (74)
     en la izquierda: 17, en la derecha: 5 13
-declaracion_const (74)
+declaracion_const (75)
     en la izquierda: 18, en la derecha: 6 14
-declaracion_var (75)
+declaracion_var (76)
     en la izquierda: 19, en la derecha: 7 15
-lista_d_tipo (76)
+lista_d_tipo (77)
     en la izquierda: 20 21, en la derecha: 17
-d_tipo (77)
+d_tipo (78)
     en la izquierda: 22 23 24 25 26 27, en la derecha: 20 23 26 30
-    37 84 87 88 89
-expresion_t (78)
+    37 83 86 87 88
+expresion_t (79)
     en la izquierda: 28 29, en la derecha: 23 25
-lista_campos (79)
+lista_campos (80)
     en la izquierda: 30 31, en la derecha: 22 30
-lista_d_cte (80)
+lista_d_cte (81)
     en la izquierda: 32 33, en la derecha: 18 32
-lista_id (81)
-    en la izquierda: 34 35, en la derecha: 34 36 37 87 88 89
-lista_d_var (82)
-    en la izquierda: 36 37 38, en la derecha: 19 36 37 42 43 84
-decl_ent_sal (83)
+lista_id (82)
+    en la izquierda: 34 35, en la derecha: 34 36 37 86 87 88
+lista_d_var (83)
+    en la izquierda: 36 37 38, en la derecha: 19 36 37 42 43 83
+decl_ent_sal (84)
     en la izquierda: 39 40 41, en la derecha: 2
-decl_ent (84)
+decl_ent (85)
     en la izquierda: 42, en la derecha: 39 40
-decl_sal (85)
+decl_sal (86)
     en la izquierda: 43, en la derecha: 40 41
-expresion (86)
-    en la izquierda: 44 45, en la derecha: 28 62 65 73 74 75 77 78
-    82
-exp_a (87)
-    en la izquierda: 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61
-    62, en la derecha: 44 46 47 48 49 50 51 52 56 57 58 59
+expresion (87)
+    en la izquierda: 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59
+    60 61, en la derecha: 28 44 45 46 47 48 49 50 54 55 56 57 58 61
+    64 72 73 74 76 77 81
 operando (88)
-    en la izquierda: 63 64 65 66, en la derecha: 53 64 65 66 73
+    en la izquierda: 62 63 64 65, en la derecha: 51 63 64 65 72
 instrucciones (89)
-    en la izquierda: 67 68, en la derecha: 12 67 74 75 77 78
+    en la izquierda: 66 67, en la derecha: 12 66 73 74 76 77
 instruccion (90)
-    en la izquierda: 69 70 71 72, en la derecha: 67 68
+    en la izquierda: 68 69 70 71, en la derecha: 66 67
 asignacion (91)
-    en la izquierda: 73, en la derecha: 70
+    en la izquierda: 72, en la derecha: 69
 alternativa (92)
-    en la izquierda: 74, en la derecha: 71
+    en la izquierda: 73, en la derecha: 70
 lista_opciones (93)
-    en la izquierda: 75 76, en la derecha: 74 75
+    en la izquierda: 74 75, en la derecha: 73 74
 it_cota_fija (94)
-    en la izquierda: 77, en la derecha: 79
+    en la izquierda: 76, en la derecha: 78
 it_cota_exp (95)
-    en la izquierda: 78, en la derecha: 80
+    en la izquierda: 77, en la derecha: 79
 iteracion (96)
-    en la izquierda: 79 80, en la derecha: 72
+    en la izquierda: 78 79, en la derecha: 71
 accion_d (97)
-    en la izquierda: 81, en la derecha: 9
+    en la izquierda: 80, en la derecha: 9
 funcion_d (98)
-    en la izquierda: 82, en la derecha: 10
+    en la izquierda: 81, en la derecha: 10
 a_cabecera (99)
-    en la izquierda: 83, en la derecha: 81
+    en la izquierda: 82, en la derecha: 80
 f_cabecera (100)
-    en la izquierda: 84, en la derecha: 82
+    en la izquierda: 83, en la derecha: 81
 d_par_form (101)
-    en la izquierda: 85 86, en la derecha: 83 85
+    en la izquierda: 84 85, en la derecha: 82 84
 d_p_form (102)
-    en la izquierda: 87 88 89, en la derecha: 85
+    en la izquierda: 86 87 88, en la derecha: 84
 
 
 Estado 0
@@ -603,7 +588,7 @@ Estado 26
 
 Estado 27
 
-   82 funcion_d: bis_funcion . f_cabecera bloque bis_dev expresion bis_ffuncion
+   81 funcion_d: bis_funcion . f_cabecera bloque bis_dev expresion bis_ffuncion
 
     bis_id  desplazar e ir al estado 60
 
@@ -612,7 +597,7 @@ Estado 27
 
 Estado 28
 
-   81 accion_d: bis_accion . a_cabecera bloque bis_faccion
+   80 accion_d: bis_accion . a_cabecera bloque bis_faccion
 
     bis_id  desplazar e ir al estado 62
 
@@ -687,23 +672,21 @@ Estado 35
     bis_tipo_base         desplazar e ir al estado 71
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
-    $default  reduce usando la regla 45 (expresion)
-
-    d_tipo       ir al estado 84
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    d_tipo       ir al estado 85
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
@@ -745,23 +728,21 @@ Estado 40
     bis_tipo_base         desplazar e ir al estado 93
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
     d_tipo       ir al estado 94
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
@@ -788,71 +769,67 @@ Estado 43
 
 Estado 44
 
-   63 operando: bis_id .
+   62 operando: bis_id .
 
-    $default  reduce usando la regla 63 (operando)
+    $default  reduce usando la regla 62 (operando)
 
 
 Estado 45
 
-   74 alternativa: bis_si . expresion bis_alternativa instrucciones lista_opciones bis_fsi
+   73 alternativa: bis_si . expresion bis_alternativa instrucciones lista_opciones bis_fsi
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 97
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 46
 
-   77 it_cota_fija: bis_para . bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara
+   76 it_cota_fija: bis_para . bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara
 
     bis_id  desplazar e ir al estado 98
 
 
 Estado 47
 
-   78 it_cota_exp: bis_mientras . expresion bis_hacer instrucciones bis_fmientras
+   77 it_cota_exp: bis_mientras . expresion bis_hacer instrucciones bis_fmientras
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 99
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 48
 
-   69 instruccion: bis_continuar .
+   68 instruccion: bis_continuar .
 
-    $default  reduce usando la regla 69 (instruccion)
+    $default  reduce usando la regla 68 (instruccion)
 
 
 Estado 49
 
-   64 operando: operando . bis_punto operando
-   65         | operando . bis_corcheteAbrir expresion bis_corcheteCerrar
-   66         | operando . bis_ref
-   73 asignacion: operando . bis_asignacion expresion
+   63 operando: operando . bis_punto operando
+   64         | operando . bis_corcheteAbrir expresion bis_corcheteCerrar
+   65         | operando . bis_ref
+   72 asignacion: operando . bis_asignacion expresion
 
     bis_asignacion     desplazar e ir al estado 100
     bis_corcheteAbrir  desplazar e ir al estado 101
@@ -869,47 +846,47 @@ Estado 50
 
 Estado 51
 
-   67 instrucciones: instruccion . bis_puntoComa instrucciones
-   68              | instruccion .
+   66 instrucciones: instruccion . bis_puntoComa instrucciones
+   67              | instruccion .
 
     bis_puntoComa  desplazar e ir al estado 104
 
-    $default  reduce usando la regla 68 (instrucciones)
+    $default  reduce usando la regla 67 (instrucciones)
 
 
 Estado 52
 
-   70 instruccion: asignacion .
+   69 instruccion: asignacion .
 
-    $default  reduce usando la regla 70 (instruccion)
+    $default  reduce usando la regla 69 (instruccion)
 
 
 Estado 53
 
-   71 instruccion: alternativa .
+   70 instruccion: alternativa .
 
-    $default  reduce usando la regla 71 (instruccion)
+    $default  reduce usando la regla 70 (instruccion)
 
 
 Estado 54
 
-   79 iteracion: it_cota_fija .
+   78 iteracion: it_cota_fija .
 
-    $default  reduce usando la regla 79 (iteracion)
+    $default  reduce usando la regla 78 (iteracion)
 
 
 Estado 55
 
-   80 iteracion: it_cota_exp .
+   79 iteracion: it_cota_exp .
 
-    $default  reduce usando la regla 80 (iteracion)
+    $default  reduce usando la regla 79 (iteracion)
 
 
 Estado 56
 
-   72 instruccion: iteracion .
+   71 instruccion: iteracion .
 
-    $default  reduce usando la regla 72 (instruccion)
+    $default  reduce usando la regla 71 (instruccion)
 
 
 Estado 57
@@ -935,14 +912,14 @@ Estado 59
 
 Estado 60
 
-   84 f_cabecera: bis_id . bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa
+   83 f_cabecera: bis_id . bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa
 
     bis_parentesisAbrir  desplazar e ir al estado 105
 
 
 Estado 61
 
-   82 funcion_d: bis_funcion f_cabecera . bloque bis_dev expresion bis_ffuncion
+   81 funcion_d: bis_funcion f_cabecera . bloque bis_dev expresion bis_ffuncion
 
     bis_tipo   desplazar e ir al estado 6
     bis_const  desplazar e ir al estado 7
@@ -959,14 +936,14 @@ Estado 61
 
 Estado 62
 
-   83 a_cabecera: bis_id . bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa
+   82 a_cabecera: bis_id . bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa
 
     bis_parentesisAbrir  desplazar e ir al estado 107
 
 
 Estado 63
 
-   81 accion_d: bis_accion a_cabecera . bloque bis_faccion
+   80 accion_d: bis_accion a_cabecera . bloque bis_faccion
 
     bis_tipo   desplazar e ir al estado 6
     bis_const  desplazar e ir al estado 7
@@ -1054,89 +1031,103 @@ Estado 71
 
 Estado 72
 
-   60 exp_a: bis_verdadero .
+   59 expresion: bis_verdadero .
 
-    $default  reduce usando la regla 60 (exp_a)
+    $default  reduce usando la regla 59 (expresion)
 
 
 Estado 73
 
-   61 exp_a: bis_falso .
+   60 expresion: bis_falso .
 
-    $default  reduce usando la regla 61 (exp_a)
+    $default  reduce usando la regla 60 (expresion)
 
 
 Estado 74
 
-   56 exp_a: bis_resta . exp_a
+   55 expresion: bis_suma . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 113
-    exp_a      ir al estado 114
     operando   ir al estado 88
 
 
 Estado 75
 
-   59 exp_a: bis_no . exp_a
+   54 expresion: bis_resta . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 115
+    expresion  ir al estado 114
     operando   ir al estado 88
 
 
 Estado 76
 
-   24 d_tipo: bis_id .
-   63 operando: bis_id .
+   58 expresion: bis_no . expresion
 
-    bis_puntoComa  reduce usando la regla 24 (d_tipo)
-    $default       reduce usando la regla 63 (operando)
+    bis_verdadero        desplazar e ir al estado 72
+    bis_falso            desplazar e ir al estado 73
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
+    bis_id               desplazar e ir al estado 44
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
+
+    expresion  ir al estado 115
+    operando   ir al estado 88
 
 
 Estado 77
 
-   55 exp_a: bis_literal_entero .
+   24 d_tipo: bis_id .
+   62 operando: bis_id .
 
-    $default  reduce usando la regla 55 (exp_a)
+    bis_puntoComa  reduce usando la regla 24 (d_tipo)
+    $default       reduce usando la regla 62 (operando)
 
 
 Estado 78
 
-   54 exp_a: bis_literal_real .
+   53 expresion: bis_literal_entero .
 
-    $default  reduce usando la regla 54 (exp_a)
+    $default  reduce usando la regla 53 (expresion)
 
 
 Estado 79
+
+   52 expresion: bis_literal_real .
+
+    $default  reduce usando la regla 52 (expresion)
+
+
+Estado 80
 
    29 expresion_t: bis_literal_caracter .
 
     $default  reduce usando la regla 29 (expresion_t)
 
 
-Estado 80
+Estado 81
 
    22 d_tipo: bis_tupla . lista_campos bis_ftupla
 
@@ -1147,128 +1138,108 @@ Estado 80
     lista_campos  ir al estado 117
 
 
-Estado 81
+Estado 82
 
    23 d_tipo: bis_tabla . bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo
 
     bis_corcheteAbrir  desplazar e ir al estado 118
 
 
-Estado 82
+Estado 83
 
-   52 exp_a: bis_parentesisAbrir . exp_a bis_parentesisCerrar
+   50 expresion: bis_parentesisAbrir . expresion bis_parentesisCerrar
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 119
+    expresion  ir al estado 119
     operando   ir al estado 88
 
 
-Estado 83
+Estado 84
 
    26 d_tipo: bis_ref . d_tipo
 
     bis_tipo_base         desplazar e ir al estado 71
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
     d_tipo       ir al estado 120
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
-Estado 84
+Estado 85
 
    20 lista_d_tipo: bis_id bis_igual d_tipo . bis_puntoComa
 
     bis_puntoComa  desplazar e ir al estado 121
 
 
-Estado 85
+Estado 86
 
    25 d_tipo: expresion_t . bis_subrango expresion_t
 
     bis_subrango  desplazar e ir al estado 122
 
 
-Estado 86
+Estado 87
 
    28 expresion_t: expresion .
-   62 exp_a: expresion . bis_oprel expresion
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_oprel  desplazar e ir al estado 123
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
 
     $default  reduce usando la regla 28 (expresion_t)
 
 
-Estado 87
-
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
-
-    bis_suma            desplazar e ir al estado 124
-    bis_resta           desplazar e ir al estado 125
-    bis_multiplicacion  desplazar e ir al estado 126
-    bis_div             desplazar e ir al estado 127
-    bis_mod             desplazar e ir al estado 128
-    bis_div_real        desplazar e ir al estado 129
-    bis_o               desplazar e ir al estado 130
-    bis_y               desplazar e ir al estado 131
-
-    bis_suma            [reduce usando la regla 44 (expresion)]
-    bis_resta           [reduce usando la regla 44 (expresion)]
-    bis_multiplicacion  [reduce usando la regla 44 (expresion)]
-    bis_div             [reduce usando la regla 44 (expresion)]
-    bis_mod             [reduce usando la regla 44 (expresion)]
-    bis_div_real        [reduce usando la regla 44 (expresion)]
-    bis_o               [reduce usando la regla 44 (expresion)]
-    bis_y               [reduce usando la regla 44 (expresion)]
-    $default            reduce usando la regla 44 (expresion)
-
-
 Estado 88
 
-   53 exp_a: operando .
-   64 operando: operando . bis_punto operando
-   65         | operando . bis_corcheteAbrir expresion bis_corcheteCerrar
-   66         | operando . bis_ref
+   51 expresion: operando .
+   63 operando: operando . bis_punto operando
+   64         | operando . bis_corcheteAbrir expresion bis_corcheteCerrar
+   65         | operando . bis_ref
 
     bis_corcheteAbrir  desplazar e ir al estado 101
     bis_punto          desplazar e ir al estado 102
     bis_ref            desplazar e ir al estado 103
 
-    $default  reduce usando la regla 53 (exp_a)
+    $default  reduce usando la regla 51 (expresion)
 
 
 Estado 89
@@ -1332,72 +1303,100 @@ Estado 96
 
 Estado 97
 
-   62 exp_a: expresion . bis_oprel expresion
-   74 alternativa: bis_si expresion . bis_alternativa instrucciones lista_opciones bis_fsi
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   73 alternativa: bis_si expresion . bis_alternativa instrucciones lista_opciones bis_fsi
 
-    bis_alternativa  desplazar e ir al estado 135
-    bis_oprel        desplazar e ir al estado 123
+    bis_alternativa     desplazar e ir al estado 135
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
 
 
 Estado 98
 
-   77 it_cota_fija: bis_para bis_id . bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara
+   76 it_cota_fija: bis_para bis_id . bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara
 
     bis_asignacion  desplazar e ir al estado 136
 
 
 Estado 99
 
-   62 exp_a: expresion . bis_oprel expresion
-   78 it_cota_exp: bis_mientras expresion . bis_hacer instrucciones bis_fmientras
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   77 it_cota_exp: bis_mientras expresion . bis_hacer instrucciones bis_fmientras
 
-    bis_oprel  desplazar e ir al estado 123
-    bis_hacer  desplazar e ir al estado 137
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
+    bis_hacer           desplazar e ir al estado 137
 
 
 Estado 100
 
-   73 asignacion: operando bis_asignacion . expresion
+   72 asignacion: operando bis_asignacion . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 138
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 101
 
-   65 operando: operando bis_corcheteAbrir . expresion bis_corcheteCerrar
+   64 operando: operando bis_corcheteAbrir . expresion bis_corcheteCerrar
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 139
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 102
 
-   64 operando: operando bis_punto . operando
+   63 operando: operando bis_punto . operando
 
     bis_id  desplazar e ir al estado 44
 
@@ -1406,14 +1405,14 @@ Estado 102
 
 Estado 103
 
-   66 operando: operando bis_ref .
+   65 operando: operando bis_ref .
 
-    $default  reduce usando la regla 66 (operando)
+    $default  reduce usando la regla 65 (operando)
 
 
 Estado 104
 
-   67 instrucciones: instruccion bis_puntoComa . instrucciones
+   66 instrucciones: instruccion bis_puntoComa . instrucciones
 
     bis_id         desplazar e ir al estado 44
     bis_si         desplazar e ir al estado 45
@@ -1433,7 +1432,7 @@ Estado 104
 
 Estado 105
 
-   84 f_cabecera: bis_id bis_parentesisAbrir . lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa
+   83 f_cabecera: bis_id bis_parentesisAbrir . lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa
 
     bis_id  desplazar e ir al estado 18
 
@@ -1445,20 +1444,20 @@ Estado 105
 
 Estado 106
 
-   82 funcion_d: bis_funcion f_cabecera bloque . bis_dev expresion bis_ffuncion
+   81 funcion_d: bis_funcion f_cabecera bloque . bis_dev expresion bis_ffuncion
 
     bis_dev  desplazar e ir al estado 143
 
 
 Estado 107
 
-   83 a_cabecera: bis_id bis_parentesisAbrir . d_par_form bis_parentesisCerrar bis_puntoComa
+   82 a_cabecera: bis_id bis_parentesisAbrir . d_par_form bis_parentesisCerrar bis_puntoComa
 
     bis_ent            desplazar e ir al estado 144
     bis_sal            desplazar e ir al estado 145
     bis_entradaSalida  desplazar e ir al estado 146
 
-    $default  reduce usando la regla 86 (d_par_form)
+    $default  reduce usando la regla 85 (d_par_form)
 
     d_par_form  ir al estado 147
     d_p_form    ir al estado 148
@@ -1466,7 +1465,7 @@ Estado 107
 
 Estado 108
 
-   81 accion_d: bis_accion a_cabecera bloque . bis_faccion
+   80 accion_d: bis_accion a_cabecera bloque . bis_faccion
 
     bis_faccion  desplazar e ir al estado 149
 
@@ -1501,52 +1500,50 @@ Estado 112
 
 Estado 113
 
-   62 exp_a: expresion . bis_oprel expresion
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   55          | bis_suma expresion .
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_oprel  desplazar e ir al estado 123
+    $default  reduce usando la regla 55 (expresion)
 
 
 Estado 114
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   56      | bis_resta exp_a .
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   54          | bis_resta expresion .
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_multiplicacion  desplazar e ir al estado 126
-    bis_div             desplazar e ir al estado 127
-    bis_mod             desplazar e ir al estado 128
-    bis_div_real        desplazar e ir al estado 129
-    bis_o               desplazar e ir al estado 130
-    bis_y               desplazar e ir al estado 131
-
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 56 (exp_a)]
-    $default   reduce usando la regla 56 (exp_a)
+    $default  reduce usando la regla 54 (expresion)
 
 
 Estado 115
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
-   59      | bis_no exp_a .
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   58          | bis_no expresion .
+   61          | expresion . bis_oprel expresion
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 59 (exp_a)]
-    $default   reduce usando la regla 59 (exp_a)
+    $default  reduce usando la regla 58 (expresion)
 
 
 Estado 116
@@ -1569,46 +1566,43 @@ Estado 118
 
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
     bis_id                desplazar e ir al estado 44
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_parentesisAbrir   desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_parentesisAbrir   desplazar e ir al estado 83
 
     expresion_t  ir al estado 152
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
 Estado 119
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   52      | bis_parentesisAbrir exp_a . bis_parentesisCerrar
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   50          | bis_parentesisAbrir expresion . bis_parentesisCerrar
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_suma              desplazar e ir al estado 124
-    bis_resta             desplazar e ir al estado 125
-    bis_multiplicacion    desplazar e ir al estado 126
-    bis_div               desplazar e ir al estado 127
-    bis_mod               desplazar e ir al estado 128
-    bis_div_real          desplazar e ir al estado 129
-    bis_o                 desplazar e ir al estado 130
-    bis_y                 desplazar e ir al estado 131
+    bis_suma              desplazar e ir al estado 123
+    bis_resta             desplazar e ir al estado 124
+    bis_multiplicacion    desplazar e ir al estado 125
+    bis_div               desplazar e ir al estado 126
+    bis_mod               desplazar e ir al estado 127
+    bis_div_real          desplazar e ir al estado 128
+    bis_o                 desplazar e ir al estado 129
+    bis_y                 desplazar e ir al estado 130
+    bis_oprel             desplazar e ir al estado 131
     bis_parentesisCerrar  desplazar e ir al estado 153
-
-    $default  reduce usando la regla 44 (expresion)
 
 
 Estado 120
@@ -1631,200 +1625,179 @@ Estado 122
 
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
     bis_id                desplazar e ir al estado 44
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_parentesisAbrir   desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_parentesisAbrir   desplazar e ir al estado 83
 
     expresion_t  ir al estado 154
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
 Estado 123
 
-   62 exp_a: expresion bis_oprel . expresion
+   44 expresion: expresion bis_suma . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    bis_resta  [reduce usando la regla 45 (expresion)]
-    $default   reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 155
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 124
 
-   46 exp_a: exp_a bis_suma . exp_a
+   45 expresion: expresion bis_resta . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 156
+    expresion  ir al estado 156
     operando   ir al estado 88
 
 
 Estado 125
 
-   47 exp_a: exp_a bis_resta . exp_a
+   46 expresion: expresion bis_multiplicacion . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 157
+    expresion  ir al estado 157
     operando   ir al estado 88
 
 
 Estado 126
 
-   48 exp_a: exp_a bis_multiplicacion . exp_a
+   49 expresion: expresion bis_div . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 158
+    expresion  ir al estado 158
     operando   ir al estado 88
 
 
 Estado 127
 
-   51 exp_a: exp_a bis_div . exp_a
+   48 expresion: expresion bis_mod . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 159
+    expresion  ir al estado 159
     operando   ir al estado 88
 
 
 Estado 128
 
-   50 exp_a: exp_a bis_mod . exp_a
+   47 expresion: expresion bis_div_real . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 160
+    expresion  ir al estado 160
     operando   ir al estado 88
 
 
 Estado 129
 
-   49 exp_a: exp_a bis_div_real . exp_a
+   57 expresion: expresion bis_o . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 161
+    expresion  ir al estado 161
     operando   ir al estado 88
 
 
 Estado 130
 
-   58 exp_a: exp_a bis_o . exp_a
+   56 expresion: expresion bis_y . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 162
+    expresion  ir al estado 162
     operando   ir al estado 88
 
 
 Estado 131
 
-   57 exp_a: exp_a bis_y . exp_a
+   61 expresion: expresion bis_oprel . expresion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
-    $default  reduce usando la regla 45 (expresion)
-
-    expresion  ir al estado 113
-    exp_a      ir al estado 163
+    expresion  ir al estado 163
     operando   ir al estado 88
 
 
@@ -1865,7 +1838,7 @@ Estado 134
 
 Estado 135
 
-   74 alternativa: bis_si expresion bis_alternativa . instrucciones lista_opciones bis_fsi
+   73 alternativa: bis_si expresion bis_alternativa . instrucciones lista_opciones bis_fsi
 
     bis_id         desplazar e ir al estado 44
     bis_si         desplazar e ir al estado 45
@@ -1885,27 +1858,25 @@ Estado 135
 
 Estado 136
 
-   77 it_cota_fija: bis_para bis_id bis_asignacion . expresion bis_hasta expresion bis_hacer instrucciones bis_fpara
+   76 it_cota_fija: bis_para bis_id bis_asignacion . expresion bis_hasta expresion bis_hacer instrucciones bis_fpara
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 168
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 137
 
-   78 it_cota_exp: bis_mientras expresion bis_hacer . instrucciones bis_fmientras
+   77 it_cota_exp: bis_mientras expresion bis_hacer . instrucciones bis_fmientras
 
     bis_id         desplazar e ir al estado 44
     bis_si         desplazar e ir al estado 45
@@ -1925,73 +1896,103 @@ Estado 137
 
 Estado 138
 
-   62 exp_a: expresion . bis_oprel expresion
-   73 asignacion: operando bis_asignacion expresion .
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   72 asignacion: operando bis_asignacion expresion .
 
-    bis_oprel  desplazar e ir al estado 123
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
 
-    $default  reduce usando la regla 73 (asignacion)
+    $default  reduce usando la regla 72 (asignacion)
 
 
 Estado 139
 
-   62 exp_a: expresion . bis_oprel expresion
-   65 operando: operando bis_corcheteAbrir expresion . bis_corcheteCerrar
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   64 operando: operando bis_corcheteAbrir expresion . bis_corcheteCerrar
 
-    bis_oprel           desplazar e ir al estado 123
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
     bis_corcheteCerrar  desplazar e ir al estado 170
 
 
 Estado 140
 
-   64 operando: operando . bis_punto operando
-   64         | operando bis_punto operando .
-   65         | operando . bis_corcheteAbrir expresion bis_corcheteCerrar
-   66         | operando . bis_ref
+   63 operando: operando . bis_punto operando
+   63         | operando bis_punto operando .
+   64         | operando . bis_corcheteAbrir expresion bis_corcheteCerrar
+   65         | operando . bis_ref
 
     bis_punto  desplazar e ir al estado 102
     bis_ref    desplazar e ir al estado 103
 
-    $default  reduce usando la regla 64 (operando)
+    $default  reduce usando la regla 63 (operando)
 
 
 Estado 141
 
-   67 instrucciones: instruccion bis_puntoComa instrucciones .
+   66 instrucciones: instruccion bis_puntoComa instrucciones .
 
-    $default  reduce usando la regla 67 (instrucciones)
+    $default  reduce usando la regla 66 (instrucciones)
 
 
 Estado 142
 
-   84 f_cabecera: bis_id bis_parentesisAbrir lista_d_var . bis_parentesisCerrar bis_dev d_tipo bis_puntoComa
+   83 f_cabecera: bis_id bis_parentesisAbrir lista_d_var . bis_parentesisCerrar bis_dev d_tipo bis_puntoComa
 
     bis_parentesisCerrar  desplazar e ir al estado 171
 
 
 Estado 143
 
-   82 funcion_d: bis_funcion f_cabecera bloque bis_dev . expresion bis_ffuncion
+   81 funcion_d: bis_funcion f_cabecera bloque bis_dev . expresion bis_ffuncion
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 172
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 144
 
-   87 d_p_form: bis_ent . lista_id bis_dosPuntos d_tipo
+   86 d_p_form: bis_ent . lista_id bis_dosPuntos d_tipo
 
     bis_id  desplazar e ir al estado 18
 
@@ -2000,7 +2001,7 @@ Estado 144
 
 Estado 145
 
-   88 d_p_form: bis_sal . lista_id bis_dosPuntos d_tipo
+   87 d_p_form: bis_sal . lista_id bis_dosPuntos d_tipo
 
     bis_id  desplazar e ir al estado 18
 
@@ -2009,7 +2010,7 @@ Estado 145
 
 Estado 146
 
-   89 d_p_form: bis_entradaSalida . lista_id bis_dosPuntos d_tipo
+   88 d_p_form: bis_entradaSalida . lista_id bis_dosPuntos d_tipo
 
     bis_id  desplazar e ir al estado 18
 
@@ -2018,23 +2019,23 @@ Estado 146
 
 Estado 147
 
-   83 a_cabecera: bis_id bis_parentesisAbrir d_par_form . bis_parentesisCerrar bis_puntoComa
+   82 a_cabecera: bis_id bis_parentesisAbrir d_par_form . bis_parentesisCerrar bis_puntoComa
 
     bis_parentesisCerrar  desplazar e ir al estado 176
 
 
 Estado 148
 
-   85 d_par_form: d_p_form . bis_puntoComa d_par_form
+   84 d_par_form: d_p_form . bis_puntoComa d_par_form
 
     bis_puntoComa  desplazar e ir al estado 177
 
 
 Estado 149
 
-   81 accion_d: bis_accion a_cabecera bloque bis_faccion .
+   80 accion_d: bis_accion a_cabecera bloque bis_faccion .
 
-    $default  reduce usando la regla 81 (accion_d)
+    $default  reduce usando la regla 80 (accion_d)
 
 
 Estado 150
@@ -2044,23 +2045,21 @@ Estado 150
     bis_tipo_base         desplazar e ir al estado 71
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
     d_tipo       ir al estado 178
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
@@ -2080,9 +2079,9 @@ Estado 152
 
 Estado 153
 
-   52 exp_a: bis_parentesisAbrir exp_a bis_parentesisCerrar .
+   50 expresion: bis_parentesisAbrir expresion bis_parentesisCerrar .
 
-    $default  reduce usando la regla 52 (exp_a)
+    $default  reduce usando la regla 50 (expresion)
 
 
 Estado 154
@@ -2094,182 +2093,183 @@ Estado 154
 
 Estado 155
 
-   62 exp_a: expresion . bis_oprel expresion
-   62      | expresion bis_oprel expresion .
+   44 expresion: expresion . bis_suma expresion
+   44          | expresion bis_suma expresion .
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    $default  reduce usando la regla 62 (exp_a)
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
+
+    $default  reduce usando la regla 44 (expresion)
 
 
 Estado 156
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   46      | exp_a bis_suma exp_a .
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   45          | expresion bis_resta expresion .
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_multiplicacion  desplazar e ir al estado 126
-    bis_div             desplazar e ir al estado 127
-    bis_mod             desplazar e ir al estado 128
-    bis_div_real        desplazar e ir al estado 129
-    bis_o               desplazar e ir al estado 130
-    bis_y               desplazar e ir al estado 131
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 46 (exp_a)]
-    $default   reduce usando la regla 46 (exp_a)
+    $default  reduce usando la regla 45 (expresion)
 
 
 Estado 157
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   47      | exp_a bis_resta exp_a .
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   46          | expresion bis_multiplicacion expresion .
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_multiplicacion  desplazar e ir al estado 126
-    bis_div             desplazar e ir al estado 127
-    bis_mod             desplazar e ir al estado 128
-    bis_div_real        desplazar e ir al estado 129
-    bis_o               desplazar e ir al estado 130
-    bis_y               desplazar e ir al estado 131
+    bis_o      desplazar e ir al estado 129
+    bis_y      desplazar e ir al estado 130
+    bis_oprel  desplazar e ir al estado 131
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 47 (exp_a)]
-    $default   reduce usando la regla 47 (exp_a)
+    $default  reduce usando la regla 46 (expresion)
 
 
 Estado 158
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   48      | exp_a bis_multiplicacion exp_a .
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   49          | expresion bis_div expresion .
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_o  desplazar e ir al estado 130
-    bis_y  desplazar e ir al estado 131
+    bis_o      desplazar e ir al estado 129
+    bis_y      desplazar e ir al estado 130
+    bis_oprel  desplazar e ir al estado 131
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 48 (exp_a)]
-    $default   reduce usando la regla 48 (exp_a)
+    $default  reduce usando la regla 49 (expresion)
 
 
 Estado 159
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   51      | exp_a bis_div exp_a .
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   48          | expresion bis_mod expresion .
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_o  desplazar e ir al estado 130
-    bis_y  desplazar e ir al estado 131
+    bis_o      desplazar e ir al estado 129
+    bis_y      desplazar e ir al estado 130
+    bis_oprel  desplazar e ir al estado 131
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 51 (exp_a)]
-    $default   reduce usando la regla 51 (exp_a)
+    $default  reduce usando la regla 48 (expresion)
 
 
 Estado 160
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   50      | exp_a bis_mod exp_a .
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   47          | expresion bis_div_real expresion .
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_o  desplazar e ir al estado 130
-    bis_y  desplazar e ir al estado 131
+    bis_o      desplazar e ir al estado 129
+    bis_y      desplazar e ir al estado 130
+    bis_oprel  desplazar e ir al estado 131
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 50 (exp_a)]
-    $default   reduce usando la regla 50 (exp_a)
+    $default  reduce usando la regla 47 (expresion)
 
 
 Estado 161
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   49      | exp_a bis_div_real exp_a .
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   57          | expresion bis_o expresion .
+   61          | expresion . bis_oprel expresion
 
-    bis_o  desplazar e ir al estado 130
-    bis_y  desplazar e ir al estado 131
+    bis_y      desplazar e ir al estado 130
+    bis_oprel  desplazar e ir al estado 131
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 49 (exp_a)]
-    $default   reduce usando la regla 49 (exp_a)
+    $default  reduce usando la regla 57 (expresion)
 
 
 Estado 162
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   58      | exp_a . bis_o exp_a
-   58      | exp_a bis_o exp_a .
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   56          | expresion bis_y expresion .
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
 
-    bis_y  desplazar e ir al estado 131
+    bis_oprel  desplazar e ir al estado 131
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 58 (exp_a)]
-    $default   reduce usando la regla 58 (exp_a)
+    $default  reduce usando la regla 56 (expresion)
 
 
 Estado 163
 
-   44 expresion: exp_a .
-   46 exp_a: exp_a . bis_suma exp_a
-   47      | exp_a . bis_resta exp_a
-   48      | exp_a . bis_multiplicacion exp_a
-   49      | exp_a . bis_div_real exp_a
-   50      | exp_a . bis_mod exp_a
-   51      | exp_a . bis_div exp_a
-   57      | exp_a . bis_y exp_a
-   57      | exp_a bis_y exp_a .
-   58      | exp_a . bis_o exp_a
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   61          | expresion bis_oprel expresion .
 
-    bis_oprel  reduce usando la regla 44 (expresion)
-    bis_oprel  [reduce usando la regla 57 (exp_a)]
-    $default   reduce usando la regla 57 (exp_a)
+    $default  reduce usando la regla 61 (expresion)
 
 
 Estado 164
@@ -2295,91 +2295,123 @@ Estado 166
 
 Estado 167
 
-   74 alternativa: bis_si expresion bis_alternativa instrucciones . lista_opciones bis_fsi
+   73 alternativa: bis_si expresion bis_alternativa instrucciones . lista_opciones bis_fsi
 
     bis_sino  desplazar e ir al estado 180
 
-    $default  reduce usando la regla 76 (lista_opciones)
+    $default  reduce usando la regla 75 (lista_opciones)
 
     lista_opciones  ir al estado 181
 
 
 Estado 168
 
-   62 exp_a: expresion . bis_oprel expresion
-   77 it_cota_fija: bis_para bis_id bis_asignacion expresion . bis_hasta expresion bis_hacer instrucciones bis_fpara
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   76 it_cota_fija: bis_para bis_id bis_asignacion expresion . bis_hasta expresion bis_hacer instrucciones bis_fpara
 
-    bis_oprel  desplazar e ir al estado 123
-    bis_hasta  desplazar e ir al estado 182
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
+    bis_hasta           desplazar e ir al estado 182
 
 
 Estado 169
 
-   78 it_cota_exp: bis_mientras expresion bis_hacer instrucciones . bis_fmientras
+   77 it_cota_exp: bis_mientras expresion bis_hacer instrucciones . bis_fmientras
 
     bis_fmientras  desplazar e ir al estado 183
 
 
 Estado 170
 
-   65 operando: operando bis_corcheteAbrir expresion bis_corcheteCerrar .
+   64 operando: operando bis_corcheteAbrir expresion bis_corcheteCerrar .
 
-    $default  reduce usando la regla 65 (operando)
+    $default  reduce usando la regla 64 (operando)
 
 
 Estado 171
 
-   84 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar . bis_dev d_tipo bis_puntoComa
+   83 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar . bis_dev d_tipo bis_puntoComa
 
     bis_dev  desplazar e ir al estado 184
 
 
 Estado 172
 
-   62 exp_a: expresion . bis_oprel expresion
-   82 funcion_d: bis_funcion f_cabecera bloque bis_dev expresion . bis_ffuncion
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   81 funcion_d: bis_funcion f_cabecera bloque bis_dev expresion . bis_ffuncion
 
-    bis_oprel     desplazar e ir al estado 123
-    bis_ffuncion  desplazar e ir al estado 185
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
+    bis_ffuncion        desplazar e ir al estado 185
 
 
 Estado 173
 
-   87 d_p_form: bis_ent lista_id . bis_dosPuntos d_tipo
+   86 d_p_form: bis_ent lista_id . bis_dosPuntos d_tipo
 
     bis_dosPuntos  desplazar e ir al estado 186
 
 
 Estado 174
 
-   88 d_p_form: bis_sal lista_id . bis_dosPuntos d_tipo
+   87 d_p_form: bis_sal lista_id . bis_dosPuntos d_tipo
 
     bis_dosPuntos  desplazar e ir al estado 187
 
 
 Estado 175
 
-   89 d_p_form: bis_entradaSalida lista_id . bis_dosPuntos d_tipo
+   88 d_p_form: bis_entradaSalida lista_id . bis_dosPuntos d_tipo
 
     bis_dosPuntos  desplazar e ir al estado 188
 
 
 Estado 176
 
-   83 a_cabecera: bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar . bis_puntoComa
+   82 a_cabecera: bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar . bis_puntoComa
 
     bis_puntoComa  desplazar e ir al estado 189
 
 
 Estado 177
 
-   85 d_par_form: d_p_form bis_puntoComa . d_par_form
+   84 d_par_form: d_p_form bis_puntoComa . d_par_form
 
     bis_ent            desplazar e ir al estado 144
     bis_sal            desplazar e ir al estado 145
     bis_entradaSalida  desplazar e ir al estado 146
 
-    $default  reduce usando la regla 86 (d_par_form)
+    $default  reduce usando la regla 85 (d_par_form)
 
     d_par_form  ir al estado 190
     d_p_form    ir al estado 148
@@ -2398,203 +2430,189 @@ Estado 179
 
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
     bis_id                desplazar e ir al estado 44
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_parentesisAbrir   desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_parentesisAbrir   desplazar e ir al estado 83
 
     expresion_t  ir al estado 192
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
 Estado 180
 
-   75 lista_opciones: bis_sino . expresion bis_asignacion instrucciones lista_opciones
+   74 lista_opciones: bis_sino . expresion bis_alternativa instrucciones lista_opciones
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 193
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 181
 
-   74 alternativa: bis_si expresion bis_alternativa instrucciones lista_opciones . bis_fsi
+   73 alternativa: bis_si expresion bis_alternativa instrucciones lista_opciones . bis_fsi
 
     bis_fsi  desplazar e ir al estado 194
 
 
 Estado 182
 
-   77 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta . expresion bis_hacer instrucciones bis_fpara
+   76 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta . expresion bis_hacer instrucciones bis_fpara
 
     bis_verdadero        desplazar e ir al estado 72
     bis_falso            desplazar e ir al estado 73
-    bis_resta            desplazar e ir al estado 74
-    bis_no               desplazar e ir al estado 75
+    bis_suma             desplazar e ir al estado 74
+    bis_resta            desplazar e ir al estado 75
+    bis_no               desplazar e ir al estado 76
     bis_id               desplazar e ir al estado 44
-    bis_literal_entero   desplazar e ir al estado 77
-    bis_literal_real     desplazar e ir al estado 78
-    bis_parentesisAbrir  desplazar e ir al estado 82
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_literal_entero   desplazar e ir al estado 78
+    bis_literal_real     desplazar e ir al estado 79
+    bis_parentesisAbrir  desplazar e ir al estado 83
 
     expresion  ir al estado 195
-    exp_a      ir al estado 87
     operando   ir al estado 88
 
 
 Estado 183
 
-   78 it_cota_exp: bis_mientras expresion bis_hacer instrucciones bis_fmientras .
+   77 it_cota_exp: bis_mientras expresion bis_hacer instrucciones bis_fmientras .
 
-    $default  reduce usando la regla 78 (it_cota_exp)
+    $default  reduce usando la regla 77 (it_cota_exp)
 
 
 Estado 184
 
-   84 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev . d_tipo bis_puntoComa
+   83 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev . d_tipo bis_puntoComa
 
     bis_tipo_base         desplazar e ir al estado 71
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
     d_tipo       ir al estado 196
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
 Estado 185
 
-   82 funcion_d: bis_funcion f_cabecera bloque bis_dev expresion bis_ffuncion .
+   81 funcion_d: bis_funcion f_cabecera bloque bis_dev expresion bis_ffuncion .
 
-    $default  reduce usando la regla 82 (funcion_d)
+    $default  reduce usando la regla 81 (funcion_d)
 
 
 Estado 186
 
-   87 d_p_form: bis_ent lista_id bis_dosPuntos . d_tipo
+   86 d_p_form: bis_ent lista_id bis_dosPuntos . d_tipo
 
     bis_tipo_base         desplazar e ir al estado 71
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
     d_tipo       ir al estado 197
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
 Estado 187
 
-   88 d_p_form: bis_sal lista_id bis_dosPuntos . d_tipo
+   87 d_p_form: bis_sal lista_id bis_dosPuntos . d_tipo
 
     bis_tipo_base         desplazar e ir al estado 71
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
     d_tipo       ir al estado 198
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
 Estado 188
 
-   89 d_p_form: bis_entradaSalida lista_id bis_dosPuntos . d_tipo
+   88 d_p_form: bis_entradaSalida lista_id bis_dosPuntos . d_tipo
 
     bis_tipo_base         desplazar e ir al estado 71
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
     d_tipo       ir al estado 199
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
 Estado 189
 
-   83 a_cabecera: bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa .
+   82 a_cabecera: bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa .
 
-    $default  reduce usando la regla 83 (a_cabecera)
+    $default  reduce usando la regla 82 (a_cabecera)
 
 
 Estado 190
 
-   85 d_par_form: d_p_form bis_puntoComa d_par_form .
+   84 d_par_form: d_p_form bis_puntoComa d_par_form .
 
-    $default  reduce usando la regla 85 (d_par_form)
+    $default  reduce usando la regla 84 (d_par_form)
 
 
 Estado 191
@@ -2617,55 +2635,87 @@ Estado 192
 
 Estado 193
 
-   62 exp_a: expresion . bis_oprel expresion
-   75 lista_opciones: bis_sino expresion . bis_asignacion instrucciones lista_opciones
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   74 lista_opciones: bis_sino expresion . bis_alternativa instrucciones lista_opciones
 
-    bis_asignacion  desplazar e ir al estado 202
-    bis_oprel       desplazar e ir al estado 123
+    bis_alternativa     desplazar e ir al estado 202
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
 
 
 Estado 194
 
-   74 alternativa: bis_si expresion bis_alternativa instrucciones lista_opciones bis_fsi .
+   73 alternativa: bis_si expresion bis_alternativa instrucciones lista_opciones bis_fsi .
 
-    $default  reduce usando la regla 74 (alternativa)
+    $default  reduce usando la regla 73 (alternativa)
 
 
 Estado 195
 
-   62 exp_a: expresion . bis_oprel expresion
-   77 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion . bis_hacer instrucciones bis_fpara
+   44 expresion: expresion . bis_suma expresion
+   45          | expresion . bis_resta expresion
+   46          | expresion . bis_multiplicacion expresion
+   47          | expresion . bis_div_real expresion
+   48          | expresion . bis_mod expresion
+   49          | expresion . bis_div expresion
+   56          | expresion . bis_y expresion
+   57          | expresion . bis_o expresion
+   61          | expresion . bis_oprel expresion
+   76 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion . bis_hacer instrucciones bis_fpara
 
-    bis_oprel  desplazar e ir al estado 123
-    bis_hacer  desplazar e ir al estado 203
+    bis_suma            desplazar e ir al estado 123
+    bis_resta           desplazar e ir al estado 124
+    bis_multiplicacion  desplazar e ir al estado 125
+    bis_div             desplazar e ir al estado 126
+    bis_mod             desplazar e ir al estado 127
+    bis_div_real        desplazar e ir al estado 128
+    bis_o               desplazar e ir al estado 129
+    bis_y               desplazar e ir al estado 130
+    bis_oprel           desplazar e ir al estado 131
+    bis_hacer           desplazar e ir al estado 203
 
 
 Estado 196
 
-   84 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo . bis_puntoComa
+   83 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo . bis_puntoComa
 
     bis_puntoComa  desplazar e ir al estado 204
 
 
 Estado 197
 
-   87 d_p_form: bis_ent lista_id bis_dosPuntos d_tipo .
+   86 d_p_form: bis_ent lista_id bis_dosPuntos d_tipo .
 
-    $default  reduce usando la regla 87 (d_p_form)
+    $default  reduce usando la regla 86 (d_p_form)
 
 
 Estado 198
 
-   88 d_p_form: bis_sal lista_id bis_dosPuntos d_tipo .
+   87 d_p_form: bis_sal lista_id bis_dosPuntos d_tipo .
 
-    $default  reduce usando la regla 88 (d_p_form)
+    $default  reduce usando la regla 87 (d_p_form)
 
 
 Estado 199
 
-   89 d_p_form: bis_entradaSalida lista_id bis_dosPuntos d_tipo .
+   88 d_p_form: bis_entradaSalida lista_id bis_dosPuntos d_tipo .
 
-    $default  reduce usando la regla 89 (d_p_form)
+    $default  reduce usando la regla 88 (d_p_form)
 
 
 Estado 200
@@ -2684,7 +2734,7 @@ Estado 201
 
 Estado 202
 
-   75 lista_opciones: bis_sino expresion bis_asignacion . instrucciones lista_opciones
+   74 lista_opciones: bis_sino expresion bis_alternativa . instrucciones lista_opciones
 
     bis_id         desplazar e ir al estado 44
     bis_si         desplazar e ir al estado 45
@@ -2704,7 +2754,7 @@ Estado 202
 
 Estado 203
 
-   77 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer . instrucciones bis_fpara
+   76 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer . instrucciones bis_fpara
 
     bis_id         desplazar e ir al estado 44
     bis_si         desplazar e ir al estado 45
@@ -2724,9 +2774,9 @@ Estado 203
 
 Estado 204
 
-   84 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa .
+   83 f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa .
 
-    $default  reduce usando la regla 84 (f_cabecera)
+    $default  reduce usando la regla 83 (f_cabecera)
 
 
 Estado 205
@@ -2736,40 +2786,38 @@ Estado 205
     bis_tipo_base         desplazar e ir al estado 71
     bis_verdadero         desplazar e ir al estado 72
     bis_falso             desplazar e ir al estado 73
-    bis_resta             desplazar e ir al estado 74
-    bis_no                desplazar e ir al estado 75
-    bis_id                desplazar e ir al estado 76
-    bis_literal_entero    desplazar e ir al estado 77
-    bis_literal_real      desplazar e ir al estado 78
-    bis_literal_caracter  desplazar e ir al estado 79
-    bis_tupla             desplazar e ir al estado 80
-    bis_tabla             desplazar e ir al estado 81
-    bis_parentesisAbrir   desplazar e ir al estado 82
-    bis_ref               desplazar e ir al estado 83
-
-    $default  reduce usando la regla 45 (expresion)
+    bis_suma              desplazar e ir al estado 74
+    bis_resta             desplazar e ir al estado 75
+    bis_no                desplazar e ir al estado 76
+    bis_id                desplazar e ir al estado 77
+    bis_literal_entero    desplazar e ir al estado 78
+    bis_literal_real      desplazar e ir al estado 79
+    bis_literal_caracter  desplazar e ir al estado 80
+    bis_tupla             desplazar e ir al estado 81
+    bis_tabla             desplazar e ir al estado 82
+    bis_parentesisAbrir   desplazar e ir al estado 83
+    bis_ref               desplazar e ir al estado 84
 
     d_tipo       ir al estado 208
-    expresion_t  ir al estado 85
-    expresion    ir al estado 86
-    exp_a        ir al estado 87
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
     operando     ir al estado 88
 
 
 Estado 206
 
-   75 lista_opciones: bis_sino expresion bis_asignacion instrucciones . lista_opciones
+   74 lista_opciones: bis_sino expresion bis_alternativa instrucciones . lista_opciones
 
     bis_sino  desplazar e ir al estado 180
 
-    $default  reduce usando la regla 76 (lista_opciones)
+    $default  reduce usando la regla 75 (lista_opciones)
 
     lista_opciones  ir al estado 209
 
 
 Estado 207
 
-   77 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones . bis_fpara
+   76 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones . bis_fpara
 
     bis_fpara  desplazar e ir al estado 210
 
@@ -2783,13 +2831,13 @@ Estado 208
 
 Estado 209
 
-   75 lista_opciones: bis_sino expresion bis_asignacion instrucciones lista_opciones .
+   74 lista_opciones: bis_sino expresion bis_alternativa instrucciones lista_opciones .
 
-    $default  reduce usando la regla 75 (lista_opciones)
+    $default  reduce usando la regla 74 (lista_opciones)
 
 
 Estado 210
 
-   77 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara .
+   76 it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara .
 
-    $default  reduce usando la regla 77 (it_cota_fija)
+    $default  reduce usando la regla 76 (it_cota_fija)

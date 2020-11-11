@@ -54,8 +54,8 @@ id {letra}({letra}|{cifra})*
 letraOcifra {letra}|{cifra}
 
 /*literales*/
-dr_literal_entero [+\-]?{cifra}{cifra}*([eE]{cifra}{cifra}*)?
-dr_literal_real [+\-]?{cifra}{cifra}*(.{cifra}{cifra}*)?([eE]{cifra}{cifra}*)?
+dr_literal_entero {cifra}{cifra}*([eE]{cifra}{cifra}*)?
+dr_literal_real {cifra}{cifra}*(.{cifra}{cifra}*)?([eE]{cifra}{cifra}*)?
 dr_literal_booleano (?i:"verdadero")|(?i:"falso")
 dr_literal_caracter \"{letra}+\"
 dr_literal_cadena "'"[^\"]*"'"

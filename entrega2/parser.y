@@ -37,6 +37,7 @@
 /*comparaciones*/
 %left bis_oprel
 %left bis_igual 
+%left FALSA
 %precedence bis_no 
 
 
@@ -197,29 +198,26 @@ decl_sal:
     bis_sal lista_d_var {printf ("decl_sal: bis_sal lista_d_var\n");}
 ;
 
-expresion:
-    exp_a {printf ("expresion: exp_a\n");}
-    | {printf ("expresion: vacio\n");}
-;
 
-exp_a:
-    exp_a bis_suma exp_a {printf ("exp_a: exp_a bis_suma exp_a\n");}
-    | exp_a bis_resta exp_a {printf ("exp_a: exp_a bis_resta exp_a\n");}
-    | exp_a bis_multiplicacion exp_a {printf ("exp_a: exp_a bis_multiplicacion exp_a\n");}
-    | exp_a bis_div_real exp_a {printf ("exp_a: exp_a bis_div_real exp_a \n");}
-    | exp_a bis_mod exp_a {printf ("exp_a: exp_a bis_mod exp_a \n");}
-    | exp_a bis_div exp_a {printf ("exp_a: exp_a bis_div exp_a\n");}
-    | bis_parentesisAbrir exp_a bis_parentesisCerrar {printf ("exp_a: bis_parentesisAbrir exp_a bis_parentesisCerrar\n");}
-    | operando {printf ("exp_a: operando\n");}
-    | bis_literal_real {printf ("exp_a: bis_literal_real\n");}
-    | bis_literal_entero {printf ("exp_a: bis_literal_entero\n");}
-    | bis_resta exp_a {printf ("exp_a: bis_resta exp_a\n");}
-    | exp_a bis_y exp_a {printf ("exp_a: exp_a bis_y exp_a\n");}
-    | exp_a bis_o exp_a {printf ("exp_a: exp_a bis_o exp_a\n");}
-    | bis_no exp_a {printf ("exp_a: bis_no exp_a\n");}
-    | bis_verdadero {printf ("exp_a: bis_verdadero\n");}
-    | bis_falso {printf ("exp_a: bis_falso\n");}
-    | expresion bis_oprel expresion {printf ("exp_a: expresion bis_oprel expresion\n");}
+expresion:
+    expresion bis_suma expresion {printf ("expresion: expresion bis_suma expresion\n");}
+    | expresion bis_resta expresion {printf ("expresion: expresion bis_resta expresion\n");}
+    | expresion bis_multiplicacion expresion {printf ("expresion: expresion bis_multiplicacion expresion\n");}
+    | expresion bis_div_real expresion {printf ("expresion: expresion bis_div_real expresion \n");}
+    | expresion bis_mod expresion {printf ("expresion: expresion bis_mod expresion \n");}
+    | expresion bis_div expresion {printf ("expresion: expresion bis_div expresion\n");}
+    | bis_parentesisAbrir expresion bis_parentesisCerrar {printf ("expresion: bis_parentesisAbrir expresion bis_parentesisCerrar\n");}
+    | operando {printf ("expresion: operando\n");}
+    | bis_literal_real {printf ("expresion: bis_literal_real\n");}
+    | bis_literal_entero {printf ("expresion: bis_literal_entero\n");}
+    | bis_resta expresion %prec FALSA {printf ("expresion: bis_resta expresion\n");}
+    | bis_suma expresion %prec FALSA{printf ("expresion: bis_resta expresion\n");}
+    | expresion bis_y expresion {printf ("expresion: expresion bis_y expresion\n");}
+    | expresion bis_o expresion {printf ("expresion: expresion bis_o expresion\n");}
+    | bis_no expresion {printf ("expresion: bis_no expresion\n");}
+    | bis_verdadero {printf ("expresion: bis_verdadero\n");}
+    | bis_falso {printf ("expresion: bis_falso\n");}
+    | expresion bis_oprel expresion {printf ("expresion: expresion bis_oprel expresion\n");}
     
     
 ;
@@ -253,7 +251,7 @@ alternativa:
 ;
 
 lista_opciones:
-    bis_sino expresion bis_asignacion instrucciones lista_opciones {printf ("lista_opciones: bis_sino expresion bis_asignacion instrucciones lista_opciones \n");}
+    bis_sino expresion bis_alternativa instrucciones lista_opciones {printf ("lista_opciones: bis_sino expresion bis_asignacion instrucciones lista_opciones \n");}
     | {printf ("lista_opciones: vacio \n");}
 ;
 
