@@ -37,10 +37,10 @@ void insertarBooleano(listaBooleana* lis,int ssid){
     aux->sig=nuevo;
 }
 
-listaBooleana* makeList(int sigquad){
+listaBooleana* makeList(int nextquad){
     listaBooleana *nuevaLista = (listaBooleana*)malloc(sizeof(listaBooleana));
     celdaBooleana *nuevo = (celdaBooleana*)malloc(sizeof(celdaBooleana));
-    nuevo->inst = sigquad;
+    nuevo->inst = nextquad;
     nuevo-> sig= NULL;
     nuevaLista->primero = nuevo;
     return nuevaLista;

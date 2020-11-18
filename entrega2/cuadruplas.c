@@ -61,25 +61,25 @@ char arr[number_of_string][max_string_size] =
 };
 
 typedef struct tablaCuadrupulas{
-    int sigquad;
+    int nextquad;
     int cuadrupulas[100][4];
 }tablaCuadrupulas;
 
 void inicializarTablaCuadrupulas(tablaCuadrupulas *tabla){
-    tabla->sigquad=0;
+    tabla->nextquad=0;
 }
 
 void gen(int operacion, int op1,int op2, int res, tablaCuadrupulas *tc){
-    tc -> cuadrupulas[tc->sigquad][0] = operacion;
-    tc -> cuadrupulas[tc->sigquad][1] = op1;
-    tc -> cuadrupulas[tc->sigquad][2] = op2;
-    tc -> cuadrupulas[tc->sigquad][3] = res;
-    tc->sigquad++;
+    tc -> cuadrupulas[tc->nextquad][0] = operacion;
+    tc -> cuadrupulas[tc->nextquad][1] = op1;
+    tc -> cuadrupulas[tc->nextquad][2] = op2;
+    tc -> cuadrupulas[tc->nextquad][3] = res;
+    tc->nextquad++;
 }
 
 void recorrer(tablaCuadrupulas tab){
     int i;
-    for (i=0;i<tab.sigquad;i++){
+    for (i=0;i<tab.nextquad;i++){
         printf("Cuadrupula numero %d,valores %d, %d, %d, %d\n",i,tab.cuadrupulas[i][0],tab.cuadrupulas[i][1],tab.cuadrupulas[i][2],tab.cuadrupulas[i][3])
     }
 }
