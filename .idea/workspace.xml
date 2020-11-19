@@ -17,7 +17,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Prácticas Procesadores del Lenguaje" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/practica2" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -31,9 +31,9 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="804" y="122" key="FileChooserDialogImpl" timestamp="1605699167531">
+    <state x="804" y="122" key="FileChooserDialogImpl" timestamp="1605796413163">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="804" y="122" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605699167531" />
+    <state x="804" y="122" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605796413163" />
   </component>
 </project>
