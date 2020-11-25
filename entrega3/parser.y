@@ -9,7 +9,7 @@
   extern FILE *yyin;
   extern int yylex();
   extern int yyparse();
-  tablaCuadruplas tc;
+  struct tablaSimbolos* tS;
 %}
 
 
@@ -91,6 +91,20 @@
 %left bis_corcheteAbrir bis_corcheteCerrar 
 %right bis_punto bis_ref
 
+%union {
+	int entrada;
+	char* uId;
+	struct expA {
+		int type;
+		int place;
+	} paraExpAritmeticas;
+}
+%type <paraExpAritmeticas> exp_a
+%type <entrada>lista_id
+%type <entrada>d_tipo
+%type <paraExpAritmeticas>v_caracteres
+%type <entrada>bis_tipo_base
+%type <entrada> operando
 
 
 %%
@@ -174,8 +188,14 @@ lista_d_cte:
 ;
 
 lista_id:
-    bis_id bis_coma lista_id {printf ("Reduce: lista_id: bis_id bis_coma lista_id\n");}
-    | bis_id {printf ("lista_id: bis_id\n");}
+    bis_id bis_coma lista_id {
+        insertarSimbolo($tS,$1);
+        $$ = $3;
+        printf ("Reduce: lista_id: bis_id bis_coma lista_id\n");}
+    | bis_id {
+        insertarSimbolo(&tS,$1);
+		$$ = 1;
+        printf ("lista_id: bis_id\n");}
 ;
 
 lista_d_var:
