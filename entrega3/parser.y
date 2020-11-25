@@ -14,8 +14,6 @@
 
 
 /*caracteres especiales*/
-
-
  
 %token bis_coma 
 %token bis_puntoComa 
@@ -99,85 +97,84 @@
 
 desc_algoritmo:
     bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_puntoComa
-    {printf("desc_algoritmo: bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_punto\n");}
+    {printf("Reduce : desc_algoritmo: bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_punto\n");}
 ;
     
 cabecera_alg:
-    decl_globales decl_a_f decl_ent_sal bis_comentario {printf ("cabecera_alg: decl_globales decl_a_f decl_ent_sal bis_comentario\n");}
+    decl_globales decl_a_f decl_ent_sal bis_comentario {printf ("Reduce cabecera_alg: decl_globales decl_a_f decl_ent_sal bis_comentario\n");}
 ;
 
 bloque_alg:
-    bloque bis_comentario {printf ("bloque_alg: bloque bis_comentario\n");}
-    | bloque {printf ("bloque_alg: bloque \n");}
+    bloque bis_comentario {printf ("Recorrer la tabla: bloque_alg: bloque bis_comentario\n");}
+    | bloque {printf ("Recorrer la tabla: bloque_alg: bloque \n");}
 ;
 
 decl_globales:
-    declaracion_tipo decl_globales {printf ("decl_globales: declaracion_tipo decl_globales\n");}
-    | declaracion_const decl_globales {printf ("decl_globales: declaracion_const decl_globales\n");}
-    | declaracion_var decl_globales{printf ("decl_globales: declaracion_var decl_globales\n");}
-    |  {printf ("decl_globales: vacio\n");}
+    declaracion_tipo decl_globales {printf ("Reduce: decl_globales: declaracion_tipo decl_globales\n");}
+    | declaracion_const decl_globales {printf ("Reduce: decl_globales: declaracion_const decl_globales\n");}
+    |  {printf ("Reduce: decl_globales: vacio\n");}
 ;
 
 decl_a_f:
-    accion_d decl_a_f {printf ("decl_a_f: accion_d decl_a_f\n");}
-    | funcion_d decl_a_f {printf ("decl_a_f: uncion_d decl_a_f\n");}
-    |  {printf ("decl_a_f: vacio\n");}
+    accion_d decl_a_f {printf ("Reduce: decl_a_f: accion_d decl_a_f\n");}
+    | funcion_d decl_a_f {printf ("Reduce: decl_a_f: uncion_d decl_a_f\n");}
+    |  {printf ("Reduce: decl_a_f: vacio\n");}
 ;
 
 bloque: 
-    declaraciones instrucciones {printf ("bloque: declaraciones instrucciones \n");}
+    declaraciones instrucciones {printf ("Reduce: bloque: declaraciones instrucciones \n");}
 ;
 
 declaraciones:
-    declaracion_tipo declaraciones {printf ("declaraciones: declaracion_tipo declaraciones\n");}
-    | declaracion_const declaraciones {printf ("declaraciones: declaracion_const declaraciones\n");}
-    | declaracion_var declaraciones {printf ("declaraciones: declaracion_var declaraciones\n");}
-    |  {printf ("declaraciones: vacio\n");}
+    declaracion_tipo declaraciones {printf ("Reduce: declaraciones: declaracion_tipo declaraciones\n");}
+    | declaracion_const declaraciones {printf ("Reduce: declaraciones: declaracion_const declaraciones\n");}
+    | declaracion_var declaraciones {printf ("Reduce: declaraciones: declaracion_var declaraciones\n");}
+    |  {printf ("Reduce: declaraciones: vacio\n");}
 ;
 
 declaracion_tipo:
-    bis_tipo lista_d_tipo bis_ftipo bis_puntoComa {printf ("declaracion_tipo: bis_tipo lista_d_tipo bis_ftipo bis_puntoComa\n");}
+    bis_tipo lista_d_tipo bis_ftipo bis_puntoComa {printf ("Reduce: declaracion_tipo: bis_tipo lista_d_tipo bis_ftipo bis_puntoComa\n");}
 ;
 
 declaracion_const:
-    bis_const lista_d_cte bis_fconst bis_puntoComa {printf ("declaracion_const:  bis_const lista_d_cte bis_fconst bis_puntoComa\n");}
+    bis_const lista_d_cte bis_fconst bis_puntoComa {printf ("Reduce: declaracion_const:  bis_const lista_d_cte bis_fconst bis_puntoComa\n");}
 ;
 
 declaracion_var:
-    bis_var lista_d_var bis_fvar bis_puntoComa {printf ("declaracion_var: bis_var lista_d_var bis_fvar bis_puntoComa\n");}
+    bis_var lista_d_var bis_fvar bis_puntoComa {printf ("Reduce: declaracion_var: bis_var lista_d_var bis_fvar bis_puntoComa\n");}
 ;
 
 lista_d_tipo:
-    bis_id bis_igual d_tipo bis_puntoComa {printf ("lista_d_tipo: bis_id bis_igual d_tipo bis_puntoComa lista_d_tipo \n");}
-    |  {printf ("lista_d_tipo: vacio\n");}
+    bis_id bis_igual d_tipo bis_puntoComa {printf ("Reduce: lista_d_tipo: bis_id bis_igual d_tipo bis_puntoComa lista_d_tipo \n");}
+    |  {printf ("Reduce: lista_d_tipo: vacio\n");}
 ;
 
 d_tipo: 
-    bis_tupla lista_campos bis_ftupla {printf ("d_tipo : bis_tupla lista_campos bis_ftupla \n");}
-    | bis_tabla bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo {printf ("d_tipo: bis_tabla bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo\n");}
-    | bis_id {printf ("d_tipo: bis_id\n");}
-    | expresion_t bis_subrango expresion_t {printf ("d_tipo: expresion_t bis_subrango expresion_t\n");}
-    | bis_ref d_tipo {printf ("d_tipo: bis_ref d_tipo\n");}
-    | bis_tipo_base {printf ("d_tipo: bis_tipo_base\n");}
+    bis_tupla lista_campos bis_ftupla {printf ("Reduce: d_tipo : bis_tupla lista_campos bis_ftupla \n");}
+    | bis_tabla bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo {printf ("Reduce: d_tipo: bis_tabla bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo\n");}
+    | bis_id {printf ("Reduce: d_tipo: bis_id\n");}
+    | expresion_t bis_subrango expresion_t {printf ("Reduce: d_tipo: expresion_t bis_subrango expresion_t\n");}
+    | bis_ref d_tipo {printf ("Reduce: d_tipo: bis_ref d_tipo\n");}
+    | bis_tipo_base {printf ("Reduce: d_tipo: bis_tipo_base\n");}
 ;
 
 expresion_t:
-    expresion {printf ("expresion_t: expresion\n");}
-    | bis_literal_caracter {printf ("expresion_t: bis_literal_caracter\n");}
+    expresion {printf ("Reduce: expresion_t: expresion\n");}
+    | bis_literal_caracter {printf ("Reduce: expresion_t: bis_literal_caracter\n");}
 ;
 
 lista_campos:
-    bis_id bis_dosPuntos d_tipo bis_puntoComa lista_campos {printf ("lista_campos: bis_id bis_dosPuntos d_tipo bis_puntoComa lista_campos\n");}
-    |  {printf ("lista_campos: vacio\n");}
+    bis_id bis_dosPuntos d_tipo bis_puntoComa lista_campos {printf ("Reduce: lista_campos: bis_id bis_dosPuntos d_tipo bis_puntoComa lista_campos\n");}
+    |  {printf ("Reduce: lista_campos: vacio\n");}
 ;
 
 lista_d_cte: 
-    bis_id bis_igual bis_literal bis_puntoComa lista_d_cte {printf ("lista_d_cte: bis_id bis_igual bis_literal bis_puntoComa lista_d_cte\n");}
-    |  {printf ("lista_d_cte: vacio\n");}
+    bis_id bis_igual bis_literal bis_puntoComa lista_d_cte {printf ("Reduce: lista_d_cte: bis_id bis_igual bis_literal bis_puntoComa lista_d_cte\n");}
+    |  {printf ("Reduce: lista_d_cte: vacio\n");}
 ;
 
 lista_id:
-    bis_id bis_coma lista_id {printf ("lista_id: bis_id bis_coma lista_id\n");}
+    bis_id bis_coma lista_id {printf ("Reduce: lista_id: bis_id bis_coma lista_id\n");}
     | bis_id {printf ("lista_id: bis_id\n");}
 ;
 
