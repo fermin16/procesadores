@@ -39,9 +39,13 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="804" y="122" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1605796413163" />
-    <state x="-7" y="0" width="570" height="723" key="dock-window-2" timestamp="1606330195540">
+    <state x="-7" y="0" width="570" height="723" maximized="true" key="dock-window-2" timestamp="1606331389501">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="-7" y="0" width="570" height="723" key="dock-window-2/0.0.1366.728@0.0.1366.728" timestamp="1606330195540" />
+    <state x="-7" y="0" width="570" height="723" maximized="true" key="dock-window-2/0.0.1366.728@0.0.1366.728" timestamp="1606331389501" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1606332412208">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1606332412208" />
   </component>
 </project>

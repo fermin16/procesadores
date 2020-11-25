@@ -178,7 +178,8 @@ pr_cadena (?i:"cadena")
 
 {letraOcifra} {
 	printf( "Tipo de identificador. letra o cifra : %s\n", yytext);
-	return bis_id;}
+		yylval.uId = strdup(yytext);
+		return bis_id};
 
 
 {dr_literal_entero} {

@@ -4,7 +4,7 @@
   #include <math.h>
   #include <stdlib.h>
   #include "tablasimbolos.h"
-  #include "cuadruplas.h"
+
   void yyerror (char const *);
   extern FILE *yyin;
   extern int yylex();
@@ -43,7 +43,7 @@
 
 
 /*identificadores*/
-%token bis_id 
+%token <uId> bis_id
 
 
 /*literales*/
@@ -169,7 +169,8 @@ d_tipo:
     | bis_id {printf ("Reduce: d_tipo: bis_id\n");}
     | expresion_t bis_subrango expresion_t {printf ("Reduce: d_tipo: expresion_t bis_subrango expresion_t\n");}
     | bis_ref d_tipo {printf ("Reduce: d_tipo: bis_ref d_tipo\n");}
-    | bis_tipo_base {printf ("Reduce: d_tipo: bis_tipo_base\n");}
+    | bis_tipo_base {printf ("Reduce: d_tipo: bis_tipo_base\n");
+        $$ = $1;}
 ;
 
 expresion_t:
@@ -189,17 +190,18 @@ lista_d_cte:
 
 lista_id:
     bis_id bis_coma lista_id {
-        insertarSimbolo($tS,$1);
-        $$ = $3;
-        printf ("Reduce: lista_id: bis_id bis_coma lista_id\n");}
-    | bis_id {
-        insertarSimbolo(&tS,$1);
-		$$ = 1;
-        printf ("lista_id: bis_id\n");}
+        printf ("Reduce: lista_id: bis_id bis_coma lista_id\n");
+        insertarSimbolo(&tS,crearSimbolo(&tS,$1));
+		$$ = $3 + 1;}
+    | bis_id{
+        printf ("lista_id: bis_id\n");
+        insertarSimbolo(&tS,crearSimbolo(&tS,$1));
+	    $$ = 1;}
 ;
 
 lista_d_var:
-    lista_id bis_dosPuntos bis_tipo_base bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var\n");}
+    lista_id bis_dosPuntos bis_tipo_base bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var\n")
+    ;}
     | lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var\n");}
     |  {printf ("lista_d_var: vacio\n");}
 ;
