@@ -15,6 +15,12 @@
 letra [A-Za-z]
 cifra [0-9]
 
+tipo_def_base {tipo_def_booleano}|{tipo_def_entero}|{tipo_def_cadena}|{tipo_def_caracter}|{tipo_def_real}
+tipo_def_booleano {pr_booleano}
+tipo_def_entero {pr_entero}
+tipo_def_cadena {pr_cadena}
+tipo_def_caracter {pr_caracter}
+tipo_def_real {pr_real}
 
 /*caracteres especiales*/
 dr_comillas \"
@@ -293,18 +299,28 @@ pr_cadena (?i:"cadena")
     printf( "Palabra reservada. Tabla : %s\n", yytext);
     return bis_tabla;}
 
-{pr_booleano} {printf( "Palabra reservada. Booleano : %s\n", yytext);
-return bis_tipo_base;}
-{pr_entero} {printf( "Palabra reservada. Entero: %s\n", yytext);
-return bis_tipo_base;}
-{pr_caracter} {printf( "Palabra reservada. Caracter : %s\n", yytext);
-return bis_tipo_base;}
-{pr_real} {printf( "Palabra reservada. Real : %s\n", yytext);
-return bis_tipo_base;}
-{pr_cadena} {printf( "Palabra reservada. Cadena: %s\n", yytext);
-return bis_tipo_base;}
-{id} { printf( "Tipo de identificador. ID. : %s\n", yytext );
-return bis_id;}
+{tipo_def_base} {
+		printf( "Tipo de variable. Base: %s\n", yytext);
+		if (!strcasecmp(yytext, "entero")){
+			yylval.entrada = TIPO_ENTERO;
+			return bis_tipo_base;
+		} else if (!strcasecmp(yytext, "real")){
+			yylval.entrada = TIPO_REAL;
+			return bis_tipo_base;
+		} else if (!strcasecmp(yytext, "caracter")){
+			yylval.entrada = TIPO_CARACTER;
+			return bis_tipo_base;
+		} else if (!strcasecmp(yytext, "cadena")){
+			yylval.entrada = TIPO_CADENA;
+			return bis_tipo_base;
+		} else if (!strcasecmp(yytext, "booleano")) {
+			yylval.entrada = TIPO_BOOLEANO;
+			return bis_tipo_base;
+		} else {
+			printf( "Tipo INCORRECTO: %s\n", yytext);
+		}
+}
+
 
 %%
 
