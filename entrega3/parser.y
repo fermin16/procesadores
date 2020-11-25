@@ -3,10 +3,13 @@
   #include <stdio.h>
   #include <math.h>
   #include <stdlib.h>
+  #include "tablasimbolos.h"
+  #include "cuadruplas.h"
   void yyerror (char const *);
   extern FILE *yyin;
   extern int yylex();
   extern int yyparse();
+  tablaCuadruplas tc;
 %}
 
 

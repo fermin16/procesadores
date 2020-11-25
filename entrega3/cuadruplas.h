@@ -29,3 +29,15 @@
 #define op_assingTrue 25
 #define number_of_string 25
 #define max_string_size 100
+
+
+typedef struct tablaCuadruplas{
+    int nextquad;
+    int cuadruplas[120][4];
+}tablaCuadruplas;
+
+void inicializarTablaCuadruplas(tablaCuadruplas *tabla);
+void gen(int operacion, int op1,int op2, int res, tablaCuadruplas *tc);
+void recorrer(tablaCuadruplas tab);
+void modCuadrupla(tablaCuadruplas *tabla, int fila, int col, int val);
+void mostrarTablaCuadruplas();
