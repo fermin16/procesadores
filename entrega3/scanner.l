@@ -6,6 +6,7 @@
 /* Librerias*/
 #include <math.h>
 #include "parser.tab.h"
+#include "tablaSimbolos.h"
 #include <string.h>
 
 %}
@@ -178,8 +179,8 @@ pr_cadena (?i:"cadena")
 
 {letraOcifra} {
 	printf( "Tipo de identificador. letra o cifra : %s\n", yytext);
-		yylval.uId = strdup(yytext);
-		return bis_id};
+		yylval.entradaChar = strdup(yytext);
+		return bis_id;}
 
 
 {dr_literal_entero} {

@@ -36,8 +36,8 @@ simbolo* crearSimboloConTipo(tablaSimbolos** tS, char* nomb, int tipo){
     return sim;
 };
 
-int esVacia (tablaSimbolos tS){
-    if (tS.inicio == NULL){
+int esVacia (tablaSimbolos** tS){
+    if ((*tS) -> inicio == NULL){
         return 1;
     }else{
         return 0;
@@ -45,7 +45,7 @@ int esVacia (tablaSimbolos tS){
 };
 
 simbolo* buscarSimbolo(tablaSimbolos** tS, char* nomb){
-    if esVacia(tS)==1{
+    if (esVacia(tS)==1){
         return NULL;
     }else{
         simbolo* simAux = (*tS) -> inicio;
@@ -64,13 +64,13 @@ void insertarSimbolo (tablaSimbolos** tS, simbolo* nueva){
     //miramos si elemento esta en la lista, si no esta en la lista
     if(buscarSimbolo(tS,nueva -> nombre) == NULL){
         if(esVacia(tS)){
-            tS -> inicio = nueva;
-            tS -> end =  nueva;
+            (*tS) -> inicio = nueva;
+            (*tS) -> end =  nueva;
         }else{
             nueva -> sig= (*tS) -> end;
-            end -> nueva;
+            (*tS) -> end= nueva;
         }
-        (tS*) -> simboloId = (tS*)->simboloId + 1;
+        (*tS) -> simboloId = (*tS)->simboloId + 1;
     }
 };
 
@@ -95,10 +95,10 @@ void mostrarTablaSimbolos(tablaSimbolos** tS){
         simbolo* simAux = (*tS) -> inicio;
         while (simAux->sig != NULL) {
 			printf("Nombre: %s\t ", simAux -> nombre);
-			imprimirSimbolo(simbolo* simAux);
+			imprimirSimbolo(simAux);
 			simAux = simAux -> sig;
 		}
-		imprimirSimbolo(simbolo* simAux);
+		imprimirSimbolo(simAux);
     }else{
         printf("Tabla vacia.\n");
     }
