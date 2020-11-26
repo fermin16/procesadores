@@ -25,6 +25,16 @@ simbolo* crearSimbolo(tablaSimbolos** tS, char* nomb){
     sim -> valor = ++((*tS) -> simboloId);
     return sim;
 };
+simbolo* crearSimboloConTipo(tablaSimbolos** tS, char* nomb, int tipo){
+    simbolo* sim;
+    sim = (struct simbolo*) malloc (sizeof(struct simbolo));
+    sim ->sig = NULL;
+    if(nomb=NULL)
+        strcpy(sim->nombre,nomb);
+    sim -> valor = ++((*tS) -> simboloId);
+    sim-> tipo = tipo;
+    return sim;
+};
 
 int esVacia (tablaSimbolos tS){
     if (tS.inicio == NULL){

@@ -303,19 +303,19 @@ pr_cadena (?i:"cadena")
 {tipo_def_base} {
 		printf( "Tipo de variable. Base: %s\n", yytext);
 		if (!strcasecmp(yytext, "entero")){
-			yylval.entrada = TIPO_ENTERO;
+			yylval.entradaEntero = TIPO_ENTERO;
 			return bis_tipo_base;
 		} else if (!strcasecmp(yytext, "real")){
-			yylval.entrada = TIPO_REAL;
+			yylval.entradaEntero = TIPO_REAL;
 			return bis_tipo_base;
 		} else if (!strcasecmp(yytext, "caracter")){
-			yylval.entrada = TIPO_CARACTER;
+			yylval.entradaEntero = TIPO_CARACTER;
 			return bis_tipo_base;
 		} else if (!strcasecmp(yytext, "cadena")){
-			yylval.entrada = TIPO_CADENA;
+			yylval.entradaEntero = TIPO_CADENA;
 			return bis_tipo_base;
 		} else if (!strcasecmp(yytext, "booleano")) {
-			yylval.entrada = TIPO_BOOLEANO;
+			yylval.entradaEntero = TIPO_BOOLEANO;
 			return bis_tipo_base;
 		} else {
 			printf( "Tipo INCORRECTO: %s\n", yytext);

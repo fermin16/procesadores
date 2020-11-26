@@ -43,7 +43,7 @@
 
 
 /*identificadores*/
-%token <uId> bis_id
+%token <entradaChar> bis_id
 
 
 /*literales*/
@@ -92,19 +92,20 @@
 %right bis_punto bis_ref
 
 %union {
-	int entrada;
-	char* uId;
+	int entradaEntero;
+    float entradaFloat;
+	char* entradaChar;
 	struct expA {
 		int type;
 		int place;
 	} paraExpAritmeticas;
 }
 %type <paraExpAritmeticas> exp_a
-%type <entrada>lista_id
-%type <entrada>d_tipo
-%type <paraExpAritmeticas>v_caracteres
-%type <entrada>bis_tipo_base
-%type <entrada> operando
+%type <entradaEntero> lista_id
+%type <entradaEntero> d_tipo
+%type <paraExpAritmeticas> v_caracteres
+%type <entradaEntero> bis_tipo_base
+%type <entradaEntero> operando
 
 
 %%
@@ -191,18 +192,18 @@ lista_d_cte:
 lista_id:
     bis_id bis_coma lista_id {
         printf ("Reduce: lista_id: bis_id bis_coma lista_id\n");
-        insertarSimbolo(&tS,crearSimbolo(&tS,$1));
-		$$ = $3 + 1;}
-    | bis_id{
+        insertarSimboloConTipo(&tS,crearSimbolo(&tS,$1,$3));
+		$$ = $3;}
+    | bis_id bis_dosPuntos bis_tipoBase {
         printf ("lista_id: bis_id\n");
-        insertarSimbolo(&tS,crearSimbolo(&tS,$1));
-	    $$ = 1;}
-;
+              insertarSimboloConTipo(&tS,crearSimbolo(&tS,$1,$3));
+              mostrarTablaSimbolos(&tS);
+        $$ = $3;}
 
 lista_d_var:
-    lista_id bis_dosPuntos bis_tipo_base bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos bis_id bis_puntoComa lista_d_var\n")
+    lista_id bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id  lista_d_var\n")
     ;}
-    | lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id bis_dosPuntos d_tipo bis_puntoComa lista_d_var\n");}
+    | lista_id bis_puntoComa d_tipo bis_puntoComa lista_d_var {printf ("lista_d_var: lista_id d_tipo bis_puntoComa lista_d_var\n");}
     |  {printf ("lista_d_var: vacio\n");}
 ;
 

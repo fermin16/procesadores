@@ -24,6 +24,7 @@ typedef struct simbolo {
 int newtemp(tablaSimbolos**);
 tablaSimbolos* crearTablaSimbolos();
 simbolo* crearSimbolo(tablaSimbolos**, char*);
+simbolo* crearSimboloConTipo(tablaSimbolos**, char*, int);
 int esVacia(tablaSimbolos);
 int buscarSimboloId(tablaSimbolos**,int);
 void insertarSimbolo(tablaSimbolos**, simbolo*);
