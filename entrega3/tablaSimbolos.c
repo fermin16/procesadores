@@ -20,18 +20,17 @@ simbolo* crearSimbolo(tablaSimbolos** tS, char* nomb){
     simbolo* sim;
     sim = (struct simbolo*) malloc (sizeof(struct simbolo));
     sim ->sig = NULL;
-    if(nomb=NULL)
+    if(nomb!=NULL)
         strcpy(sim->nombre,nomb);
-    sim -> valor = ++((*tS) -> simboloId);
     return sim;
 };
 simbolo* crearSimboloConTipo(tablaSimbolos** tS, char* nomb, int tipo){
+    printf("---Crear simbolo: nombre %s, tipo %d \n", nomb,tipo);
     simbolo* sim;
     sim = (struct simbolo*) malloc (sizeof(struct simbolo));
     sim ->sig = NULL;
-    if(nomb=NULL)
+    if(nomb!=NULL)
         strcpy(sim->nombre,nomb);
-    sim -> valor = ++((*tS) -> simboloId);
     sim-> tipo = tipo;
     return sim;
 };
@@ -49,28 +48,33 @@ simbolo* buscarSimbolo(tablaSimbolos** tS, char* nomb){
         return NULL;
     }else{
         simbolo* simAux = (*tS) -> inicio;
-        while ((simAux -> sig != NULL) && (strcmp(nomb, simAux -> nombre)==0)){
+        while ((simAux -> sig != NULL) && (strcmp(nomb, simAux -> nombre)!=0)){
             simAux = simAux -> sig;
         }
-        if (strcmp(nomb,simAux -> nombre)==0){
-             return simAux;
+        if (strcmp(nomb, simAux -> nombre)!=0){
+             return NULL;
         }else{
-            return NULL;
+            return simAux;
         }
     }
 };
 
 void insertarSimbolo (tablaSimbolos** tS, simbolo* nueva){
     //miramos si elemento esta en la lista, si no esta en la lista
+    printf("--- Intento insertar: ");
+    imprimirSimbolo(nueva);
     if(buscarSimbolo(tS,nueva -> nombre) == NULL){
         if(esVacia(tS)){
             (*tS) -> inicio = nueva;
             (*tS) -> end =  nueva;
         }else{
-            nueva -> sig= (*tS) -> end;
-            (*tS) -> end= nueva;
+            nueva -> sig= (*tS) -> inicio;
+            (*tS) -> inicio= nueva;
         }
         (*tS) -> simboloId = (*tS)->simboloId + 1;
+        nueva -> valor = (*tS) -> simboloId;
+    }else{
+        printf("El simbolo %s ya es una variable \n", nueva->nombre);
     }
 };
 
@@ -86,19 +90,21 @@ void imprimirSimbolo(simbolo* simAux){
 			case -5: strcpy(type, "booleano"); break;
 			default: break;
 		}
+        printf("Nombre: %s\t",simAux->nombre);
 		printf("Tipo: %s\t ", type);
 		printf("Indice del símbolo: %d\n", simAux -> valor);
 };
 
 void mostrarTablaSimbolos(tablaSimbolos** tS){
     if (esVacia(tS)==0){
+        printf("************************ Tabla de Simbolos ************************   Indice: %d\n",(*tS)->simboloId);
         simbolo* simAux = (*tS) -> inicio;
         while (simAux->sig != NULL) {
-			printf("Nombre: %s\t ", simAux -> nombre);
 			imprimirSimbolo(simAux);
 			simAux = simAux -> sig;
 		}
 		imprimirSimbolo(simAux);
+        printf("*******************************************************************\n");
     }else{
         printf("Tabla vacia.\n");
     }

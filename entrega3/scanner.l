@@ -182,7 +182,6 @@ pr_cadena (?i:"cadena")
 		yylval.entradaChar = strdup(yytext);
 		return bis_id;}
 
-
 {dr_literal_entero} {
     printf( "Tipo de variable. Entero: %s\n", yytext);
     return bis_literal_entero;}
@@ -321,6 +320,11 @@ pr_cadena (?i:"cadena")
 		} else {
 			printf( "Tipo INCORRECTO: %s\n", yytext);
 		}
+}
+{id} { 
+    printf( "Tipo de identificador. ID. : %s\n", yytext );
+    yylval.entradaChar = strdup(yytext);
+    return bis_id;
 }
 
 

@@ -8,7 +8,7 @@
   extern FILE *yyin;
   extern int yylex();
   extern int yyparse();
-  struct tablaSimbolos* tS;
+  struct tablaSimbolos* ts;
 %}
 
 
@@ -22,7 +22,7 @@
 %token bis_asignacion 
 %token bis_subrango
 %token bis_literal
-%token bis_tipo_base
+%token <entradaEntero> bis_tipo_base
 %token bis_dev
 
 %precedence bis_verdadero
@@ -98,7 +98,6 @@
 
 %type <entradaEntero> lista_id
 %type <entradaEntero> d_tipo
-%type <entradaEntero> bis_tipo_base
 %type <entradaEntero> operando
 
 
@@ -186,12 +185,13 @@ lista_d_cte:
 lista_id:
     bis_id bis_coma lista_id {
         printf ("Reduce: lista_id: bis_id bis_coma lista_id\n");
-        insertarSimbolo(&tS,crearSimboloConTipo(&tS,$1,$3));
+        insertarSimbolo(&ts,crearSimboloConTipo(&ts,$1,$3));
+        mostrarTablaSimbolos(&ts);
 		$$ = $3;}
     | bis_id bis_dosPuntos bis_tipo_base {
-        printf ("lista_id: bis_id\n");
-              insertarSimbolo(&tS,crearSimboloConTipo(&tS,$1,$3));
-              mostrarTablaSimbolos(&tS);
+        printf ("lista_id: bis_id bis_dosPuntos bis_tipoBase\n");
+        insertarSimbolo(&ts,crearSimboloConTipo(&ts,$1,$3));
+        mostrarTablaSimbolos(&ts);
         $$ = $3;}
 
 lista_d_var:
@@ -320,6 +320,7 @@ d_p_form:
 
 %%
 int main( int argc, char **argv ){
+    ts=crearTablaSimbolos();
     ++argv, --argc;
     if ( argc > 0 )
         yyin = fopen( argv[0], "r" );
