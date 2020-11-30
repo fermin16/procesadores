@@ -73,6 +73,13 @@ simbolo* buscarSimbolo(tablaSimbolos** tS, char* nomb){
     }
 };
 
+void modificarSimbolo(tablaSimbolos** tS, char* nomb, int nuevoTipo){
+    simbolo* sim=buscarSimbolo(tS,nomb);
+    if(sim!=NULL){
+        sim->tipo=nuevoTipo;
+    }
+}
+
 int insertarSimbolo (tablaSimbolos** tS, simbolo* nueva){
     printf("entro insertarSimbolo\n");
     //miramos si elemento esta en la lista, si no esta en la lista

@@ -27,6 +27,7 @@ simbolo* crearSimbolo(tablaSimbolos**, char*);
 simbolo* crearSimboloConTipo(tablaSimbolos**, char*, int);
 int esVacia(tablaSimbolos**);
 simbolo* buscarSimbolo(tablaSimbolos**,char*);
+void modificarSimbolo(tablaSimbolos** , char*, int);
 int insertarSimbolo(tablaSimbolos**, simbolo*);
 void mostrarTablaSimbolos(tablaSimbolos**);
 void imprimirSimbolo(simbolo*);
