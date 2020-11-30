@@ -21,13 +21,13 @@ typedef struct simbolo {
 	int tipo;
 } simbolo;
 
-simbolo* newtemp(tablaSimbolos** ,int);
+int newtemp(tablaSimbolos**);
 tablaSimbolos* crearTablaSimbolos();
 simbolo* crearSimbolo(tablaSimbolos**, char*);
 simbolo* crearSimboloConTipo(tablaSimbolos**, char*, int);
 int esVacia(tablaSimbolos**);
-simbolo* buscarSimbolo(tablaSimbolos**,char*);
-int insertarSimbolo(tablaSimbolos**, simbolo*);
+int buscarSimboloId(tablaSimbolos**,int);
+void insertarSimbolo(tablaSimbolos**, simbolo*);
 void mostrarTablaSimbolos(tablaSimbolos**);
 void imprimirSimbolo(simbolo*);
 #include <stdio.h>

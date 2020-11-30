@@ -49,93 +49,81 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    bis_coma = 258,
-    bis_puntoComa = 259,
-    bis_dosPuntos = 260,
-    bis_alternativa = 261,
-    bis_asignacion = 262,
-    bis_subrango = 263,
-    bis_literal = 264,
-    bis_tipo_base = 265,
-    bis_dev = 266,
-    bis_verdadero = 267,
-    bis_falso = 268,
-    bis_suma = 269,
-    bis_resta = 270,
-    bis_multiplicacion = 271,
-    bis_div = 272,
-    bis_mod = 273,
-    bis_div_real = 274,
-    bis_o = 275,
-    bis_y = 276,
-    bis_oprel = 277,
-    bis_igual = 278,
-    FALSA = 279,
-    bis_no = 280,
-    bis_id = 281,
-    bis_literal_entero = 282,
-    bis_literal_real = 283,
-    bis_literal_caracter = 284,
-    bis_comentario = 285,
-    bis_algoritmo = 286,
-    bis_falgoritmo = 287,
-    bis_funcion = 288,
-    bis_ffuncion = 289,
-    bis_accion = 290,
-    bis_faccion = 291,
-    bis_tipo = 292,
-    bis_ftipo = 293,
-    bis_const = 294,
-    bis_fconst = 295,
-    bis_var = 296,
-    bis_fvar = 297,
-    bis_tupla = 298,
-    bis_ftupla = 299,
-    bis_si = 300,
-    bis_fsi = 301,
-    bis_para = 302,
-    bis_fpara = 303,
-    bis_mientras = 304,
-    bis_fmientras = 305,
-    bis_hasta = 306,
-    bis_hacer = 307,
-    bis_ent = 308,
-    bis_sal = 309,
-    bis_sino = 310,
-    bis_entradaSalida = 311,
-    bis_continuar = 312,
-    bis_de = 313,
-    bis_tabla = 314,
-    bis_parentesisAbrir = 315,
-    bis_parentesisCerrar = 316,
-    bis_corcheteAbrir = 317,
-    bis_corcheteCerrar = 318,
-    bis_punto = 319,
-    bis_ref = 320
+    BIS_IDENTIFICADOR = 258,
+    BIS_LETRA_O_CIFRA = 259,
+    BIS_DR_REAL = 260,
+    BIS_DR_ENTERO = 261,
+    BIS_PUNTO_COMA = 262,
+    BIS_COMENTARIO = 263,
+    BIS_ASIG = 264,
+    BIS_LITERAL = 265,
+    BIS_TIPO_BASE = 266,
+    BIS_CADENA_LIT = 267,
+    BIS_VERDADERO = 268,
+    BIS_FALSO = 269,
+    BIS_MAS = 270,
+    BIS_MENOS = 271,
+    BIS_PRODUCTO = 272,
+    BIS_DIV_REAL = 273,
+    BIS_MOD = 274,
+    BIS_DIV = 275,
+    BIS_NEG = 276,
+    BIS_O = 277,
+    BIS_Y = 278,
+    BIS_OPREL = 279,
+    BIS_NO = 280,
+    BIS_SI = 281,
+    BIS_SI_NO_SI = 282,
+    BIS_FSI = 283,
+    BIS_ENTONCES = 284,
+    BIS_MIENTRAS = 285,
+    BIS_FMIENTRAS = 286,
+    BIS_HACER = 287,
+    BIS_PARA = 288,
+    BIS_HASTA = 289,
+    BIS_FPARA = 290,
+    BIS_CONTINUAR = 291,
+    BIS_ALGORITMO = 292,
+    BIS_FALGORITMO = 293,
+    BIS_FUNCION = 294,
+    BIS_FFUNCION = 295,
+    BIS_ACCION = 296,
+    BIS_FACCION = 297,
+    BIS_ENT = 298,
+    BIS_SAL = 299,
+    BIS_ENT_SAL = 300,
+    BIS_DEV = 301,
+    BIS_TIPO = 302,
+    BIS_IGUAL = 303,
+    BIS_FTIPO = 304,
+    BIS_CONST = 305,
+    BIS_FCONST = 306,
+    BIS_VAR = 307,
+    BIS_FVAR = 308,
+    BIS_TUPLA = 309,
+    BIS_FTUPLA = 310,
+    BIS_TABLA = 311,
+    BIS_DE = 312,
+    BIS_SUBRANGO = 313,
+    BIS_ASIG_TIPO = 314,
+    BIS_COMA = 315,
+    BIS_PAR_A = 316,
+    BIS_PAR_C = 317,
+    BIS_BOOLEANO = 318,
+    BIS_CADENA = 319,
+    BIS_CARACTER = 320,
+    BIS_ENTERO = 321,
+    BIS_REAL = 322,
+    BIS_PUNTO = 323,
+    BIS_REF = 324,
+    BIS_COR_A = 325,
+    BIS_COR_C = 326
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-#line 95 "parser.y"
-union YYSTYPE
-{
-#line 95 "parser.y"
-
-	int entradaEntero;
-    float entradaFloat;
-	char* entradaChar;
-    struct expresionAritmetica{
-        int place;
-        int type;
-        int nextQuad;
-    }expresionAritmetica
-
-#line 135 "parser.tab.h"
-
-};
-#line 95 "parser.y"
-typedef union YYSTYPE YYSTYPE;
+typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

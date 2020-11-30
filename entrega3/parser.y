@@ -3,12 +3,14 @@
   #include <math.h>
   #include <stdlib.h>
   #include "tablaSimbolos.h"
+  #include "tablaCuadruplas.h"
 
   void yyerror (char const *);
   extern FILE *yyin;
   extern int yylex();
   extern int yyparse();
   struct tablaSimbolos* ts;
+  struct tablaCuadruplas tc;
 %}
 
 
@@ -94,12 +96,18 @@
 	int entradaEntero;
     float entradaFloat;
 	char* entradaChar;
+    struct expresionAritmetica{
+        int place;
+        int type;
+        int nextQuad;
+    }expresionAritmetica
 }
 
 %type <entradaEntero> lista_id
 %type <entradaEntero> d_tipo
-%type <entradaEntero> operando
-
+%type <expresionAritmetica> asignacion
+%type <expresionAritmetica> operando
+%type <expresionAritmetica> expresion
 
 %%
 
@@ -217,16 +225,41 @@ decl_sal:
 
 
 expresion:
-    expresion bis_suma expresion {printf ("expresion: expresion bis_suma expresion\n");}
-    | expresion bis_resta expresion {printf ("expresion: expresion bis_resta expresion\n");}
+    expresion bis_suma expresion {
+    	    printf ("expresion: expresion bis_suma expresion\n");
+            if(($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO) || ($1.type==TIPO_REAL && $3.type==TIPO_REAL)){
+                insertarCuadrupla(OP_SUMA, $1.place, $3.place, $$.place, &tc);
+                $$.type=$1.type;
+            }else printf("Tipos no compatibles\n");
+    	}
+    | expresion bis_resta expresion {
+            printf ("expresion: expresion bis_resta expresion\n");
+            if(($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO) || ($1.type==TIPO_REAL && $3.type==TIPO_REAL)){
+                insertarCuadrupla(OP_RESTA, $1.place, $3.place, $$.place, &tc);
+                $$.type=$1.type;
+            }else printf("Tipos no compatibles\n");
+        }
     | expresion bis_multiplicacion expresion {printf ("expresion: expresion bis_multiplicacion expresion\n");}
     | expresion bis_div_real expresion {printf ("expresion: expresion bis_div_real expresion \n");}
     | expresion bis_mod expresion {printf ("expresion: expresion bis_mod expresion \n");}
     | expresion bis_div expresion {printf ("expresion: expresion bis_div expresion\n");}
     | bis_parentesisAbrir expresion bis_parentesisCerrar {printf ("expresion: bis_parentesisAbrir expresion bis_parentesisCerrar\n");}
-    | operando {printf ("expresion: operando\n");}
-    | bis_literal_real {printf ("expresion: bis_literal_real\n");}
-    | bis_literal_entero {printf ("expresion: bis_literal_entero\n");}
+    | operando {    printf ("expresion: operando\n");
+                    $$.place = $1.place;
+                    $$.type = $1.type;
+      }
+    | bis_literal_real {
+            printf ("expresion: bis_literal_real\n");
+            $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_REAL));
+            $$.type=TIPO_REAL;
+            mostrarTablaSimbolos(&ts);
+        }
+    | bis_literal_entero {
+            printf ("expresion: bis_literal_entero\n");
+            $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_ENTERO));
+            $$.type=TIPO_ENTERO;
+            mostrarTablaSimbolos(&ts);
+        }
     | bis_resta expresion %prec FALSA {printf ("expresion: bis_resta expresion\n");}
     | bis_suma expresion %prec FALSA{printf ("expresion: bis_resta expresion\n");}
     | expresion bis_y expresion {printf ("expresion: expresion bis_y expresion\n");}
@@ -241,7 +274,15 @@ expresion:
 
 
 operando:
-    bis_id {printf ("operando: bis_id\n");}
+    bis_id {    printf ("operando: bis_id\n");
+                simbolo* auxSimbolo= buscarSimbolo(&ts,$1);
+                if(auxSimbolo!=NULL){
+                    $$.place=auxSimbolo->valor;
+                    $$.type=auxSimbolo->tipo;
+                }else{
+                    printf("variable %s no encontrada\n",$1);
+                }
+            }
     | operando bis_punto operando {printf ("operando: operando bis_punto operando \n");}
     | operando bis_corcheteAbrir expresion bis_corcheteCerrar {printf ("operando: operando bis_corcheteAbrir expresion bis_corcheteCerrar \n");}
     | operando bis_ref {printf ("operando: operando bis_ref \n");}
@@ -260,7 +301,20 @@ instruccion:
 ;
 
 asignacion:
-    operando bis_asignacion expresion {printf ("asignacion: operando bis_asignacion expresion \n");}
+    operando bis_asignacion expresion {
+    printf ("asignacion: operando bis_asignacion expresion \n");
+        if ($1.type==$3.type){
+            if($1.type==TIPO_BOOLEANO && $3.type==TIPO_BOOLEANO){
+                printf("sustituir por codigo de booleanos");
+            }else{
+                printf("Creando cuadrupla: Operacion %d, Destino %d, Variable %d, tipo1 %d, tipo2 %d\n", OP_ASIGNACION,$1.place, $3.place,$1.type,$3.type );
+                //mostrarTablaSimbolos(&ts);
+                insertarCuadrupla(OP_ASIGNACION,$3.place,-1,$1.place, &tc);
+                $$.type=$1.type;
+                //mostrarTablaCuadruplas(&tc);
+            }
+        }else printf("tipos no compatibles\n");
+    }
 ;
 
 alternativa:
@@ -321,6 +375,7 @@ d_p_form:
 %%
 int main( int argc, char **argv ){
     ts=crearTablaSimbolos();
+    inicializarTablaCuadruplas(&tc);
     ++argv, --argc;
     if ( argc > 0 )
         yyin = fopen( argv[0], "r" );
