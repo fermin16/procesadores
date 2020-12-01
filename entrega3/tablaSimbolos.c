@@ -3,9 +3,9 @@
 
 simbolo* newtemp(tablaSimbolos** tS, int tipo){
     printf("Entro newtemp\n");
-    simbolo* sim;
-    sim = crearSimbolo(tS,NULL);
-    sim-> tipo = tipo;
+    simbolo* sim = crearSimbolo(tS,NULL);
+    if (tipo!=0)
+        sim-> tipo = tipo;
     printf("Salgo newtemp\n");
     return sim;
 };
@@ -73,8 +73,35 @@ simbolo* buscarSimbolo(tablaSimbolos** tS, char* nomb){
     }
 };
 
+simbolo* buscarSimboloId(tablaSimbolos** tS, int id){
+    printf("entro buscarSimbolo %d\n",id);
+    if (esVacia(tS)==1){
+        printf("salgo buscarSimbolo\n");
+        return NULL;
+    }else{
+        simbolo* simAux = (*tS) -> inicio;
+        while ((simAux -> sig != NULL) && (simAux -> valor!=id)){
+            simAux = simAux -> sig;
+        }
+        if (simAux -> valor!=id){
+            printf("salgo buscarSimbolo\n");
+             return NULL;
+        }else{
+            printf("salgo buscarSimbolo\n");
+            return simAux;
+        }
+    }
+};
+
 void modificarSimbolo(tablaSimbolos** tS, char* nomb, int nuevoTipo){
     simbolo* sim=buscarSimbolo(tS,nomb);
+    if(sim!=NULL){
+        sim->tipo=nuevoTipo;
+    }
+}
+
+void modificarSimboloId(tablaSimbolos** tS, int id, int nuevoTipo){
+    simbolo* sim=buscarSimboloId(tS,id);
     if(sim!=NULL){
         sim->tipo=nuevoTipo;
     }

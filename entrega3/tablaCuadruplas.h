@@ -9,6 +9,11 @@
 #define OP_ASIGNACION  1
 #define OP_SUMA 2
 #define OP_RESTA 3
+#define OP_MULTIPLICACION 4
+#define OP_DIVISION_REAL 5
+#define OP_MOD 6
+#define OP_DIVISION 7
+
 
 
 typedef struct tablaCuadruplas{

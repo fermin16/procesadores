@@ -227,23 +227,89 @@ decl_sal:
 expresion:
     expresion bis_suma expresion {
     	    printf ("expresion: expresion bis_suma expresion\n");
-            if(($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO) || ($1.type==TIPO_REAL && $3.type==TIPO_REAL)){
-                insertarCuadrupla(OP_SUMA, $1.place, $3.place, $$.place, &tc);
-                $$.type=$1.type;
-            }else printf("Tipos no compatibles\n");
+            if(($1.type==TIPO_ENTERO || $1.type==TIPO_REAL) && ($3.type==TIPO_ENTERO || $3.type==TIPO_REAL)){
+                $$.place= insertarSimbolo(&ts,newtemp(&ts,0));
+                if(($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO) || ($1.type==TIPO_REAL && $3.type==TIPO_REAL)){
+                    modificarSimboloId(&ts,$$.place,$1.type);
+                    $$.type=$1.type;
+                }else{
+                    modificarSimboloId(&ts,$1.place,TIPO_REAL);
+                    modificarSimboloId(&ts,$3.place,TIPO_REAL);
+                    modificarSimboloId(&ts,$$.place,TIPO_REAL);
+                    $$.type=TIPO_REAL;
+                }
+            insertarCuadrupla(OP_SUMA, $1.place, $3.place, $$.place, &tc);
+            }else printf("tipos incompatibles para suma\n");
     	}
     | expresion bis_resta expresion {
             printf ("expresion: expresion bis_resta expresion\n");
-            if(($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO) || ($1.type==TIPO_REAL && $3.type==TIPO_REAL)){
-                insertarCuadrupla(OP_RESTA, $1.place, $3.place, $$.place, &tc);
-                $$.type=$1.type;
-            }else printf("Tipos no compatibles\n");
+            if(($1.type==TIPO_ENTERO || $1.type==TIPO_REAL) && ($3.type==TIPO_ENTERO || $3.type==TIPO_REAL)){
+                $$.place= insertarSimbolo(&ts,newtemp(&ts,0));
+                if(($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO) || ($1.type==TIPO_REAL && $3.type==TIPO_REAL)){
+                    modificarSimboloId(&ts,$$.place,$1.type);
+                    $$.type=$1.type;
+                }else{
+                    modificarSimboloId(&ts,$1.place,TIPO_REAL);
+                    modificarSimboloId(&ts,$3.place,TIPO_REAL);
+                    modificarSimboloId(&ts,$$.place,TIPO_REAL);
+                    $$.type=TIPO_REAL;
+                }
+            insertarCuadrupla(OP_RESTA, $1.place, $3.place, $$.place, &tc);
+            }else printf("tipos incompatibles para resta\n");
         }
-    | expresion bis_multiplicacion expresion {printf ("expresion: expresion bis_multiplicacion expresion\n");}
-    | expresion bis_div_real expresion {printf ("expresion: expresion bis_div_real expresion \n");}
-    | expresion bis_mod expresion {printf ("expresion: expresion bis_mod expresion \n");}
-    | expresion bis_div expresion {printf ("expresion: expresion bis_div expresion\n");}
-    | bis_parentesisAbrir expresion bis_parentesisCerrar {printf ("expresion: bis_parentesisAbrir expresion bis_parentesisCerrar\n");}
+    | expresion bis_multiplicacion expresion {
+            printf ("expresion: expresion bis_multiplicacion expresion\n");
+            if(($1.type==TIPO_ENTERO || $1.type==TIPO_REAL) && ($3.type==TIPO_ENTERO || $3.type==TIPO_REAL)){
+                $$.place= insertarSimbolo(&ts,newtemp(&ts,0));
+                if(($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO) || ($1.type==TIPO_REAL && $3.type==TIPO_REAL)){
+                    modificarSimboloId(&ts,$$.place,$1.type);
+                    $$.type=$1.type;
+                }else{
+                    modificarSimboloId(&ts,$1.place,TIPO_REAL);
+                    modificarSimboloId(&ts,$3.place,TIPO_REAL);
+                    modificarSimboloId(&ts,$$.place,TIPO_REAL);
+                    $$.type=TIPO_REAL;
+                }
+            insertarCuadrupla(OP_MULTIPLICACION, $1.place, $3.place, $$.place, &tc);
+            }else printf("tipos incompatibles para multiplicacion\n");
+        }
+    | expresion bis_div_real expresion {
+            printf ("expresion: expresion bis_div_real expresion \n");
+            if(($1.type==TIPO_ENTERO || $1.type==TIPO_REAL) && ($3.type==TIPO_ENTERO || $3.type==TIPO_REAL)){
+                $$.place= insertarSimbolo(&ts,newtemp(&ts,0));
+                if($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO){
+                    modificarSimboloId(&ts,$1.place,TIPO_REAL);
+                    modificarSimboloId(&ts,$3.place,TIPO_REAL);
+                }else{
+                    modificarSimboloId(&ts,$1.place,TIPO_REAL);
+                    modificarSimboloId(&ts,$3.place,TIPO_REAL);
+                }
+                modificarSimboloId(&ts,$$.place,TIPO_REAL);
+                insertarCuadrupla(OP_DIVISION_REAL, $1.place, $3.place, $$.place, &tc);
+                $$.type=TIPO_REAL;
+            }else printf("tipos incompatibles para multiplicacion\n");
+        }
+    | expresion bis_mod expresion {
+            printf ("expresion: expresion bis_mod expresion \n");
+            if($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO){
+                $$.place= insertarSimbolo(&ts,newtemp(&ts,TIPO_ENTERO));
+                insertarCuadrupla(OP_DIVISION_REAL, $1.place, $3.place, $$.place, &tc);
+                $$.type=TIPO_ENTERO;
+            }else printf("tipos incompatibles mod\n");
+        }
+    | expresion bis_div expresion {
+            printf ("expresion: expresion bis_div expresion\n");
+            if($1.type==TIPO_ENTERO && $3.type==TIPO_ENTERO){
+                $$.place= insertarSimbolo(&ts,newtemp(&ts,TIPO_ENTERO));
+                insertarCuadrupla(OP_DIVISION, $1.place, $3.place, $$.place, &tc);
+                $$.type=TIPO_ENTERO;
+            }else printf("tipos incompatibles division entera\n");
+        }
+    | bis_parentesisAbrir expresion bis_parentesisCerrar {
+            printf ("expresion: bis_parentesisAbrir expresion bis_parentesisCerrar\n");
+            $$.place = $2.place;
+            $$.type = $2.type;
+        }
     | operando {    printf ("expresion: operando\n");
                     $$.place = $1.place;
                     $$.type = $1.type;

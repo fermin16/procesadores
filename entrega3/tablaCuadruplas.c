@@ -26,6 +26,14 @@ char* mostrarOperacion(int op){
 				break;
 		case 3: return "Resta";
 				break;
+		case 4: return "Multiplicacion";
+				break;
+		case 5: return "Division Real";
+				break;
+		case 6: return "MOD";
+				break;
+		case 7: return "Division";
+				break;
 		default: return "tipo no valido";
 	}
 }
