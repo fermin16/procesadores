@@ -117,10 +117,10 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-#line 95 "parser.y"
+#line 96 "parser.y"
 union YYSTYPE
 {
-#line 95 "parser.y"
+#line 96 "parser.y"
 
 	int entradaEntero;
     float entradaFloat;
@@ -134,7 +134,7 @@ union YYSTYPE
 #line 135 "parser.tab.h"
 
 };
-#line 95 "parser.y"
+#line 96 "parser.y"
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

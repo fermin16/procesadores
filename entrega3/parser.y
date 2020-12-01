@@ -2,6 +2,7 @@
   #include <stdio.h>
   #include <math.h>
   #include <stdlib.h>
+  #include <ctype.h>
   #include "tablaSimbolos.h"
   #include "tablaCuadruplas.h"
 
@@ -346,7 +347,16 @@ operando:
                     $$.place=auxSimbolo->valor;
                     $$.type=auxSimbolo->tipo;
                 }else{
-                    printf("variable %s no encontrada\n",$1);
+                    int aux= $1[0]-'0';
+                    if(aux>=0 && aux<=9){
+                        $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_ENTERO));
+                        $$.type=TIPO_ENTERO;
+                        printf("encontrado digito\n");
+                    }else{
+                        $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_CARACTER));
+                        $$.type=TIPO_CARACTER;
+                        printf("encontrado caracter\n");
+                    } 
                 }
             }
     | operando bis_punto operando {printf ("operando: operando bis_punto operando \n");}
@@ -374,7 +384,7 @@ asignacion:
                 printf("sustituir por codigo de booleanos");
             }else{
                 printf("Creando cuadrupla: Operacion %d, Destino %d, Variable %d, tipo1 %d, tipo2 %d\n", OP_ASIGNACION,$1.place, $3.place,$1.type,$3.type );
-                //mostrarTablaSimbolos(&ts);
+                mostrarTablaSimbolos(&ts);
                 insertarCuadrupla(OP_ASIGNACION,$3.place,-1,$1.place, &tc);
                 $$.type=$1.type;
                 //mostrarTablaCuadruplas(&tc);

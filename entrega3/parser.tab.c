@@ -71,6 +71,7 @@
   #include <stdio.h>
   #include <math.h>
   #include <stdlib.h>
+  #include <ctype.h>
   #include "tablaSimbolos.h"
   #include "tablaCuadruplas.h"
 
@@ -81,7 +82,7 @@
   struct tablaSimbolos* ts;
   struct tablaCuadruplas tc;
 
-#line 85 "parser.tab.c"
+#line 86 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -197,10 +198,10 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-#line 95 "parser.y"
+#line 96 "parser.y"
 union YYSTYPE
 {
-#line 95 "parser.y"
+#line 96 "parser.y"
 
 	int entradaEntero;
     float entradaFloat;
@@ -211,10 +212,10 @@ union YYSTYPE
         int nextQuad;
     }expresionAritmetica
 
-#line 215 "parser.tab.c"
+#line 216 "parser.tab.c"
 
 };
-#line 95 "parser.y"
+#line 96 "parser.y"
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -594,15 +595,15 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   115,   115,   120,   124,   125,   129,   130,   131,   135,
-     136,   137,   141,   145,   146,   147,   148,   152,   156,   160,
-     164,   165,   169,   170,   171,   172,   173,   174,   179,   180,
-     184,   185,   189,   190,   194,   199,   206,   208,   209,   213,
-     214,   215,   219,   223,   228,   244,   260,   276,   292,   300,
-     308,   313,   317,   323,   329,   330,   331,   332,   333,   334,
-     335,   336,   343,   352,   353,   354,   358,   359,   363,   364,
-     365,   366,   370,   387,   391,   392,   396,   400,   405,   406,
-     413,   417,   421,   425,   429,   430,   434,   435,   436
+       0,   116,   116,   121,   125,   126,   130,   131,   132,   136,
+     137,   138,   142,   146,   147,   148,   149,   153,   157,   161,
+     165,   166,   170,   171,   172,   173,   174,   175,   180,   181,
+     185,   186,   190,   191,   195,   200,   207,   209,   210,   214,
+     215,   216,   220,   224,   229,   245,   261,   277,   293,   301,
+     309,   314,   318,   324,   330,   331,   332,   333,   334,   335,
+     336,   337,   344,   362,   363,   364,   368,   369,   373,   374,
+     375,   376,   380,   397,   401,   402,   406,   410,   415,   416,
+     423,   427,   431,   435,   439,   440,   444,   445,   446
 };
 #endif
 
@@ -1558,269 +1559,269 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 116 "parser.y"
+#line 117 "parser.y"
     {printf("Reduce : desc_algoritmo: bis_algoritmo bis_id bis_puntoComa cabecera_alg bloque_alg bis_falgoritmo bis_punto\n");}
-#line 1564 "parser.tab.c"
+#line 1565 "parser.tab.c"
     break;
 
   case 3:
-#line 120 "parser.y"
+#line 121 "parser.y"
                                                        {printf ("Reduce cabecera_alg: decl_globales decl_a_f decl_ent_sal bis_comentario\n");}
-#line 1570 "parser.tab.c"
+#line 1571 "parser.tab.c"
     break;
 
   case 4:
-#line 124 "parser.y"
+#line 125 "parser.y"
                           {printf ("Recorrer la tabla: bloque_alg: bloque bis_comentario\n");}
-#line 1576 "parser.tab.c"
+#line 1577 "parser.tab.c"
     break;
 
   case 5:
-#line 125 "parser.y"
+#line 126 "parser.y"
              {printf ("Recorrer la tabla: bloque_alg: bloque \n");}
-#line 1582 "parser.tab.c"
+#line 1583 "parser.tab.c"
     break;
 
   case 6:
-#line 129 "parser.y"
+#line 130 "parser.y"
                                    {printf ("Reduce: decl_globales: declaracion_tipo decl_globales\n");}
-#line 1588 "parser.tab.c"
+#line 1589 "parser.tab.c"
     break;
 
   case 7:
-#line 130 "parser.y"
+#line 131 "parser.y"
                                       {printf ("Reduce: decl_globales: declaracion_const decl_globales\n");}
-#line 1594 "parser.tab.c"
+#line 1595 "parser.tab.c"
     break;
 
   case 8:
-#line 131 "parser.y"
+#line 132 "parser.y"
        {printf ("Reduce: decl_globales: vacio\n");}
-#line 1600 "parser.tab.c"
+#line 1601 "parser.tab.c"
     break;
 
   case 9:
-#line 135 "parser.y"
+#line 136 "parser.y"
                       {printf ("Reduce: decl_a_f: accion_d decl_a_f\n");}
-#line 1606 "parser.tab.c"
+#line 1607 "parser.tab.c"
     break;
 
   case 10:
-#line 136 "parser.y"
+#line 137 "parser.y"
                          {printf ("Reduce: decl_a_f: uncion_d decl_a_f\n");}
-#line 1612 "parser.tab.c"
+#line 1613 "parser.tab.c"
     break;
 
   case 11:
-#line 137 "parser.y"
+#line 138 "parser.y"
        {printf ("Reduce: decl_a_f: vacio\n");}
-#line 1618 "parser.tab.c"
+#line 1619 "parser.tab.c"
     break;
 
   case 12:
-#line 141 "parser.y"
+#line 142 "parser.y"
                                 {printf ("Reduce: bloque: declaraciones instrucciones \n");}
-#line 1624 "parser.tab.c"
+#line 1625 "parser.tab.c"
     break;
 
   case 13:
-#line 145 "parser.y"
+#line 146 "parser.y"
                                    {printf ("Reduce: declaraciones: declaracion_tipo declaraciones\n");}
-#line 1630 "parser.tab.c"
+#line 1631 "parser.tab.c"
     break;
 
   case 14:
-#line 146 "parser.y"
+#line 147 "parser.y"
                                       {printf ("Reduce: declaraciones: declaracion_const declaraciones\n");}
-#line 1636 "parser.tab.c"
+#line 1637 "parser.tab.c"
     break;
 
   case 15:
-#line 147 "parser.y"
+#line 148 "parser.y"
                                     {printf ("Reduce: declaraciones: declaracion_var declaraciones\n");}
-#line 1642 "parser.tab.c"
+#line 1643 "parser.tab.c"
     break;
 
   case 16:
-#line 148 "parser.y"
+#line 149 "parser.y"
        {printf ("Reduce: declaraciones: vacio\n");}
-#line 1648 "parser.tab.c"
+#line 1649 "parser.tab.c"
     break;
 
   case 17:
-#line 152 "parser.y"
+#line 153 "parser.y"
                                                   {printf ("Reduce: declaracion_tipo: bis_tipo lista_d_tipo bis_ftipo bis_puntoComa\n");}
-#line 1654 "parser.tab.c"
+#line 1655 "parser.tab.c"
     break;
 
   case 18:
-#line 156 "parser.y"
+#line 157 "parser.y"
                                                    {printf ("Reduce: declaracion_const:  bis_const lista_d_cte bis_fconst bis_puntoComa\n");}
-#line 1660 "parser.tab.c"
+#line 1661 "parser.tab.c"
     break;
 
   case 19:
-#line 160 "parser.y"
+#line 161 "parser.y"
                                                {printf ("Reduce: declaracion_var: bis_var lista_d_var bis_fvar bis_puntoComa\n");}
-#line 1666 "parser.tab.c"
+#line 1667 "parser.tab.c"
     break;
 
   case 20:
-#line 164 "parser.y"
+#line 165 "parser.y"
                                           {printf ("Reduce: lista_d_tipo: bis_id bis_igual d_tipo bis_puntoComa lista_d_tipo \n");}
-#line 1672 "parser.tab.c"
+#line 1673 "parser.tab.c"
     break;
 
   case 21:
-#line 165 "parser.y"
+#line 166 "parser.y"
        {printf ("Reduce: lista_d_tipo: vacio\n");}
-#line 1678 "parser.tab.c"
+#line 1679 "parser.tab.c"
     break;
 
   case 22:
-#line 169 "parser.y"
+#line 170 "parser.y"
                                       {printf ("Reduce: d_tipo : bis_tupla lista_campos bis_ftupla \n");}
-#line 1684 "parser.tab.c"
+#line 1685 "parser.tab.c"
     break;
 
   case 23:
-#line 170 "parser.y"
+#line 171 "parser.y"
                                                                                                         {printf ("Reduce: d_tipo: bis_tabla bis_corcheteAbrir expresion_t bis_subrango expresion_t bis_corcheteCerrar bis_de d_tipo\n");}
-#line 1690 "parser.tab.c"
+#line 1691 "parser.tab.c"
     break;
 
   case 24:
-#line 171 "parser.y"
+#line 172 "parser.y"
              {printf ("Reduce: d_tipo: bis_id\n");}
-#line 1696 "parser.tab.c"
+#line 1697 "parser.tab.c"
     break;
 
   case 25:
-#line 172 "parser.y"
+#line 173 "parser.y"
                                            {printf ("Reduce: d_tipo: expresion_t bis_subrango expresion_t\n");}
-#line 1702 "parser.tab.c"
+#line 1703 "parser.tab.c"
     break;
 
   case 26:
-#line 173 "parser.y"
+#line 174 "parser.y"
                      {printf ("Reduce: d_tipo: bis_ref d_tipo\n");}
-#line 1708 "parser.tab.c"
+#line 1709 "parser.tab.c"
     break;
 
   case 27:
-#line 174 "parser.y"
+#line 175 "parser.y"
                     {printf ("Reduce: d_tipo: bis_tipo_base\n");
         (yyval.entradaEntero) = (yyvsp[0].entradaEntero) ;}
-#line 1715 "parser.tab.c"
+#line 1716 "parser.tab.c"
     break;
 
   case 28:
-#line 179 "parser.y"
+#line 180 "parser.y"
               {printf ("Reduce: expresion_t: expresion\n");}
-#line 1721 "parser.tab.c"
+#line 1722 "parser.tab.c"
     break;
 
   case 29:
-#line 180 "parser.y"
+#line 181 "parser.y"
                            {printf ("Reduce: expresion_t: bis_literal_caracter\n");}
-#line 1727 "parser.tab.c"
+#line 1728 "parser.tab.c"
     break;
 
   case 30:
-#line 184 "parser.y"
+#line 185 "parser.y"
                                                            {printf ("Reduce: lista_campos: bis_id bis_dosPuntos d_tipo bis_puntoComa lista_campos\n");}
-#line 1733 "parser.tab.c"
+#line 1734 "parser.tab.c"
     break;
 
   case 31:
-#line 185 "parser.y"
+#line 186 "parser.y"
        {printf ("Reduce: lista_campos: vacio\n");}
-#line 1739 "parser.tab.c"
+#line 1740 "parser.tab.c"
     break;
 
   case 32:
-#line 189 "parser.y"
+#line 190 "parser.y"
                                                            {printf ("Reduce: lista_d_cte: bis_id bis_igual bis_literal bis_puntoComa lista_d_cte\n");}
-#line 1745 "parser.tab.c"
+#line 1746 "parser.tab.c"
     break;
 
   case 33:
-#line 190 "parser.y"
+#line 191 "parser.y"
        {printf ("Reduce: lista_d_cte: vacio\n");}
-#line 1751 "parser.tab.c"
+#line 1752 "parser.tab.c"
     break;
 
   case 34:
-#line 194 "parser.y"
+#line 195 "parser.y"
                              {
         printf ("Reduce: lista_id: bis_id bis_coma lista_id\n");
         insertarSimbolo(&ts,crearSimboloConTipo(&ts,(yyvsp[-2].entradaChar),(yyvsp[0].entradaEntero)));
         mostrarTablaSimbolos(&ts);
 		(yyval.entradaEntero) = (yyvsp[0].entradaEntero);}
-#line 1761 "parser.tab.c"
+#line 1762 "parser.tab.c"
     break;
 
   case 35:
-#line 199 "parser.y"
+#line 200 "parser.y"
                                          {
         printf ("lista_id: bis_id bis_dosPuntos bis_tipoBase\n");
         insertarSimbolo(&ts,crearSimboloConTipo(&ts,(yyvsp[-2].entradaChar),(yyvsp[0].entradaEntero)));
         mostrarTablaSimbolos(&ts);
         (yyval.entradaEntero) = (yyvsp[0].entradaEntero);}
-#line 1771 "parser.tab.c"
+#line 1772 "parser.tab.c"
     break;
 
   case 36:
-#line 206 "parser.y"
+#line 207 "parser.y"
                                        {printf ("lista_d_var: lista_id  lista_d_var\n")
     ;}
-#line 1778 "parser.tab.c"
+#line 1779 "parser.tab.c"
     break;
 
   case 37:
-#line 208 "parser.y"
+#line 209 "parser.y"
                                                               {printf ("lista_d_var: lista_id d_tipo bis_puntoComa lista_d_var\n");}
-#line 1784 "parser.tab.c"
+#line 1785 "parser.tab.c"
     break;
 
   case 38:
-#line 209 "parser.y"
+#line 210 "parser.y"
        {printf ("lista_d_var: vacio\n");}
-#line 1790 "parser.tab.c"
+#line 1791 "parser.tab.c"
     break;
 
   case 39:
-#line 213 "parser.y"
+#line 214 "parser.y"
              {printf ("decl_ent_sal: decl_ent\n");}
-#line 1796 "parser.tab.c"
+#line 1797 "parser.tab.c"
     break;
 
   case 40:
-#line 214 "parser.y"
+#line 215 "parser.y"
                         {printf ("decl_ent_sal: decl_ent decl_sal\n");}
-#line 1802 "parser.tab.c"
+#line 1803 "parser.tab.c"
     break;
 
   case 41:
-#line 215 "parser.y"
+#line 216 "parser.y"
                {printf ("decl_ent_sal: decl_sal\n");}
-#line 1808 "parser.tab.c"
+#line 1809 "parser.tab.c"
     break;
 
   case 42:
-#line 219 "parser.y"
+#line 220 "parser.y"
                         {printf ("decl_ent: bis_ent lista_d_var\n");}
-#line 1814 "parser.tab.c"
+#line 1815 "parser.tab.c"
     break;
 
   case 43:
-#line 223 "parser.y"
+#line 224 "parser.y"
                         {printf ("decl_sal: bis_sal lista_d_var\n");}
-#line 1820 "parser.tab.c"
+#line 1821 "parser.tab.c"
     break;
 
   case 44:
-#line 228 "parser.y"
+#line 229 "parser.y"
                                  {
     	    printf ("expresion: expresion bis_suma expresion\n");
             if(((yyvsp[-2].expresionAritmetica).type==TIPO_ENTERO || (yyvsp[-2].expresionAritmetica).type==TIPO_REAL) && ((yyvsp[0].expresionAritmetica).type==TIPO_ENTERO || (yyvsp[0].expresionAritmetica).type==TIPO_REAL)){
@@ -1837,11 +1838,11 @@ yyreduce:
             insertarCuadrupla(OP_SUMA, (yyvsp[-2].expresionAritmetica).place, (yyvsp[0].expresionAritmetica).place, (yyval.expresionAritmetica).place, &tc);
             }else printf("tipos incompatibles para suma\n");
     	}
-#line 1841 "parser.tab.c"
+#line 1842 "parser.tab.c"
     break;
 
   case 45:
-#line 244 "parser.y"
+#line 245 "parser.y"
                                     {
             printf ("expresion: expresion bis_resta expresion\n");
             if(((yyvsp[-2].expresionAritmetica).type==TIPO_ENTERO || (yyvsp[-2].expresionAritmetica).type==TIPO_REAL) && ((yyvsp[0].expresionAritmetica).type==TIPO_ENTERO || (yyvsp[0].expresionAritmetica).type==TIPO_REAL)){
@@ -1858,11 +1859,11 @@ yyreduce:
             insertarCuadrupla(OP_RESTA, (yyvsp[-2].expresionAritmetica).place, (yyvsp[0].expresionAritmetica).place, (yyval.expresionAritmetica).place, &tc);
             }else printf("tipos incompatibles para resta\n");
         }
-#line 1862 "parser.tab.c"
+#line 1863 "parser.tab.c"
     break;
 
   case 46:
-#line 260 "parser.y"
+#line 261 "parser.y"
                                              {
             printf ("expresion: expresion bis_multiplicacion expresion\n");
             if(((yyvsp[-2].expresionAritmetica).type==TIPO_ENTERO || (yyvsp[-2].expresionAritmetica).type==TIPO_REAL) && ((yyvsp[0].expresionAritmetica).type==TIPO_ENTERO || (yyvsp[0].expresionAritmetica).type==TIPO_REAL)){
@@ -1879,11 +1880,11 @@ yyreduce:
             insertarCuadrupla(OP_MULTIPLICACION, (yyvsp[-2].expresionAritmetica).place, (yyvsp[0].expresionAritmetica).place, (yyval.expresionAritmetica).place, &tc);
             }else printf("tipos incompatibles para multiplicacion\n");
         }
-#line 1883 "parser.tab.c"
+#line 1884 "parser.tab.c"
     break;
 
   case 47:
-#line 276 "parser.y"
+#line 277 "parser.y"
                                        {
             printf ("expresion: expresion bis_div_real expresion \n");
             if(((yyvsp[-2].expresionAritmetica).type==TIPO_ENTERO || (yyvsp[-2].expresionAritmetica).type==TIPO_REAL) && ((yyvsp[0].expresionAritmetica).type==TIPO_ENTERO || (yyvsp[0].expresionAritmetica).type==TIPO_REAL)){
@@ -1900,11 +1901,11 @@ yyreduce:
                 (yyval.expresionAritmetica).type=TIPO_REAL;
             }else printf("tipos incompatibles para multiplicacion\n");
         }
-#line 1904 "parser.tab.c"
+#line 1905 "parser.tab.c"
     break;
 
   case 48:
-#line 292 "parser.y"
+#line 293 "parser.y"
                                   {
             printf ("expresion: expresion bis_mod expresion \n");
             if((yyvsp[-2].expresionAritmetica).type==TIPO_ENTERO && (yyvsp[0].expresionAritmetica).type==TIPO_ENTERO){
@@ -1913,11 +1914,11 @@ yyreduce:
                 (yyval.expresionAritmetica).type=TIPO_ENTERO;
             }else printf("tipos incompatibles mod\n");
         }
-#line 1917 "parser.tab.c"
+#line 1918 "parser.tab.c"
     break;
 
   case 49:
-#line 300 "parser.y"
+#line 301 "parser.y"
                                   {
             printf ("expresion: expresion bis_div expresion\n");
             if((yyvsp[-2].expresionAritmetica).type==TIPO_ENTERO && (yyvsp[0].expresionAritmetica).type==TIPO_ENTERO){
@@ -1926,168 +1927,177 @@ yyreduce:
                 (yyval.expresionAritmetica).type=TIPO_ENTERO;
             }else printf("tipos incompatibles division entera\n");
         }
-#line 1930 "parser.tab.c"
+#line 1931 "parser.tab.c"
     break;
 
   case 50:
-#line 308 "parser.y"
+#line 309 "parser.y"
                                                          {
             printf ("expresion: bis_parentesisAbrir expresion bis_parentesisCerrar\n");
             (yyval.expresionAritmetica).place = (yyvsp[-1].expresionAritmetica).place;
             (yyval.expresionAritmetica).type = (yyvsp[-1].expresionAritmetica).type;
         }
-#line 1940 "parser.tab.c"
+#line 1941 "parser.tab.c"
     break;
 
   case 51:
-#line 313 "parser.y"
+#line 314 "parser.y"
                {    printf ("expresion: operando\n");
                     (yyval.expresionAritmetica).place = (yyvsp[0].expresionAritmetica).place;
                     (yyval.expresionAritmetica).type = (yyvsp[0].expresionAritmetica).type;
       }
-#line 1949 "parser.tab.c"
+#line 1950 "parser.tab.c"
     break;
 
   case 52:
-#line 317 "parser.y"
+#line 318 "parser.y"
                        {
             printf ("expresion: bis_literal_real\n");
             (yyval.expresionAritmetica).place=insertarSimbolo(&ts,newtemp(&ts,TIPO_REAL));
             (yyval.expresionAritmetica).type=TIPO_REAL;
             mostrarTablaSimbolos(&ts);
         }
-#line 1960 "parser.tab.c"
+#line 1961 "parser.tab.c"
     break;
 
   case 53:
-#line 323 "parser.y"
+#line 324 "parser.y"
                          {
             printf ("expresion: bis_literal_entero\n");
             (yyval.expresionAritmetica).place=insertarSimbolo(&ts,newtemp(&ts,TIPO_ENTERO));
             (yyval.expresionAritmetica).type=TIPO_ENTERO;
             mostrarTablaSimbolos(&ts);
         }
-#line 1971 "parser.tab.c"
+#line 1972 "parser.tab.c"
     break;
 
   case 54:
-#line 329 "parser.y"
+#line 330 "parser.y"
                                       {printf ("expresion: bis_resta expresion\n");}
-#line 1977 "parser.tab.c"
+#line 1978 "parser.tab.c"
     break;
 
   case 55:
-#line 330 "parser.y"
+#line 331 "parser.y"
                                     {printf ("expresion: bis_resta expresion\n");}
-#line 1983 "parser.tab.c"
+#line 1984 "parser.tab.c"
     break;
 
   case 56:
-#line 331 "parser.y"
+#line 332 "parser.y"
                                 {printf ("expresion: expresion bis_y expresion\n");}
-#line 1989 "parser.tab.c"
+#line 1990 "parser.tab.c"
     break;
 
   case 57:
-#line 332 "parser.y"
+#line 333 "parser.y"
                                 {printf ("expresion: expresion bis_o expresion\n");}
-#line 1995 "parser.tab.c"
+#line 1996 "parser.tab.c"
     break;
 
   case 58:
-#line 333 "parser.y"
+#line 334 "parser.y"
                        {printf ("expresion: bis_no expresion\n");}
-#line 2001 "parser.tab.c"
+#line 2002 "parser.tab.c"
     break;
 
   case 59:
-#line 334 "parser.y"
+#line 335 "parser.y"
                     {printf ("expresion: bis_verdadero\n");}
-#line 2007 "parser.tab.c"
+#line 2008 "parser.tab.c"
     break;
 
   case 60:
-#line 335 "parser.y"
+#line 336 "parser.y"
                 {printf ("expresion: bis_falso\n");}
-#line 2013 "parser.tab.c"
+#line 2014 "parser.tab.c"
     break;
 
   case 61:
-#line 336 "parser.y"
+#line 337 "parser.y"
                                     {printf ("expresion: expresion bis_oprel expresion\n");}
-#line 2019 "parser.tab.c"
+#line 2020 "parser.tab.c"
     break;
 
   case 62:
-#line 343 "parser.y"
+#line 344 "parser.y"
            {    printf ("operando: bis_id\n");
                 simbolo* auxSimbolo= buscarSimbolo(&ts,(yyvsp[0].entradaChar));
                 if(auxSimbolo!=NULL){
                     (yyval.expresionAritmetica).place=auxSimbolo->valor;
                     (yyval.expresionAritmetica).type=auxSimbolo->tipo;
                 }else{
-                    printf("variable %s no encontrada\n",(yyvsp[0].entradaChar));
+                    int aux= (yyvsp[0].entradaChar)[0]-'0';
+                    if(aux>=0 && aux<=9){
+                        (yyval.expresionAritmetica).place=insertarSimbolo(&ts,newtemp(&ts,TIPO_ENTERO));
+                        (yyval.expresionAritmetica).type=TIPO_ENTERO;
+                        printf("encontrado digito\n");
+                    }else{
+                        (yyval.expresionAritmetica).place=insertarSimbolo(&ts,newtemp(&ts,TIPO_CARACTER));
+                        (yyval.expresionAritmetica).type=TIPO_CARACTER;
+                        printf("encontrado caracter\n");
+                    } 
                 }
             }
-#line 2033 "parser.tab.c"
+#line 2043 "parser.tab.c"
     break;
 
   case 63:
-#line 352 "parser.y"
+#line 362 "parser.y"
                                   {printf ("operando: operando bis_punto operando \n");}
-#line 2039 "parser.tab.c"
+#line 2049 "parser.tab.c"
     break;
 
   case 64:
-#line 353 "parser.y"
+#line 363 "parser.y"
                                                               {printf ("operando: operando bis_corcheteAbrir expresion bis_corcheteCerrar \n");}
-#line 2045 "parser.tab.c"
+#line 2055 "parser.tab.c"
     break;
 
   case 65:
-#line 354 "parser.y"
+#line 364 "parser.y"
                        {printf ("operando: operando bis_ref \n");}
-#line 2051 "parser.tab.c"
+#line 2061 "parser.tab.c"
     break;
 
   case 66:
-#line 358 "parser.y"
+#line 368 "parser.y"
                                             {printf ("instrucciones: instruccion bis_puntoComa instrucciones \n");}
-#line 2057 "parser.tab.c"
+#line 2067 "parser.tab.c"
     break;
 
   case 67:
-#line 359 "parser.y"
+#line 369 "parser.y"
                  {printf ("instrucciones: instruccion \n");}
-#line 2063 "parser.tab.c"
+#line 2073 "parser.tab.c"
     break;
 
   case 68:
-#line 363 "parser.y"
+#line 373 "parser.y"
                   {printf ("instruccion: bis_continuar \n");}
-#line 2069 "parser.tab.c"
+#line 2079 "parser.tab.c"
     break;
 
   case 69:
-#line 364 "parser.y"
+#line 374 "parser.y"
                  {printf ("instruccion:asignacion \n");}
-#line 2075 "parser.tab.c"
+#line 2085 "parser.tab.c"
     break;
 
   case 70:
-#line 365 "parser.y"
+#line 375 "parser.y"
                   {printf ("instruccion: alternativa \n");}
-#line 2081 "parser.tab.c"
+#line 2091 "parser.tab.c"
     break;
 
   case 71:
-#line 366 "parser.y"
+#line 376 "parser.y"
                 {printf ("iteracion \n");}
-#line 2087 "parser.tab.c"
+#line 2097 "parser.tab.c"
     break;
 
   case 72:
-#line 370 "parser.y"
+#line 380 "parser.y"
                                       {
     printf ("asignacion: operando bis_asignacion expresion \n");
         if ((yyvsp[-2].expresionAritmetica).type==(yyvsp[0].expresionAritmetica).type){
@@ -2095,114 +2105,114 @@ yyreduce:
                 printf("sustituir por codigo de booleanos");
             }else{
                 printf("Creando cuadrupla: Operacion %d, Destino %d, Variable %d, tipo1 %d, tipo2 %d\n", OP_ASIGNACION,(yyvsp[-2].expresionAritmetica).place, (yyvsp[0].expresionAritmetica).place,(yyvsp[-2].expresionAritmetica).type,(yyvsp[0].expresionAritmetica).type );
-                //mostrarTablaSimbolos(&ts);
+                mostrarTablaSimbolos(&ts);
                 insertarCuadrupla(OP_ASIGNACION,(yyvsp[0].expresionAritmetica).place,-1,(yyvsp[-2].expresionAritmetica).place, &tc);
                 (yyval.expresionAritmetica).type=(yyvsp[-2].expresionAritmetica).type;
                 //mostrarTablaCuadruplas(&tc);
             }
         }else printf("tipos no compatibles\n");
     }
-#line 2106 "parser.tab.c"
+#line 2116 "parser.tab.c"
     break;
 
   case 73:
-#line 387 "parser.y"
+#line 397 "parser.y"
                                                                           {printf ("alternativa: bis_si expresion bis_alternativa instrucciones lista_opciones bis_fsi \n");}
-#line 2112 "parser.tab.c"
+#line 2122 "parser.tab.c"
     break;
 
   case 74:
-#line 391 "parser.y"
+#line 401 "parser.y"
                                                                     {printf ("lista_opciones: bis_sino expresion bis_asignacion instrucciones lista_opciones \n");}
-#line 2118 "parser.tab.c"
+#line 2128 "parser.tab.c"
     break;
 
   case 75:
-#line 392 "parser.y"
+#line 402 "parser.y"
       {printf ("lista_opciones: vacio \n");}
-#line 2124 "parser.tab.c"
+#line 2134 "parser.tab.c"
     break;
 
   case 76:
-#line 396 "parser.y"
+#line 406 "parser.y"
                                                                                                    {printf ("it_cota_fija: bis_para bis_id bis_asignacion expresion bis_hasta expresion bis_hacer instrucciones bis_fpara \n");}
-#line 2130 "parser.tab.c"
+#line 2140 "parser.tab.c"
     break;
 
   case 77:
-#line 400 "parser.y"
+#line 410 "parser.y"
                                                                  {printf ("it_cota_exp: bis_mientras expresion bis_hacer instrucciones bis_fmientras \n");}
-#line 2136 "parser.tab.c"
+#line 2146 "parser.tab.c"
     break;
 
   case 78:
-#line 405 "parser.y"
+#line 415 "parser.y"
                  {printf ("iteracion: it_cota_fija \n");}
-#line 2142 "parser.tab.c"
+#line 2152 "parser.tab.c"
     break;
 
   case 79:
-#line 406 "parser.y"
+#line 416 "parser.y"
                   {printf ("iteracion: it_cota_exp \n");}
-#line 2148 "parser.tab.c"
+#line 2158 "parser.tab.c"
     break;
 
   case 80:
-#line 413 "parser.y"
+#line 423 "parser.y"
                                              {printf ("accion_d: bis_accion a_cabecera bloque bis_faccion \n");}
-#line 2154 "parser.tab.c"
+#line 2164 "parser.tab.c"
     break;
 
   case 81:
-#line 417 "parser.y"
+#line 427 "parser.y"
                                                                  {printf ("funcion_d: bis_funcion f_cabecera bloque bis_dev expresion bis_ffuncion \n");}
-#line 2160 "parser.tab.c"
+#line 2170 "parser.tab.c"
     break;
 
   case 82:
-#line 421 "parser.y"
+#line 431 "parser.y"
                                                                              {printf ("a_cabecera: bis_id bis_parentesisAbrir d_par_form bis_parentesisCerrar bis_puntoComa \n");}
-#line 2166 "parser.tab.c"
+#line 2176 "parser.tab.c"
     break;
 
   case 83:
-#line 425 "parser.y"
+#line 435 "parser.y"
                                                                                              {printf ("f_cabecera: bis_id bis_parentesisAbrir lista_d_var bis_parentesisCerrar bis_dev d_tipo bis_puntoComa \n");}
-#line 2172 "parser.tab.c"
+#line 2182 "parser.tab.c"
     break;
 
   case 84:
-#line 429 "parser.y"
+#line 439 "parser.y"
                                       {printf ("d_par_form: d_p_form bis_puntoComa d_par_form \n");}
-#line 2178 "parser.tab.c"
+#line 2188 "parser.tab.c"
     break;
 
   case 85:
-#line 430 "parser.y"
+#line 440 "parser.y"
       {printf ("d_par_form: vacio \n");}
-#line 2184 "parser.tab.c"
+#line 2194 "parser.tab.c"
     break;
 
   case 86:
-#line 434 "parser.y"
+#line 444 "parser.y"
                                           {printf ("d_p_form: bis_ent lista_id bis_dosPuntos d_tipo \n");}
-#line 2190 "parser.tab.c"
+#line 2200 "parser.tab.c"
     break;
 
   case 87:
-#line 435 "parser.y"
+#line 445 "parser.y"
                                             {printf ("d_p_form: bis_sal lista_id bis_dosPuntos d_tipo \n");}
-#line 2196 "parser.tab.c"
+#line 2206 "parser.tab.c"
     break;
 
   case 88:
-#line 436 "parser.y"
+#line 446 "parser.y"
                                                       {printf ("d_p_form: bis_entradaSalida lista_id bis_dosPuntos d_tipo \n");}
-#line 2202 "parser.tab.c"
+#line 2212 "parser.tab.c"
     break;
 
 
-#line 2206 "parser.tab.c"
+#line 2216 "parser.tab.c"
 
       default: break;
     }
@@ -2434,7 +2444,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 441 "parser.y"
+#line 451 "parser.y"
 
 int main( int argc, char **argv ){
     ts=crearTablaSimbolos();
