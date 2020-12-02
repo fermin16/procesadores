@@ -10,7 +10,7 @@ ejecutar: bison flex
 	gcc -c lex.yy.c
 	gcc -o ejecutar parser.tab.c lex.yy.o tablaCuadruplas.o tablaSimbolos.o listaBooleanas.o -ll
 borrar:
-	rm -rf ejecutar lex.yy.c lex.yy.o parser.output parser.tab.c parser.tab.h o tablaSimbolos.o 
+	rm -rf ejecutar lex.yy.c lex.yy.o parser.output parser.tab.c parser.tab.h  tablaSimbolos.o listaBooleanas.o tablaCuadruplas.o a.out
 soloflex: borrar
 	flex scanner.l
 	gcc lex.yy.c -lfl

@@ -1,6 +1,5 @@
 #include "listaBooleanas.h"
 #include "tablaCuadruplas.h"
-int esVaciaBooleana(listaBooleana* lista);
 
 
 listaBooleana* crearListaBooleana(int nextquad){

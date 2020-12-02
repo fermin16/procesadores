@@ -632,9 +632,12 @@ char *yytext;
 #line 6 "scanner.l"
 /* Librerias*/
 #include <math.h>
+#include <string.h>
+
 #include "parser.tab.h"
 #include "tablaSimbolos.h"
-#include <string.h>
+
+//Constantes para operadores relacionales
 #define OP_MENOR 14
 #define OP_MENOR_IGUAL 15
 #define OP_MAYOR 16
@@ -642,7 +645,7 @@ char *yytext;
 #define OP_DISTINTO 18
 #define OP_IGUAL  19
 
-#line 646 "lex.yy.c"
+#line 649 "lex.yy.c"
 /*Definiciones regulares*/
 /*caracteres especiales*/
 /*comparaciones*/
@@ -651,7 +654,7 @@ char *yytext;
 /*literales*/
 /* Comentarios */ 
 /*palabras reservadas*/
-#line 655 "lex.yy.c"
+#line 658 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -868,9 +871,9 @@ YY_DECL
 		}
 
 	{
-#line 128 "scanner.l"
+#line 131 "scanner.l"
 
-#line 874 "lex.yy.c"
+#line 877 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -929,7 +932,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 129 "scanner.l"
+#line 132 "scanner.l"
 {
     printf( "Palabra reservada. O : %s\n", yytext);
     return bis_o;
@@ -937,98 +940,98 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 133 "scanner.l"
+#line 136 "scanner.l"
 { 
     printf( "Palabra reservada. Y: %s\n", yytext);
     return bis_y;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 137 "scanner.l"
+#line 140 "scanner.l"
 {
     printf( "Tipo de caracter. Parantesis abrir : %s\n", yytext);
     return bis_parentesisAbrir;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 140 "scanner.l"
+#line 143 "scanner.l"
 {
     printf( "Tipo de caracter. Parantesis cerrar : %s\n", yytext);
     return bis_parentesisCerrar;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 143 "scanner.l"
+#line 146 "scanner.l"
 {
     printf( "Tipo de caracter . Igual : %s\n", yytext);
     return bis_igual;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 146 "scanner.l"
+#line 149 "scanner.l"
 {
     printf( "Tipo de caracter. Abrir corchete : %s\n", yytext);
     return bis_corcheteAbrir;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 149 "scanner.l"
+#line 152 "scanner.l"
 {
     printf( "Tipo de caracter. Cerrer corchete: %s\n", yytext);
     return bis_corcheteCerrar;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 152 "scanner.l"
+#line 155 "scanner.l"
 {
     printf( "Tipo de operador. Suma : %s\n", yytext);
     return bis_suma;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 155 "scanner.l"
+#line 158 "scanner.l"
 {
     printf( "Tipo de operador. Resta : %s\n", yytext);
     return bis_resta;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 158 "scanner.l"
+#line 161 "scanner.l"
 {
     printf( "Tipo de operador. Multiplicacion : %s\n", yytext);
     return bis_multiplicacion;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 161 "scanner.l"
+#line 164 "scanner.l"
 {
     printf( "Tipo de caracter. Coma : %s\n", yytext);
     return bis_coma;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 164 "scanner.l"
+#line 167 "scanner.l"
 {
     printf( "Tipo de caracter. Punto y coma: %s\n", yytext);
     return bis_puntoComa;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 167 "scanner.l"
+#line 170 "scanner.l"
 {
     printf( "Tipo de caracter. Punto : %s\n", yytext);
     return bis_punto;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 170 "scanner.l"
+#line 173 "scanner.l"
 {
     printf( "Tipo de caracter. Dos puntos : %s\n", yytext);
     return bis_dosPuntos;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 173 "scanner.l"
+#line 176 "scanner.l"
 {
     printf( "Tipo de caracter. Operador logico : %s\n", yytext);
     yylval.entradaEntero = OP_MENOR;
@@ -1036,7 +1039,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 177 "scanner.l"
+#line 180 "scanner.l"
 {
     printf( "Tipo de caracter. Operador logico : %s\n", yytext);
     yylval.entradaEntero = OP_MENOR_IGUAL;
@@ -1044,7 +1047,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 181 "scanner.l"
+#line 184 "scanner.l"
 {
     printf( "Tipo de caracter. Operador logico : %s\n", yytext);
     yylval.entradaEntero = OP_MAYOR;
@@ -1052,7 +1055,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 185 "scanner.l"
+#line 188 "scanner.l"
 {
     printf( "Tipo de caracter. Operador logico : %s\n", yytext);
     yylval.entradaEntero = OP_MAYOR_IGUAL;
@@ -1060,7 +1063,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 189 "scanner.l"
+#line 192 "scanner.l"
 {
     printf( "Tipo de caracter. Operador logico : %s\n", yytext);
     yylval.entradaEntero = OP_IGUAL;
@@ -1068,7 +1071,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 193 "scanner.l"
+#line 196 "scanner.l"
 {
     printf( "Tipo de caracter. Operador logico : %s\n", yytext);
     yylval.entradaEntero = OP_DISTINTO;
@@ -1076,21 +1079,21 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 198 "scanner.l"
+#line 201 "scanner.l"
 {
     printf( "Tipo de caracter. Alternativa: %s\n", yytext);
     return bis_alternativa;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 202 "scanner.l"
+#line 205 "scanner.l"
 {
     printf( "Tipo de caracter. Asignacion: %s\n", yytext);
     return bis_asignacion;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 207 "scanner.l"
+#line 210 "scanner.l"
 {
 	printf( "Tipo de identificador. letra o cifra : %s\n", yytext);
 		yylval.entradaChar = strdup(yytext);
@@ -1098,282 +1101,282 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 212 "scanner.l"
+#line 215 "scanner.l"
 {
     printf( "Tipo de variable. Entero: %s\n", yytext);
     return bis_literal_entero;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 215 "scanner.l"
+#line 218 "scanner.l"
 {
     printf( "Tipo de variable. Real: %s\n", yytext);
     return bis_literal_real;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 218 "scanner.l"
+#line 221 "scanner.l"
 {
     printf( "Tipo de variable. Caracter: %s\n", yytext);
     return bis_literal_caracter;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 222 "scanner.l"
+#line 225 "scanner.l"
 {printf( "Tipo de comentario. Precondición : %s\n", yytext);
     return bis_comentario;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 224 "scanner.l"
+#line 227 "scanner.l"
 {printf( "Tipo de comentario. Postcondicion : %s\n", yytext);
     return bis_comentario;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 226 "scanner.l"
+#line 229 "scanner.l"
 {printf( "Comentario : %s\n", yytext);
     return bis_comentario;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 229 "scanner.l"
+#line 232 "scanner.l"
 {
     printf( "Palabra reservada. Algoritmo : %s\n", yytext);
     return bis_algoritmo;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 232 "scanner.l"
+#line 235 "scanner.l"
 {
     printf( "Palabra reservada. Final algoritmo : %s\n", yytext);
     return bis_falgoritmo;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 235 "scanner.l"
+#line 238 "scanner.l"
 {
     printf( "Palabra reservada. Funcion : %s\n", yytext);
     return bis_funcion;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 238 "scanner.l"
+#line 241 "scanner.l"
 {
     printf( "Palabra reservada. Final funcion : %s\n", yytext);
     return bis_ffuncion;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 241 "scanner.l"
+#line 244 "scanner.l"
 {
     printf( "Palabra reservada. Accion: %s\n", yytext);
     return bis_accion;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 244 "scanner.l"
+#line 247 "scanner.l"
 {
     printf( "Palabra reservada. Final accion: %s\n", yytext);
     return bis_faccion;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 247 "scanner.l"
+#line 250 "scanner.l"
 {
     printf( "Palabra reservada. Tipo: %s\n", yytext);
     return bis_tipo;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 250 "scanner.l"
+#line 253 "scanner.l"
 {
     printf( "Palabra reservada. Final tipo: %s\n", yytext);
     return bis_ftipo;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 253 "scanner.l"
+#line 256 "scanner.l"
 {
     printf( "Palabra reservada. Constante : %s\n", yytext);
     return bis_const;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 256 "scanner.l"
+#line 259 "scanner.l"
 {
     printf( "Palabra reservada. Final constante : %s\n", yytext);
     return bis_fconst;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 259 "scanner.l"
+#line 262 "scanner.l"
 {
     printf( "Palabra reservada. Variable : %s\n", yytext);
     return bis_var;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 262 "scanner.l"
+#line 265 "scanner.l"
 {
     printf( "Palabra reservada. Final variable : %s\n", yytext);
     return bis_fvar;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 265 "scanner.l"
+#line 268 "scanner.l"
 {
     printf( "Palabra reservada. Tupla : %s\n", yytext);
     return bis_tupla;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 268 "scanner.l"
+#line 271 "scanner.l"
 {
     printf( "Palabra reservada. Final tupla: %s\n", yytext);
     return bis_ftupla;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 271 "scanner.l"
+#line 274 "scanner.l"
 {
     printf( "Palabra reservada. Si : %s\n", yytext);
     return bis_si;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 274 "scanner.l"
+#line 277 "scanner.l"
 {
     printf( "Palabra reservada. Final si : %s\n", yytext);
     return bis_fsi;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 277 "scanner.l"
+#line 280 "scanner.l"
 {
     printf( "Palabra reservada. Para: %s\n", yytext);
     return bis_para;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 280 "scanner.l"
+#line 283 "scanner.l"
 {
     printf( "Palabra reservada. Final para : %s\n", yytext);
     return bis_fpara;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 283 "scanner.l"
+#line 286 "scanner.l"
 {
     printf( "Palabra reservada. Mientras: %s\n", yytext);
     return bis_mientras;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 286 "scanner.l"
+#line 289 "scanner.l"
 {
     printf( "Palabra reservada. Final mientras: %s\n", yytext);
     return bis_fmientras;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 289 "scanner.l"
+#line 292 "scanner.l"
 {
     printf( "Palabra reservada. Hasta: %s\n", yytext);
     return bis_hasta;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 292 "scanner.l"
+#line 295 "scanner.l"
 {
     printf( "Palabra reservada. Hacer: %s\n", yytext);
     return bis_hacer;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 295 "scanner.l"
+#line 298 "scanner.l"
 {printf( "Palabra reservada. Entonces: %s\n", yytext);}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 296 "scanner.l"
+#line 299 "scanner.l"
 {
     printf( "Palabra reservada. Entrar : %s\n", yytext);
     return bis_ent;}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 299 "scanner.l"
+#line 302 "scanner.l"
 {
     printf( "Palabra reservada. Salir : %s\n", yytext);
     return bis_sal;}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 302 "scanner.l"
+#line 305 "scanner.l"
 {
     printf( "Palabra reservada. Sino : %s\n", yytext);
     return bis_sino;}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 305 "scanner.l"
+#line 308 "scanner.l"
 {
     printf( "Palabra reservada. Entrada/Salida : %s\n", yytext);
     return bis_entradaSalida;}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 308 "scanner.l"
+#line 311 "scanner.l"
 {
     printf( "Palabra reservada. Continuar: %s\n", yytext);
     return bis_continuar;}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 311 "scanner.l"
+#line 314 "scanner.l"
 {
     printf( "Palabra reservada. De: %s\n", yytext);
     return bis_de;}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 314 "scanner.l"
+#line 317 "scanner.l"
 {
     printf( "Palabra reservada. Dividir: %s\n", yytext);
     return bis_div;}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 317 "scanner.l"
+#line 320 "scanner.l"
 {
     printf( "Palabra reservada. Resto : %s\n", yytext);
     return bis_mod;}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 320 "scanner.l"
+#line 323 "scanner.l"
 {
     printf( "Palabra reservada. No : %s\n", yytext);
     return bis_no;}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 323 "scanner.l"
+#line 326 "scanner.l"
 {
     printf( "Palabra reservada. Referencia : %s\n", yytext);
     return bis_ref;}
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 326 "scanner.l"
+#line 329 "scanner.l"
 {
     printf( "Palabra reservada. Tabla : %s\n", yytext);
     return bis_tabla;}
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 330 "scanner.l"
+#line 333 "scanner.l"
 {
 		printf( "Tipo de variable. Base: %s\n", yytext);
 		if (!strcasecmp(yytext, "entero")){
@@ -1398,7 +1401,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 351 "scanner.l"
+#line 354 "scanner.l"
 { 
     printf( "Tipo de identificador. ID. : %s\n", yytext );
     yylval.entradaChar = strdup(yytext);
@@ -1407,10 +1410,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 358 "scanner.l"
+#line 361 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 1414 "lex.yy.c"
+#line 1417 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2415,7 +2418,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 358 "scanner.l"
+#line 361 "scanner.l"
 
 
 

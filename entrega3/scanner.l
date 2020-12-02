@@ -5,9 +5,12 @@
 %{
 /* Librerias*/
 #include <math.h>
+#include <string.h>
+
 #include "parser.tab.h"
 #include "tablaSimbolos.h"
-#include <string.h>
+
+//Constantes para operadores relacionales
 #define OP_MENOR 14
 #define OP_MENOR_IGUAL 15
 #define OP_MAYOR 16

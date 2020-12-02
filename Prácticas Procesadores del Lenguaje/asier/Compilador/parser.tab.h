@@ -49,93 +49,103 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    bis_coma = 258,
-    bis_puntoComa = 259,
-    bis_dosPuntos = 260,
-    bis_alternativa = 261,
-    bis_asignacion = 262,
-    bis_subrango = 263,
-    bis_literal = 264,
-    bis_tipo_base = 265,
-    bis_dev = 266,
-    bis_verdadero = 267,
-    bis_falso = 268,
-    bis_suma = 269,
-    bis_resta = 270,
-    bis_multiplicacion = 271,
-    bis_div = 272,
-    bis_mod = 273,
-    bis_div_real = 274,
-    bis_o = 275,
-    bis_y = 276,
-    bis_oprel = 277,
-    bis_igual = 278,
-    bis_no = 279,
-    bis_id = 280,
-    bis_literal_entero = 281,
-    bis_literal_real = 282,
-    bis_literal_caracter = 283,
-    bis_comentario = 284,
-    bis_algoritmo = 285,
-    bis_falgoritmo = 286,
-    bis_funcion = 287,
-    bis_ffuncion = 288,
-    bis_accion = 289,
-    bis_faccion = 290,
-    bis_tipo = 291,
-    bis_ftipo = 292,
-    bis_const = 293,
-    bis_fconst = 294,
-    bis_var = 295,
-    bis_fvar = 296,
-    bis_tupla = 297,
-    bis_ftupla = 298,
-    bis_si = 299,
-    bis_fsi = 300,
-    bis_para = 301,
-    bis_fpara = 302,
-    bis_mientras = 303,
-    bis_fmientras = 304,
-    bis_hasta = 305,
-    bis_hacer = 306,
-    bis_ent = 307,
-    bis_sal = 308,
-    bis_sino = 309,
-    bis_entradaSalida = 310,
-    bis_continuar = 311,
-    bis_de = 312,
-    bis_tabla = 313,
-    bis_parentesisAbrir = 314,
-    bis_parentesisCerrar = 315,
-    bis_corcheteAbrir = 316,
-    bis_corcheteCerrar = 317,
-    bis_punto = 318,
-    bis_ref = 319
+    BIS_IDENTIFICADOR = 258,
+    BIS_LETRA_O_CIFRA = 259,
+    BIS_DR_REAL = 260,
+    BIS_DR_ENTERO = 261,
+    BIS_PUNTO_COMA = 262,
+    BIS_COMENTARIO = 263,
+    BIS_ASIG = 264,
+    BIS_LITERAL = 265,
+    BIS_TIPO_BASE = 266,
+    BIS_VERDADERO = 267,
+    BIS_FALSO = 268,
+    BIS_MENOS = 269,
+    BIS_MAS = 270,
+    BIS_PRODUCTO = 271,
+    BIS_DIV_REAL = 272,
+    BIS_MOD = 273,
+    BIS_DIV = 274,
+    BIS_O = 275,
+    BIS_Y = 276,
+    BIS_OPREL = 277,
+    BIS_NO = 278,
+    BIS_SI = 279,
+    BIS_SI_NO_SI = 280,
+    BIS_FSI = 281,
+    BIS_ENTONCES = 282,
+    BIS_MIENTRAS = 283,
+    BIS_FMIENTRAS = 284,
+    BIS_HACER = 285,
+    BIS_PARA = 286,
+    BIS_HASTA = 287,
+    BIS_FPARA = 288,
+    BIS_CONTINUAR = 289,
+    BIS_ALGORITMO = 290,
+    BIS_FALGORITMO = 291,
+    BIS_FUNCION = 292,
+    BIS_FFUNCION = 293,
+    BIS_ACCION = 294,
+    BIS_FACCION = 295,
+    BIS_ENT = 296,
+    BIS_SAL = 297,
+    BIS_ENT_SAL = 298,
+    BIS_DEV = 299,
+    BIS_TIPO = 300,
+    BIS_IGUAL = 301,
+    BIS_FTIPO = 302,
+    BIS_CONST = 303,
+    BIS_FCONST = 304,
+    BIS_VAR = 305,
+    BIS_FVAR = 306,
+    BIS_TUPLA = 307,
+    BIS_FTUPLA = 308,
+    BIS_TABLA = 309,
+    BIS_DE = 310,
+    BIS_SUBRANGO = 311,
+    BIS_ASIG_TIPO = 312,
+    BIS_COMA = 313,
+    BIS_PAR_A = 314,
+    BIS_PAR_C = 315,
+    BIS_PUNTO = 316,
+    BIS_REF = 317,
+    BIS_COR_A = 318,
+    BIS_COR_C = 319
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-#line 98 "parser.y"
+#line 22 "parser.y"
 union YYSTYPE
 {
-#line 98 "parser.y"
+#line 22 "parser.y"
 
-	int entradaEntero;
-    float entradaFloat;
-	char* entradaChar;
-    struct expresionAritmetica{
+    char* sval;
+    int ival;
+    float fval;
+    struct AE{
         int place;
         int type;
+        
+        //Las siguientes se utilizan sólo en el caso de las expresiones booleanas
+        struct lista_bool *l_true;
+        struct lista_bool *l_false;
+        struct lista_bool *next;
         int quad;
-        struct listaBooleana *listaTrue;
-        struct listaBooleana *listaFalse;
-    }expresionAritmetica;
+    }ExpArit;
+/*
+    struct CF{
+    	struct lista_bool *next
+    }*/
+    // Crear makelist(valor) -> Genera una BE con un indice
+    // Crear merge(lista de listas) -> Devuelve union de las listas
+    // Backpatch(lista,valor) -> Recorre la lista y completa diciendo que quad = valor
 
-#line 136 "parser.tab.h"
+#line 146 "parser.tab.h"
 
 };
-#line 98 "parser.y"
+#line 22 "parser.y"
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

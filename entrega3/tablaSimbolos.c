@@ -2,34 +2,28 @@
 #include <string.h>
 
 simbolo* newtemp(tablaSimbolos** tS, int tipo){
-    printf("Entro newtemp\n");
     simbolo* sim = crearSimbolo(tS,NULL);
     if (tipo!=0)
         sim-> tipo = tipo;
-    printf("Salgo newtemp\n");
     return sim;
 };
 
 tablaSimbolos* crearTablaSimbolos(){
-    printf("entrocrearTablaSImbolos\n");
     tablaSimbolos* tS;
     tS = (tablaSimbolos*) malloc(sizeof(tablaSimbolos));
     tS -> inicio = NULL;
     tS -> end = NULL;
     tS -> simboloId = 0;
-    printf("Salgo creartablasimbolos\n");
     return tS;
 };
 
 simbolo* crearSimbolo(tablaSimbolos** tS, char* nomb){
-    printf("entro crearsimbolo\n");
     simbolo* sim;
     sim = (struct simbolo*) malloc (sizeof(struct simbolo));
     sim ->sig = NULL;
     if(nomb!=NULL)
         strcpy(sim->nombre,nomb);
     else strcpy(sim->nombre,"empty");
-    printf("salgo crearsimbolo\n");
     return sim;
 };
 simbolo* crearSimboloConTipo(tablaSimbolos** tS, char* nomb, int tipo){
@@ -54,9 +48,8 @@ int esVacia (tablaSimbolos** tS){
 };
 
 simbolo* buscarSimbolo(tablaSimbolos** tS, char* nomb){
-    printf("entro buscarSimbolo %s\n",nomb);
+    printf("Buscando simbolo: %s\n",nomb);
     if (esVacia(tS)==1){
-        printf("salgo buscarSimbolo\n");
         return NULL;
     }else{
         simbolo* simAux = (*tS) -> inicio;
@@ -64,19 +57,16 @@ simbolo* buscarSimbolo(tablaSimbolos** tS, char* nomb){
             simAux = simAux -> sig;
         }
         if (strcmp(nomb, simAux -> nombre)!=0){
-            printf("salgo buscarSimbolo\n");
              return NULL;
         }else{
-            printf("salgo buscarSimbolo\n");
             return simAux;
         }
     }
 };
 
 simbolo* buscarSimboloId(tablaSimbolos** tS, int id){
-    printf("entro buscarSimbolo %d\n",id);
+    printf("Buscando simbolo por id: %d\n",id);
     if (esVacia(tS)==1){
-        printf("salgo buscarSimbolo\n");
         return NULL;
     }else{
         simbolo* simAux = (*tS) -> inicio;
@@ -84,10 +74,8 @@ simbolo* buscarSimboloId(tablaSimbolos** tS, int id){
             simAux = simAux -> sig;
         }
         if (simAux -> valor!=id){
-            printf("salgo buscarSimbolo\n");
              return NULL;
         }else{
-            printf("salgo buscarSimbolo\n");
             return simAux;
         }
     }
@@ -108,9 +96,7 @@ void modificarSimboloId(tablaSimbolos** tS, int id, int nuevoTipo){
 }
 
 int insertarSimbolo (tablaSimbolos** tS, simbolo* nueva){
-    printf("entro insertarSimbolo\n");
     //miramos si elemento esta en la lista, si no esta en la lista
-    printf("--- Intento insertar: ");
     imprimirSimbolo(nueva);
     if(buscarSimbolo(tS,nueva -> nombre) == NULL || strcmp(nueva->nombre, "empty")==0){
         if(esVacia(tS)){
@@ -122,11 +108,9 @@ int insertarSimbolo (tablaSimbolos** tS, simbolo* nueva){
         }
         (*tS) -> simboloId = (*tS)->simboloId + 1;
         nueva -> valor = (*tS) -> simboloId;
-        printf("salgo insertarSimbolo\n");
         return nueva -> valor;
     }else{
         printf("El simbolo %s ya es una variable \n", nueva->nombre);
-        printf("salgo insertarSimbolo\n");
         return -1;
     }
 };
@@ -149,7 +133,6 @@ void imprimirSimbolo(simbolo* simAux){
 };
 
 void mostrarTablaSimbolos(tablaSimbolos** tS){
-    printf("entro mostrarTablaSimbolos\n");
     if (esVacia(tS)==0){
         printf("************************ Tabla de Simbolos ************************   Indice: %d\n",(*tS)->simboloId);
         simbolo* simAux = (*tS) -> inicio;
@@ -162,7 +145,6 @@ void mostrarTablaSimbolos(tablaSimbolos** tS){
     }else{
         printf("Tabla vacia.\n");
     }
-    printf("salgo mostrarTablaSimbolos\n");
 };
 
 

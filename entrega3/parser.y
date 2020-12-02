@@ -3,25 +3,28 @@
   #include <math.h>
   #include <stdlib.h>
   #include <ctype.h>
+
   #include "tablaSimbolos.h"
   #include "tablaCuadruplas.h"
   #include "listaBooleanas.h"
 
+//Cabeceras de funciones
   void yyerror (char const *);
   extern FILE *yyin;
   extern int yylex();
   extern int yyparse();
+  void backpatch(listaBooleana* lista, int quad, tablaCuadruplas* tc);
+
+//Tabla de simbolos y de cuadruplas
   struct tablaSimbolos* ts;
   struct tablaCuadruplas tc;
-  void backpatch(listaBooleana* lista, int quad, tablaCuadruplas* tc);
 %}
 
 
-/*caracteres especiales*/
+/*Tokens*/
  
 %token bis_coma 
 %token bis_puntoComa 
-
 %token bis_dosPuntos 
 %token bis_alternativa 
 %token bis_asignacion 
@@ -42,7 +45,6 @@
 /*comparaciones*/
 %left <entradaEntero> bis_oprel
 %left bis_igual 
-%left FALSA
 %precedence bis_no 
 
 
@@ -58,9 +60,7 @@
 /* Comentarios */ 
 %token bis_comentario 
 
-
 /*palabras reservadas*/
-
 %token bis_algoritmo 
 %token bis_falgoritmo 
 %token bis_funcion 
@@ -89,12 +89,12 @@
 %token bis_entradaSalida 
 %token bis_continuar 
 %token bis_de 
- 
 %token bis_tabla 
 %left bis_parentesisAbrir bis_parentesisCerrar
 %left bis_corcheteAbrir bis_corcheteCerrar 
 %right bis_punto bis_ref
 
+//estructura para identificar tipos y destinos en las tablas
 %union  YYSTYPE{
 	int entradaEntero;
     	float entradaFloat;
@@ -316,14 +316,14 @@ expresion:
             $$.type = $2.type;
         }
     | operando {    printf ("expresion: operando\n");
-                    $$.place = $1.place;
-                    $$.type = $1.type;
-                    if($1.type==TIPO_BOOLEANO){
-                        $$.listaTrue=crearListaBooleana(tc.nextQuad);
-                        insertarCuadrupla(OP_GOTO_CONDICIONAL,$1.place, -1,-1,&tc);
-                        $$.listaFalse=crearListaBooleana(tc.nextQuad);
-                        insertarCuadrupla(OP_GOTO,$1.place, -1,-1,&tc);
-                    }
+            $$.place = $1.place;
+            $$.type = $1.type;
+            if($1.type==TIPO_BOOLEANO){
+                $$.listaTrue=crearListaBooleana(tc.nextQuad);
+                insertarCuadrupla(OP_GOTO_CONDICIONAL,$1.place, -1,-1,&tc);
+                $$.listaFalse=crearListaBooleana(tc.nextQuad);
+                insertarCuadrupla(OP_GOTO,$1.place, -1,-1,&tc);
+            }
       }
     | bis_literal_real {
             printf ("expresion: bis_literal_real\n");
@@ -392,24 +392,25 @@ expresion:
 
 
 operando:
-    bis_id {    printf ("operando: bis_id\n");
-                simbolo* auxSimbolo= buscarSimbolo(&ts,$1);
-                if(auxSimbolo!=NULL){
-                    $$.place=auxSimbolo->valor;
-                    $$.type=auxSimbolo->tipo;
-                }else{
-                    int aux= $1[0]-'0';
-                    if(aux>=0 && aux<=9){
-                        $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_ENTERO));
-                        $$.type=TIPO_ENTERO;
-                        printf("encontrado digito\n");
-                    }else{
-                        $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_CARACTER));
-                        $$.type=TIPO_CARACTER;
-                        printf("encontrado caracter\n");
-                    } 
-                }
-            }
+    bis_id {    
+        printf ("operando: bis_id\n");
+        simbolo* auxSimbolo= buscarSimbolo(&ts,$1);
+        if(auxSimbolo!=NULL){
+            $$.place=auxSimbolo->valor;
+            $$.type=auxSimbolo->tipo;
+        }else{
+            int aux= $1[0]-'0';
+            if(aux>=0 && aux<=9){
+                $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_ENTERO));
+                $$.type=TIPO_ENTERO;
+                printf("encontrado digito\n");
+            }else{
+                $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_CARACTER));
+                $$.type=TIPO_CARACTER;
+                printf("encontrado caracter\n");
+            } 
+        }
+    }
     | operando bis_punto operando {printf ("operando: operando bis_punto operando \n");}
     | operando bis_corcheteAbrir expresion bis_corcheteCerrar {printf ("operando: operando bis_corcheteAbrir expresion bis_corcheteCerrar \n");}
     | operando bis_ref {printf ("operando: operando bis_ref \n");}
@@ -439,7 +440,6 @@ asignacion:
                 insertarCuadrupla(OP_ASIGNACION_TRUE,-1,-1,$1.place,&tc);
             }else{
                 printf("Creando cuadrupla: Operacion %d, Destino %d, Variable %d, tipo1 %d, tipo2 %d\n", OP_ASIGNACION,$1.place, $3.place,$1.type,$3.type );
-                mostrarTablaSimbolos(&ts);
                 insertarCuadrupla(OP_ASIGNACION,$3.place,-1,$1.place, &tc);
                 $$.type=$1.type;
             }

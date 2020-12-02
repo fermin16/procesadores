@@ -1,6 +1,8 @@
 #ifndef TABLA_SIM_H
 #define TABLA_SIM_H
 
+#include <stdio.h>
+#include <stdlib.h>
 
 #define TIPO_ENTERO -1
 #define TIPO_REAL -2
@@ -33,6 +35,5 @@ void modificarSimboloId(tablaSimbolos** , int, int);
 int insertarSimbolo(tablaSimbolos**, simbolo*);
 void mostrarTablaSimbolos(tablaSimbolos**);
 void imprimirSimbolo(simbolo*);
-#include <stdio.h>
-#include <stdlib.h>
+
 #endif

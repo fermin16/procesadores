@@ -7,15 +7,13 @@ void inicializarTablaCuadruplas(tablaCuadruplas *tabla){
 }
 
 void insertarCuadrupla(int operacion, int operador1, int operador2,int resultado, tablaCuadruplas *tabla){
-	printf("entro insertarCuadrupla\n");
 	int nextQuad=tabla->nextQuad;
 	tabla->cuadruplas[nextQuad][0]=operacion;
 	tabla->cuadruplas[nextQuad][1]=operador1;
 	tabla->cuadruplas[nextQuad][2]=operador2;
 	tabla->cuadruplas[nextQuad][3]=resultado;
 	tabla->nextQuad=nextQuad+1;
-	mostrarTablaCuadruplas(tabla);
-	printf("salgo mostrarTablaCuadruplas\n");
+	//mostrarTablaCuadruplas(tabla);
 }
 
 char* mostrarOperacion(int op){

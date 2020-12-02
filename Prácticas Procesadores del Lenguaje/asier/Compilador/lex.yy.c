@@ -1480,23 +1480,21 @@ YY_RULE_SETUP
 #line 324 "scanner.l"
 {
         printf("Shift: cadena literal --> %s\n",yytext);
-        return BIS_CADENA_LIT;
     }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 328 "scanner.l"
+#line 327 "scanner.l"
 {
         printf("Shift: id --> %s\n",yytext);
         yylval.sval = (char*)malloc(sizeof(strlen(yytext)));
         strcpy(yylval.sval,yytext);
-        printf("Valor de dolar1 %s\n",yylval.sval);
         return BIS_IDENTIFICADOR;
     }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 335 "scanner.l"
+#line 333 "scanner.l"
 {
         printf("Shift: comentario --> %s\n",yytext);
         return BIS_COMENTARIO;
@@ -1504,10 +1502,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 340 "scanner.l"
+#line 338 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 1511 "lex.yy.c"
+#line 1509 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2512,7 +2510,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 340 "scanner.l"
+#line 338 "scanner.l"
 
 
 
