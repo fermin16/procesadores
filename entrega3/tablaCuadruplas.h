@@ -19,6 +19,12 @@
 #define OP_ASIGNACION_FALSE 11
 #define OP_RESTA_UNARIA 12
 #define OP_SUMA_UNARIA 13
+#define OP_MENOR 14
+#define OP_MENOR_IGUAL 15
+#define OP_MAYOR 16
+#define OP_MAYOR_IGUAL 17
+#define OP_DISTINTO 18
+#define OP_IGUAL  19
 
 
 typedef struct tablaCuadruplas{

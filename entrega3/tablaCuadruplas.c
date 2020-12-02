@@ -46,6 +46,18 @@ char* mostrarOperacion(int op){
 				break;
 		case 13: return "SUMA unaria";
 				break;
+		case 14: return "MENOR";
+				break;
+		case 15: return "MENOR_IGUAL";
+				break;
+		case 16: return "MAYOR";
+				break;
+		case 17: return "MAYOR_IGUAL";
+				break;
+		case 18: return "DISTINTO";
+				break;
+		case 19: return "IGUAL";
+				break;
 
 		default: return "tipo no valido";
 	}
