@@ -122,7 +122,7 @@ union YYSTYPE
 #line 98 "parser.y"
 
 	int entradaEntero;
-    float entradaFloat;
+    	float entradaFloat;
 	char* entradaChar;
     struct expresionAritmetica{
         int place;

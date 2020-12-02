@@ -1,0 +1,19 @@
+- Que habéis conseguido que haga vuestro compilador
+	Hemos conseguido que nuestro compilador reconozca todas las palabras reservadas del lenguaje y símbolos especiales necesarios para la sintaxis del lenguaje especificado(flex). 
+	El parser es capaz de reconocer todas las estructuras que define el lenguaje, imprimir si son correctas o avisar en caso contrario. Almacena todas las asignaciones en la tabla de símbolos y las muestra.
+	Reconoce los tipos enteros, float, char, booleano y array de char.
+	Es capaz de almacenar en la tabla de cuadruplas asignaciones, sumas, restas, divisiones reales y enteras, mod, multiplaciones, suma y resta unaria, operadores y y o y operadores relacionales.
+
+- Características específicas de vuestro lexico y vuestra gramática
+	- Mantenemos el ; en los fvar , falgortimo .. a la hora de probar códigos.
+	- Nuesto id esta reprensentado como letra o cifra, como no distinguimos cuando se trata de una cifra o letra, hemos tenido que comprobarlo en el parser, para ello buscamos el símbolo en la tabla de símbolos. En caso de no encontrarlo, lo transformams a tipo entero y comprobamso si esta entre 0 y 9. Si es así asignamos tipo entero y en caso contrario tipo char.
+	
+- Que pasos hay que dar para comprobar vuestro trabajo
+	Adjuntamos todos los ficheros necesarios con ejemplos para ejecutar, por lo tanto, primero para compilar necesitamos hacer make.
+	Para ejecutarlo una vez compilado todo correctamente:
+		./ejecutar fichero.txt
+	El fichero.txt corresponde al ejemplo que se desee ejecutar, adjuntamos 3 distintos. 
+	Con esto se ejecutará todo el conjunto de programas.
+
+- Que porcentaje de trabajo es imputable a cada uno de los componentes del grupo
+	Para empezar diremos que las prácticas en su totalidad las hemos hecho conjuntamente, quedando para ello en las horas libres o por videollamadas. Por lo que mayormente hemos realizado las mismas cosas, Yaiza como entendia mejor la primera parte, tuvo una mayor implicación a la hora de realizar el parser y el scanner. Por otro lado, Fermín ha comprendido antes la segunda parte, en lo referente a tabla de símbolos y cuadruplas por lo que ha realizado él esa parte del código. La parte de booleanos en la cual tuvimos que acudir a tutorias a preguntar, la hemos realizado conjuntamente en las horas libres. Por lo que como consideramos que tiene una mayor dificultad la parte de tabla de símbolos y cuadruplas creemos que Fermín debería obtener 60% y Yaiza 40%.

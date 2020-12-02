@@ -13,7 +13,7 @@ void insertarCuadrupla(int operacion, int operador1, int operador2,int resultado
 	tabla->cuadruplas[nextQuad][2]=operador2;
 	tabla->cuadruplas[nextQuad][3]=resultado;
 	tabla->nextQuad=nextQuad+1;
-	//mostrarTablaCuadruplas(tabla);
+	mostrarTablaCuadruplas(tabla);
 }
 
 char* mostrarOperacion(int op){
