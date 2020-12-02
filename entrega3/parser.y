@@ -5,6 +5,7 @@
   #include <ctype.h>
   #include "tablaSimbolos.h"
   #include "tablaCuadruplas.h"
+  #include "listaBooleanas.h"
 
   void yyerror (char const *);
   extern FILE *yyin;
@@ -12,6 +13,7 @@
   extern int yyparse();
   struct tablaSimbolos* ts;
   struct tablaCuadruplas tc;
+  void backpatch(listaBooleana* lista, int quad, tablaCuadruplas* tc);
 %}
 
 
@@ -38,7 +40,7 @@
 %left bis_o
 %left bis_y
 /*comparaciones*/
-%left bis_oprel
+%left <entradaEntero> bis_oprel
 %left bis_igual 
 %left FALSA
 %precedence bis_no 
@@ -95,13 +97,15 @@
 
 %union  YYSTYPE{
 	int entradaEntero;
-    float entradaFloat;
+    	float entradaFloat;
 	char* entradaChar;
     struct expresionAritmetica{
         int place;
         int type;
-        int nextQuad;
-    }expresionAritmetica
+        int quad;
+        struct listaBooleana *listaTrue;
+        struct listaBooleana *listaFalse;
+    }expresionAritmetica;
 }
 
 %type <entradaEntero> lista_id
@@ -314,6 +318,12 @@ expresion:
     | operando {    printf ("expresion: operando\n");
                     $$.place = $1.place;
                     $$.type = $1.type;
+                    if($1.type==TIPO_BOOLEANO){
+                        $$.listaTrue=crearListaBooleana(tc.nextQuad);
+                        insertarCuadrupla(OP_GOTO_CONDICIONAL,$1.place, -1,-1,&tc);
+                        $$.listaFalse=crearListaBooleana(tc.nextQuad);
+                        insertarCuadrupla(OP_GOTO,$1.place, -1,-1,&tc);
+                    }
       }
     | bis_literal_real {
             printf ("expresion: bis_literal_real\n");
@@ -327,14 +337,55 @@ expresion:
             $$.type=TIPO_ENTERO;
             mostrarTablaSimbolos(&ts);
         }
-    | bis_resta expresion %prec FALSA {printf ("expresion: bis_resta expresion\n");}
-    | bis_suma expresion %prec FALSA{printf ("expresion: bis_resta expresion\n");}
-    | expresion bis_y expresion {printf ("expresion: expresion bis_y expresion\n");}
-    | expresion bis_o expresion {printf ("expresion: expresion bis_o expresion\n");}
-    | bis_no expresion {printf ("expresion: bis_no expresion\n");}
-    | bis_verdadero {printf ("expresion: bis_verdadero\n");}
-    | bis_falso {printf ("expresion: bis_falso\n");}
-    | expresion bis_oprel expresion {printf ("expresion: expresion bis_oprel expresion\n");}
+    | bis_resta expresion  {printf ("expresion: bis_resta expresion\n");
+            $$.place=insertarSimbolo(&ts,newtemp(&ts,$2.type));
+            $$.type=$2.type;
+            insertarCuadrupla(OP_RESTA_UNARIA,$2.place, -1,$$.place,&tc);
+            mostrarTablaSimbolos(&ts);        
+    }
+    | bis_suma expresion  {printf ("expresion: bis_resta expresion\n");
+            $$.place=insertarSimbolo(&ts,newtemp(&ts,$2.type));
+            $$.type=$2.type;
+            insertarCuadrupla(OP_SUMA_UNARIA,$2.place, -1,$$.place,&tc);
+            mostrarTablaSimbolos(&ts); 
+    }
+    | expresion bis_y expresion {printf ("expresion: expresion bis_y expresion\n");
+        if($1.type == TIPO_BOOLEANO && $3.type == TIPO_BOOLEANO){
+            backpatch($1.listaTrue,$3.quad, &tc);
+            $$.listaFalse = mergeListasBooleanas($1.listaFalse,$3.listaFalse);
+            $$.listaTrue = $3.listaTrue;
+        }
+    }
+    | expresion bis_o expresion {printf ("expresion: expresion bis_o expresion\n");
+        if($1.type == TIPO_BOOLEANO && $3.type == TIPO_BOOLEANO){
+            backpatch($1.listaFalse,$3.quad, &tc);
+            $$.listaTrue = mergeListasBooleanas($1.listaTrue,$3.listaTrue);
+            $$.listaFalse = $3.listaFalse;
+        }
+    }
+    | bis_no expresion {printf ("expresion: bis_no expresion\n");
+        if($2.type == TIPO_BOOLEANO){
+            $$.listaTrue = $2.listaFalse;
+            $$.listaFalse = $2.listaTrue;
+        }
+    }
+    | bis_verdadero {printf ("expresion: bis_verdadero\n");
+        $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_BOOLEANO));
+        $$.type=TIPO_BOOLEANO;
+        mostrarTablaSimbolos(&ts);         
+    }
+    | bis_falso {printf ("expresion: bis_falso\n");
+        $$.place=insertarSimbolo(&ts,newtemp(&ts,TIPO_BOOLEANO));
+        $$.type=TIPO_BOOLEANO;
+        mostrarTablaSimbolos(&ts);   
+    }
+    | expresion bis_oprel expresion {printf ("expresion: expresion bis_oprel expresion\n");
+        $$.type = TIPO_BOOLEANO;
+        $$.listaTrue=crearListaBooleana(tc.nextQuad);
+        insertarCuadrupla($2,$1.place, $3.place,-1,&tc);
+        $$.listaFalse=crearListaBooleana(tc.nextQuad);
+        insertarCuadrupla(OP_GOTO,-1, -1,-1,&tc);      
+    }
     
     
 ;
@@ -381,13 +432,16 @@ asignacion:
     printf ("asignacion: operando bis_asignacion expresion \n");
         if ($1.type==$3.type){
             if($1.type==TIPO_BOOLEANO && $3.type==TIPO_BOOLEANO){
-                printf("sustituir por codigo de booleanos");
+                backpatch($3.listaFalse,tc.nextQuad,&tc);
+                insertarCuadrupla(OP_ASIGNACION_FALSE,-1,-1,$1.place,&tc);
+                insertarCuadrupla(OP_GOTO,-1,-1,tc.nextQuad+2,&tc);
+                backpatch($3.listaTrue,tc.nextQuad,&tc);
+                insertarCuadrupla(OP_ASIGNACION_TRUE,-1,-1,$1.place,&tc);
             }else{
                 printf("Creando cuadrupla: Operacion %d, Destino %d, Variable %d, tipo1 %d, tipo2 %d\n", OP_ASIGNACION,$1.place, $3.place,$1.type,$3.type );
                 mostrarTablaSimbolos(&ts);
                 insertarCuadrupla(OP_ASIGNACION,$3.place,-1,$1.place, &tc);
                 $$.type=$1.type;
-                //mostrarTablaCuadruplas(&tc);
             }
         }else printf("tipos no compatibles\n");
     }
@@ -465,7 +519,18 @@ void yyerror(const char *s){
     exit(-1);
 }
     
-
+void backpatch(listaBooleana* lista, int quad, tablaCuadruplas* tc){
+    if(lista!=NULL){
+        if(esVaciaBooleana(lista)==0){
+            celdaBooleana* auxBool=lista->inicio;
+            while(auxBool->sig!=NULL){
+                modificarCuadrupla(tc,auxBool->destino,3,quad);
+                auxBool=auxBool->sig;
+            }
+            modificarCuadrupla(tc,auxBool->destino,3,quad);
+        }
+    }
+}
 
 
 

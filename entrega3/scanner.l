@@ -8,6 +8,12 @@
 #include "parser.tab.h"
 #include "tablaSimbolos.h"
 #include <string.h>
+#define OP_MENOR 14
+#define OP_MENOR_IGUAL 15
+#define OP_MAYOR 16
+#define OP_MAYOR_IGUAL 17
+#define OP_DISTINTO 18
+#define OP_IGUAL  19
 
 %}
 
@@ -164,9 +170,30 @@ pr_cadena (?i:"cadena")
 {dr_dosPuntos} {
     printf( "Tipo de caracter. Dos puntos : %s\n", yytext);
     return bis_dosPuntos;}
-"<"|">"|"<="|">="|"=="|"<>" {
+"<" {
     printf( "Tipo de caracter. Operador logico : %s\n", yytext);
+    yylval.entradaEntero = OP_MENOR;
     return bis_oprel;}
+"<=" {
+    printf( "Tipo de caracter. Operador logico : %s\n", yytext);
+    yylval.entradaEntero = OP_MENOR_IGUAL;
+    return bis_oprel;} 
+">" {
+    printf( "Tipo de caracter. Operador logico : %s\n", yytext);
+    yylval.entradaEntero = OP_MAYOR;
+    return bis_oprel;}
+">=" {
+    printf( "Tipo de caracter. Operador logico : %s\n", yytext);
+    yylval.entradaEntero = OP_MAYOR_IGUAL;
+    return bis_oprel;} 
+"==" {
+    printf( "Tipo de caracter. Operador logico : %s\n", yytext);
+    yylval.entradaEntero = OP_IGUAL;
+    return bis_oprel;} 
+"<>" {
+    printf( "Tipo de caracter. Operador logico : %s\n", yytext);
+    yylval.entradaEntero = OP_DISTINTO;
+    return bis_oprel;}   
 
 {dr_alternativa} {
     printf( "Tipo de caracter. Alternativa: %s\n", yytext);

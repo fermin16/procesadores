@@ -1,3 +1,8 @@
+Terminales no usados en la gramática
+
+    FALSA
+
+
 Gramática
 
     0 $accept: desc_algoritmo $end
@@ -149,7 +154,7 @@ Terminales con las reglas donde aparecen
     bis_div_real (274) 46
     bis_o (275) 56
     bis_y (276) 55
-    bis_oprel (277) 60
+    bis_oprel <entradaEntero> (277) 60
     bis_igual (278) 19 31
     FALSA (279)
     bis_no (280) 57
@@ -1490,6 +1495,14 @@ Estado 108
    56          | expresion . bis_o expresion
    60          | expresion . bis_oprel expresion
 
+    bis_multiplicacion  desplazar e ir al estado 120
+    bis_div             desplazar e ir al estado 121
+    bis_mod             desplazar e ir al estado 122
+    bis_div_real        desplazar e ir al estado 123
+    bis_o               desplazar e ir al estado 124
+    bis_y               desplazar e ir al estado 125
+    bis_oprel           desplazar e ir al estado 126
+
     $default  reduce usando la regla 54 (expresion)
 
 
@@ -1505,6 +1518,14 @@ Estado 109
    55          | expresion . bis_y expresion
    56          | expresion . bis_o expresion
    60          | expresion . bis_oprel expresion
+
+    bis_multiplicacion  desplazar e ir al estado 120
+    bis_div             desplazar e ir al estado 121
+    bis_mod             desplazar e ir al estado 122
+    bis_div_real        desplazar e ir al estado 123
+    bis_o               desplazar e ir al estado 124
+    bis_y               desplazar e ir al estado 125
+    bis_oprel           desplazar e ir al estado 126
 
     $default  reduce usando la regla 53 (expresion)
 

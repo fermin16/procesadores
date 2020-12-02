@@ -117,24 +117,26 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-#line 96 "parser.y"
+#line 98 "parser.y"
 union YYSTYPE
 {
-#line 96 "parser.y"
+#line 98 "parser.y"
 
 	int entradaEntero;
-    float entradaFloat;
+    	float entradaFloat;
 	char* entradaChar;
     struct expresionAritmetica{
         int place;
         int type;
-        int nextQuad;
-    }expresionAritmetica
+        int quad;
+        struct listaBooleana *listaTrue;
+        struct listaBooleana *listaFalse;
+    }expresionAritmetica;
 
-#line 135 "parser.tab.h"
+#line 137 "parser.tab.h"
 
 };
-#line 96 "parser.y"
+#line 98 "parser.y"
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

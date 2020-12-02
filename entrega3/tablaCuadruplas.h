@@ -13,7 +13,12 @@
 #define OP_DIVISION_REAL 5
 #define OP_MOD 6
 #define OP_DIVISION 7
-
+#define OP_GOTO_CONDICIONAL 8
+#define OP_GOTO 9
+#define OP_ASIGNACION_TRUE 10
+#define OP_ASIGNACION_FALSE 11
+#define OP_RESTA_UNARIA 12
+#define OP_SUMA_UNARIA 13
 
 
 typedef struct tablaCuadruplas{
@@ -25,4 +30,6 @@ void inicializarTablaCuadruplas(tablaCuadruplas*);
 void insertarCuadrupla(int,int,int,int,tablaCuadruplas*);
 void mostrarTablaCuadruplas(tablaCuadruplas*);
 char* mostrarOperacion(int);
+void modificarCuadrupla(tablaCuadruplas*, int, int, int);
+
 #endif

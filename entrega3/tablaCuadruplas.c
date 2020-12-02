@@ -34,6 +34,19 @@ char* mostrarOperacion(int op){
 				break;
 		case 7: return "Division";
 				break;
+		case 8: return "GOTO condicional";
+				break;
+		case 9: return "GOTO";
+				break;
+		case 10: return "OP_ASIGNACION_TRUE";
+				break;
+		case 11: return "OP_ASIGNACION_FALSE";
+				break;
+		case 12: return "RESTA unaria";
+				break;
+		case 13: return "SUMA unaria";
+				break;
+
 		default: return "tipo no valido";
 	}
 }
@@ -47,6 +60,10 @@ void mostrarTablaCuadruplas(tablaCuadruplas *tabla){
 	}
         printf("*******************************************************************   \n");
 
+}
+
+void modificarCuadrupla(tablaCuadruplas *tabla, int fila, int col, int valor){
+	tabla->cuadruplas[fila][col]=valor;
 }
 
 

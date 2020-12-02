@@ -4,7 +4,7 @@ sal suma: entero;
 var
     a, b: entero;
 fvar;
-a:=44;
+a:=1;
 suma:=a
 {Post: n =N AND suma = SUMATORIO(i=1..N)(M sobre i)}
 falgoritmo;
